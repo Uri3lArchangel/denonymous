@@ -32,8 +32,9 @@ const UserSchema = new Schema({
     },
     passworResetToken:String,
     denonymous:[{
-        id:{type:Number,default:0},
         owner:String,
+        isDeleted:{type:Boolean,default:false},
+        isActive: {type:Boolean,default:false},
         link:String,
         topic:String,
         dateCreated:{
