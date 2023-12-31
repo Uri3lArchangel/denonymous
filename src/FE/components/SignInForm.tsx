@@ -8,9 +8,14 @@ import styles from "../../../styles/styles.module.css";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import signin from "../../../styles/styles.module.css";
+import GlobalError from "@/app/global-error";
 
 const SignInForm = () => {
   const router = useRouter();
+  const [error, setError] = useState<(Error & { digest?: string }) | null>(
+    null
+  );
+
   const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await signIn("google", { redirect: false });
@@ -34,9 +39,9 @@ const SignInForm = () => {
   return (
     <form
       onSubmit={credentialSignIn}
-      // className=""
       className={`border border-[#EDC211] rounded-[15px] max-w-[400px] w-10/12 p-8 bg-[#020106] text-white ${styles.all}`}
     >
+      {error && <GlobalError error={error} reset={() => setError(null)} />}
       <div className="flex justify-center mb-5">
         <Image src={logo} alt="logo" />
       </div>
@@ -53,7 +58,7 @@ const SignInForm = () => {
           name="email"
           id="email"
           placeholder="Enter Email"
-          className=" border-b-2 border-[#B58419] w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none pb-2"
+          className="border-b-2 border-[#B58419] w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none pb-2"
         />
       </div>
 
@@ -66,7 +71,7 @@ const SignInForm = () => {
           name="password"
           id="password"
           placeholder="Enter Password"
-          className=" border-b-2 border-[#B58419] w-full mb-16 bg-transparent placeholder:text-[#c9c1c1c9] pb-2 focus:outline-none"
+          className="border-b-2 border-[#B58419] w-full mb-16 bg-transparent placeholder:text-[#c9c1c1c9] pb-2 focus:outline-none"
         />
       </div>
 
@@ -83,7 +88,7 @@ const SignInForm = () => {
         type="button"
         onClick={googleSignin}
         className={
-          "border-2 border-[#fff] text-base font-bold  p-2 rounded  w-[200px] mx-auto flex items-center justify-center " +
+          "border-2 border-[#edc211] text-[#edc211] text-base font-bold  p-2 rounded  w-[200px] mx-auto flex items-center justify-center " +
           signin.GoogleBtn
         }
       >
@@ -91,7 +96,7 @@ const SignInForm = () => {
         <p className=""> Google Sign in</p>
       </button>
       <p className="text-center mt-3">
-        Don&apos;t have an account?
+        Don&apos;t have an account?{" "}
         <Link className=" underline text-[#edc211]" href={"/auth/signup"}>
           <span className="">Sign Up</span>
         </Link>

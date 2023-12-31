@@ -6,13 +6,15 @@
 }
 
 .authBg {
-background: var(--de-bg-grad);
+  background: var(--de-bg-grad);
 }
-.signInBtn{
+.signInBtn {
   background-image: var(--de-bg-grad);
-
 }
-.GoogleBtn{
- color: white;
+.GoogleBtn {
+  background: var(--de-bg-grad);
 
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
