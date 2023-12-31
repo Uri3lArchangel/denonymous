@@ -31,7 +31,7 @@ const SignInForm = () => {
     <form
       onSubmit={credentialSignIn}
       // className=""
-      className={`border border-[#EDC211] rounded-[15px] max-w-[400px] w-10/12 px-8 py-12 bg-[#020106] text-white ${styles.all}`}
+      className={`border border-[#EDC211] rounded-[15px] max-w-[400px] w-10/12 p-8 bg-[#020106] text-white ${styles.all}`}
     >
       <div className="flex justify-center mb-5">
         <Image src={logo} alt="logo" />
@@ -49,7 +49,7 @@ const SignInForm = () => {
           name="email"
           id="email"
           placeholder="Enter Email"
-          className=" border-b-2 border-[#B58419] w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none"
+          className=" border-b-2 border-[#B58419] w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none pb-2"
         />
       </div>
 
@@ -62,20 +62,20 @@ const SignInForm = () => {
           name="password"
           id="password"
           placeholder="Enter Password"
-          className=" border-b-2 border-[#B58419] w-full mb-16 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none"
+          className=" border-b-2 border-[#B58419] w-full mb-16 bg-transparent placeholder:text-[#c9c1c1c9] pb-2 focus:outline-none"
         />
       </div>
 
       <button
         type="submit"
-        className="border-2 bg-[#EDC211] text-base text-black font-bold p-2  border-[#EDC211] rounded mb-3 block w-[200px] mx-auto"
+        className={`border-2 text-base text-black font-bold border-[#EDC211] p-2 mb-3 rounded block w-[200px] mx-auto ${styles.authBg}`}
       >
         Sign In
       </button>
       <button
         type="button"
         onClick={googleSignin}
-        className="border-2 bg-[#EDC211] text-base text-black font-bold border-[#EDC211]  p-2 rounded block w-[200px] mx-auto"
+        className={`border-2 text-base text-black font-bold border-[#EDC211] p-2 rounded block w-[200px] mx-auto ${styles.authBg}`}
       >
         Sign In with Google
       </button>
