@@ -83,7 +83,7 @@ const SignInForm = () => {
        <p className="">  Google Sign in</p>
       </button>
       <p className="text-center mt-3">
-        Don't have an account?{" "}
+        Don&apos;t have an account?
         <Link className=" underline text-[#edc211]" href={"/auth/signup"}>
           <span className="">Sign Up</span>
         </Link>
