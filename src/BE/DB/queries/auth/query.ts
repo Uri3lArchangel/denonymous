@@ -1,7 +1,6 @@
-import { userModelType } from "@/types"
+import { denonymousType, userModelType } from "@/types"
 import User from "../../schema/User"
 import { passwordHasher } from "@/src/core/lib/hashers"
-import { baseUrl } from "@/src/core/extras/globalData"
 
 export const findUserByEmail = async(email:string)=>{
 try{const user = await User.findOne({email})
@@ -34,7 +33,7 @@ export const findUserByEmailAndPassword = async(email:string,password:string)=>{
 
        }
 
-     const link = `${baseUrl}/d/${uuid}/${topic}`
+     const link = `${process.env.baseURL}/r/${uuid}/${topic}`
     await User.updateOne({email},{$push:{denonymous:{topic,link,owner:email}}})
     }
 
@@ -57,3 +56,12 @@ export const updateUserEmailStatusByUUID=async(UUID:string)=>{
     return user
 }
 
+
+
+export const fetchAllDenonyms = async(UUID:string,topic:string)=>{
+    const all = await User.findOne({UUID}) as userModelType;
+    if(!all) return
+    const Denonymous = all.denonymous.filter((e)=>(e.responsesViewState && e.topic==topic && !e.isDeleted)) 
+    if(Denonymous.length == 0) return {}
+    return Denonymous[0].replys
+}

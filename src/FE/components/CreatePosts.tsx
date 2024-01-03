@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import FileUpload from "./FileUpload";
 import AudioRecorder from "./AudioRecorder";
 import { createDenonyous } from "@/src/BE/serverActions/actions";
-import { baseUrl } from "@/src/core/extras/globalData";
 import { denonymousType, userDataJWTType, userModelType } from "@/types";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { MyDenonyms } from "./subcomponents/CreatePosts";
 
-const fetchDenonymous = async () => {
+export const fetchDenonymousOnLoad = async () => {
   const cookie = cookies().get("denon_session_0");
   if (!cookie || !cookie.value) return; []
-  const res = await fetch(baseUrl + "/api/fetchUser", {
+  const res = await fetch(process.env.baseURL + "/api/fetchUser", {
     method: "POST",
     mode: "no-cors",
     body: JSON.stringify({ cookie: cookie.value }),
@@ -32,7 +31,7 @@ const fetchDenonymous = async () => {
 };
 
 const CreatePost = async () => {
-  let posts = await fetchDenonymous();
+  let posts = await fetchDenonymousOnLoad();
   const handlePostChange = () => {};
 
   const handleReplySubmit = () => {};

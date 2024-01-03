@@ -19,11 +19,17 @@ export type userModelType = {
     replys: {
       text: string;
       imageAvailable: boolean;
-      images: String[];
+      images: string[];
       videoAvailable: boolean;
-      videos: String[];
+      videos: {
+        link: string;
+        mimeType: string;
+      }[];
       audioAvailable: boolean;
-      audios: String[];
+      audios: {
+        link: string;
+        mimeType: string;
+      }[];
       bookmarked: boolean;
     }[];
   }[];
@@ -41,11 +47,17 @@ export interface denonymousType {
   replys: {
     text: string;
     imageAvailable: boolean;
-    images: String[];
+    images: string[];
     videoAvailable: boolean;
-    videos: String[];
+    videos: {
+      link: string;
+      mimeType: string;
+    }[];
     audioAvailable: boolean;
-    audios: String[];
+    audios: {
+      link: string;
+      mimeType: string;
+    }[];
     bookmarked: boolean;
   }[];
 }
@@ -68,4 +80,21 @@ export interface JWTTokenType {
   verified: boolean;
   premium: boolean;
   randomKey: string;
+}
+
+export interface replyModelType {
+  text: string;
+  imageAvailable: boolean;
+  images: string[];
+  videoAvailable: boolean;
+  videos: {
+    link: string;
+    mimeType: string;
+  }[];
+  audioAvailable: boolean;
+  audios: {
+    link: string;
+    mimeType: string;
+  }[];
+  bookmarked: boolean;
 }

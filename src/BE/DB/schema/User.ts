@@ -59,14 +59,14 @@ const UserSchema = new Schema({
         },
         replys:[
             {
-                text:String,
-                imageAvailable:Boolean,
+                text:{type:String,default:""},
+                imageAvailable:{type:Boolean,default:false},
                 images:[String],
-                videoAvailable:Boolean,
-                videos:[String],
-                audioAvailable:Boolean,
-                audios:[String],
-                bookmarked:Boolean,
+                videoAvailable:{type:Boolean,default:false},
+                videos:[{link:String,mimeType:String}],
+                audioAvailable:{type:Boolean,default:false},
+                audios:[{link:String,mimeType:String}],
+                bookmarked:{type:Boolean,default:false},
                 
             }
             ]

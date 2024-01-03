@@ -14,7 +14,7 @@ const SignUpForm = () => {
 
   // Google sign in function
   const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    // e.preventDefault();
+    e.preventDefault();
     await signIn("google", { redirect: false });
   };
 
@@ -32,6 +32,8 @@ const SignUpForm = () => {
       return;
     }
     // Perform email structure validity checks, password and confirm password checks and password strength checks here
+
+    
     const body ={
       email:emailRef.current.value,
       password:passwordRef.current.value,

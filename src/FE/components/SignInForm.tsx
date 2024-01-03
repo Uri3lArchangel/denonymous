@@ -28,7 +28,9 @@ const SignInForm = () => {
     if (signinResponse?.status == 200) {
       router.push("/");
     }else{
-      throw new Error(signinResponse!.error!,{cause:"Invalid creds"})
+// handle error here 
+const errorname=signinResponse?.error 
+
     }
   };
   return (
