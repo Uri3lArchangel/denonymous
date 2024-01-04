@@ -3,11 +3,9 @@ import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app'
 
 const es = initEdgeStore.create();
 const edgeStoreRouter = es.router({
-    denonymousImages:es.imageBucket({
-        
+    denonymousMedia:es.fileBucket({
+        maxSize:1024*1024*60
     }),
-    denonymousVideos:es.fileBucket(),
-    denonymousAudios:es.fileBucket()
 })
 
 const handler = createEdgeStoreNextHandler({

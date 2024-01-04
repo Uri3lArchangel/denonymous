@@ -1,14 +1,14 @@
 import { connectMongoClient, disConnectMongoClient } from "@/src/BE/DB/conection";
-import { fetchAllDenonyms } from "@/src/BE/DB/queries/auth/query";
+import { fetchUUIDData } from "@/src/BE/DB/queries/auth/query";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { UUID,topic }: { UUID: string,topic:string } = await req.json();
+    const { UUID }: { UUID: string } = await req.json();
 await connectMongoClient()
-    const replys = await fetchAllDenonyms(UUID,topic);
+    const all = await fetchUUIDData(UUID);
     await disConnectMongoClient()
-    return NextResponse.json({ replys },{status:200});
+    return NextResponse.json({ user:all },{status:200});
   } catch (err: any) {
     console.log(err);
     // this return would be modified with if else to check for several possible errors and return the appropraite messages and the respective status codes

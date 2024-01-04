@@ -8,3 +8,73 @@
 <verify-email />
 </auth>
 </app>
+
+    {/* we map over all image files provided and display a preview of all */}
+        {/* <div className="block">
+          {imageFiles.map((e, n) => (
+            <>
+              <MdCancel size={30} key={n} className="cursor-pointer" onClick={()=>{
+                removeFile(n,"image")
+              }} />
+              <Image
+              key={n}
+                src={URL.createObjectURL(e)}
+                width={320}
+                height={320}
+                alt={e.name}
+              />
+       
+            </>
+          ))}
+        </div> */}
+        <label htmlFor="image_reply">add image</label>
+        
+        {/* this is the input for image upload */}
+        {/* <input
+          className="border-2 mx-2"
+          multiple
+          id="image_reply"
+          type="file"
+          onChange={(e) => {
+            selectFiles(e, "image");
+          }}
+        /> */}
+        {/* <button
+          onClick={async (e) => {
+            e.preventDefault();
+            if (imageFiles) {
+              
+          imageFiles.map(async(fileStruct,n)=>{
+             const res = await edgestore.denonymousVideos.upload({
+                file:fileStruct.file,
+                onProgressChange(progress) {
+                  const items = []
+                  for(let i=0;i<imageFiles.length;i++){
+                    if(i == n){
+                     const p = {
+                      file:imageFiles[i].file,
+                      progress,
+                      status:progress == 100?imageFiles[i].status:"UPLOADED"
+                     }
+                     items.push(p)
+                     return
+                    }
+                    items.push(imageFiles[i])
+                  }
+                  setImageFiles(items)
+                },
+              });
+              // setImageUrls({
+              //   url:res.url,
+              //   thumbnailurl:res.thumbnailUrl
+              // })
+              
+            })}
+          }}
+          className="border-2"
+        >
+          upload image(s)
+        </button> */}
+        <p>
+          {imageurls?.url}+{imageurls?.thumbnailurl}
+        </p>

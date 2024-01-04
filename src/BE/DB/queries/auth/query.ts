@@ -58,10 +58,8 @@ export const updateUserEmailStatusByUUID=async(UUID:string)=>{
 
 
 
-export const fetchAllDenonyms = async(UUID:string,topic:string)=>{
+export const fetchUUIDData = async(UUID:string)=>{
     const all = await User.findOne({UUID}) as userModelType;
     if(!all) return
-    const Denonymous = all.denonymous.filter((e)=>(e.responsesViewState && e.topic==topic && !e.isDeleted)) 
-    if(Denonymous.length == 0) return {}
-    return Denonymous[0].replys
+    return all
 }
