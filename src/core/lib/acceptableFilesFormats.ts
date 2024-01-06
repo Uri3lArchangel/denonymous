@@ -1,1 +1,1 @@
-export const Formats = ["image/png","image/jpeg","image/gif","image/x-icon","image/tiff","video/webm","video/mp4","video/mkv","video/x-matroska"]
+export const Formats = ["image/png","image/jpeg","image/gif","image/x-icon","image/tiff","video/webm","video/mp4","video/mkv","video/x-matroska","audio/mp3","audio/mpeg","audio/wav","audio/ogg"]

@@ -18,10 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        
-      <EdgeStoreProvider>{children}</EdgeStoreProvider>
-        
-        </body>
+      <EdgeStoreProvider>{children}</EdgeStoreProvider>        
+      </body>
     </html>
   );
 }

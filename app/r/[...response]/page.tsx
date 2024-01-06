@@ -1,5 +1,5 @@
 import { MultiFileDropzoneUsage } from '@/src/FE/components/subcomponents/MultiFileComponent';
-import { Reply_Form, Replys } from '@/src/FE/components/subcomponents/d';
+import {  Replys } from '@/src/FE/components/subcomponents/d';
 import { verifyUserDataToken } from '@/src/core/lib/JWTFuctions';
 import { URLRESOLVE, filterMediaLimitOn, filterReplys } from '@/src/core/lib/helpers';
 import { replyModelType, userModelType } from '@/types';
@@ -8,7 +8,7 @@ import React from 'react'
 
 
 async function fetchUser(UUID:string) {
-  const res = await fetch(process.env.baseURL+"/api/fetchUserByUUID",{method:"POST",mode:"no-cors",body:JSON.stringify({UUID}),next:{revalidate:false}})
+  const res = await fetch(process.env.baseURL+"/api/fetchUserByUUID",{method:"POST",mode:"no-cors",body:JSON.stringify({UUID}),next:{revalidate:false,tags:["raieneidmie_00"]}})
   const data =await res.json()
   return data.user
 }
@@ -31,8 +31,8 @@ async function page({params}:{params:{response:string[]}}) {
 
   return (
     <div className=''>
-          <div>
-          <form action="" >
+      <div>
+          <form id='reply_form'>
       <label htmlFor="response" className="block">
         Write a response
       </label>
@@ -43,13 +43,14 @@ async function page({params}:{params:{response:string[]}}) {
         className="block border-2"
         rows={10}
       />
+            {/* this is the div for everything upload */}
 
-      {/* this is the div for everything image upload */}
-      <div>
-          {mediaLimit?<></>:<MultiFileDropzoneUsage />}
+       <div>
+          {mediaLimit?<></>:<MultiFileDropzoneUsage UUID={uuid} topic={topic} />}
       </div>
-      <button className="border-2 mx-2">Send response</button>
     </form>       
+
+     
     </div>
 {!replys || replys.length == 0?<></>:<Replys replys={replys} />}   
     </div>

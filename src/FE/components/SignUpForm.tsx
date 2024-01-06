@@ -18,7 +18,7 @@ const SignUpForm = () => {
     await signIn("google", { redirect: false });
   };
 
-  // Credentials sign in function
+  // Credentials sign up function
   const SignupSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (

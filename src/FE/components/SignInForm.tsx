@@ -24,7 +24,6 @@ const SignInForm = () => {
       password: formdata.get("password"),
       redirect: false,
     });
-    console.log(signinResponse);
     if (signinResponse?.status == 200) {
       router.push("/");
     }else{

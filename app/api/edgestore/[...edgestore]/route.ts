@@ -1,10 +1,13 @@
+import { Formats } from "@/src/core/lib/acceptableFilesFormats";
 import { initEdgeStore } from "@edgestore/server";
 import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app';
 
 const es = initEdgeStore.create();
 const edgeStoreRouter = es.router({
     denonymousMedia:es.fileBucket({
-        maxSize:1024*1024*60
+        maxSize:1024*1024*60,
+        accept:Formats,
+        
     }),
 })
 

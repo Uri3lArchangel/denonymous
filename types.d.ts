@@ -46,15 +46,7 @@ export interface denonymousType {
   isImageLimitOn: boolean;
   replys: {
     text: string;
-    imageAvailable: boolean;
-    images: string[];
-    videoAvailable: boolean;
-    videos: {
-      link: string;
-      mimeType: string;
-    }[];
-    audioAvailable: boolean;
-    audios: {
+    media: {
       link: string;
       mimeType: string;
     }[];
@@ -84,15 +76,7 @@ export interface JWTTokenType {
 
 export interface replyModelType {
   text: string;
-  imageAvailable: boolean;
-  images: string[];
-  videoAvailable: boolean;
-  videos: {
-    link: string;
-    mimeType: string;
-  }[];
-  audioAvailable: boolean;
-  audios: {
+  media: {
     link: string;
     mimeType: string;
   }[];
