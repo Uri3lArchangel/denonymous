@@ -7,6 +7,8 @@ export type userModelType = {
   username: string;
   isEmailVerified: boolean;
   denonymous: {
+    owner:string;
+    description:string;
     isDeleted: boolean;
     isActive: boolean;
     link: string;
@@ -18,15 +20,7 @@ export type userModelType = {
     isImageLimitOn: boolean;
     replys: {
       text: string;
-      imageAvailable: boolean;
-      images: string[];
-      videoAvailable: boolean;
-      videos: {
-        link: string;
-        mimeType: string;
-      }[];
-      audioAvailable: boolean;
-      audios: {
+      media: {
         link: string;
         mimeType: string;
       }[];
@@ -35,8 +29,10 @@ export type userModelType = {
   }[];
 };
 export interface denonymousType {
+  owner:string;
   link: string;
   topic: string;
+  description:string;
   dateCreated: number;
   isDeleted: boolean;
   isActive: boolean;
@@ -56,6 +52,7 @@ export interface denonymousType {
 
 export interface userDataJWTType {
   email: string;
+  username:string
   uuid: string;
   verified: boolean;
   premium: boolean;
@@ -66,13 +63,13 @@ export interface baseResponseType {
   message: string;
   data: any;
 }
-export interface JWTTokenType {
-  email: string;
-  uuid: string;
-  verified: boolean;
-  premium: boolean;
-  randomKey: string;
-}
+// export interface JWTTokenType {
+//   email: string;
+//   uuid: string;
+//   verified: boolean;
+//   premium: boolean;
+//   randomKey: string;
+// }
 
 export interface replyModelType {
   text: string;

@@ -8,16 +8,24 @@ import { replyModelType } from "@/types";
 import { revalidateTag } from "next/cache";
 import { sendRelpyAction } from "@/src/BE/serverActions/actions";
 import { useFormStatus } from "react-dom";
+import { AiFillPicture } from "react-icons/ai";
+import { BsCameraVideoFill } from "react-icons/bs";
+import { MdOutlineAudioFile } from "react-icons/md";
+
 
 export function MultiFileDropzoneUsage({
-  UUID,
+  username,
   topic,
 }: {
-  UUID: string;
+  username: string;
   topic: string;
 }) {
   const [sending,setSending]=useState(false)
+  const [fileStates1, setFileStates1] = useState<FileState[]>([]);
+  const [fileStates2, setFileStates2] = useState<FileState[]>([]);
+  const [fileStates3, setFileStates3] = useState<FileState[]>([]);
   const [fileStates, setFileStates] = useState<FileState[]>([]);
+
   const [media, setMedia] = useState<{ link: string; mimeType: string }[]>([]);
   const { edgestore } = useEdgeStore();
 
@@ -27,7 +35,7 @@ export function MultiFileDropzoneUsage({
   //     text,media
   //   } as replyModelType
 
-  //   let res =await fetch(URLRESOLVE("/api/sendReply"),{method:"POST",mode:"no-cors",body:JSON.stringify({UUID,topic,reply})})
+  //   let res =await fetch(URLRESOLVE("/api/sendReply"),{method:"POST",mode:"no-cors",body:JSON.stringify({username,topic,reply})})
   //   console.log(res.status)
   //   if(res.status == 201){
   //     console.log(11)
@@ -52,17 +60,59 @@ export function MultiFileDropzoneUsage({
   }
 
   return (
-    <div>
+    <div >
+             <div className='flex w-[60%] justify-between mx-auto my-2'>
+     <label htmlFor="chick_a"><AiFillPicture  size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00]"/></label>
+     <label htmlFor="chick_b"><BsCameraVideoFill size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00]" /></label>
+     <label htmlFor="chick_c"><MdOutlineAudioFile size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00]" /></label>
+</div>
       <MultiFileDropzone
-        value={fileStates}
+      id="chick_a"
+      className="w-[90%] mx-auto hidden"
+        value={fileStates1}
         onChange={(files) => {
+          setFileStates1(files);
           setFileStates(files);
+
+        }}
+        dropzoneOptions={{accept:{customFileType:["image/*"]}}}
+
+        onFilesAdded={async (addedFiles) => {
+          setFileStates((prev) => [...prev, ...addedFiles]);
+        }}
+      />
+        <MultiFileDropzone
+        id="chick_b"
+      className="w-[90%] mx-auto hidden"
+      dropzoneOptions={{accept:{customFileType:["video/*"]}}}
+
+        value={fileStates2}
+        onChange={(files) => {
+          setFileStates2(files);
+          setFileStates(files);
+
+        }}
+        onFilesAdded={async (addedFiles) => {
+          setFileStates((prev) => [...prev, ...addedFiles]);
+        }}
+      /> 
+       <MultiFileDropzone
+       id="chick_c"
+      className="w-[90%] mx-auto hidden"
+        value={fileStates3}
+        dropzoneOptions={{accept:{customFileType:["audio/*"]}}}
+
+        onChange={(files) => {
+          setFileStates3(files);
+          setFileStates(files);
+
         }}
         onFilesAdded={async (addedFiles) => {
           setFileStates((prev) => [...prev, ...addedFiles]);
         }}
       />
-      <button
+    {fileStates.length ==0 ? <button
+    disabled
         onClick={async (e) => {
           e.preventDefault();
           await Promise.all(
@@ -72,6 +122,7 @@ export function MultiFileDropzoneUsage({
                   file: addedFileState.file,
                   options: {
                     temporary: true,
+                    
                   },
                   onProgressChange: async (progress) => {
                     updateFileProgress(addedFileState.key, progress);
@@ -93,16 +144,87 @@ export function MultiFileDropzoneUsage({
             })
           );
         }}
-        className="bg-green-500"
+        className=" mx-auto w-[70%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2 hidden  "
       >
         upload media
-      </button>
+      </button>:sending?<button
+      disabled
+        onClick={async (e) => {
+          e.preventDefault();
+          await Promise.all(
+            fileStates.map(async (addedFileState) => {
+              try {
+                const res = await edgestore.denonymousMedia.upload({
+                  file: addedFileState.file,
+                  options: {
+                    temporary: true,
+                    
+                  },
+                  onProgressChange: async (progress) => {
+                    updateFileProgress(addedFileState.key, progress);
+                    if (progress === 100) {
+                      // wait 1 second to set it to complete
+                      // so that the user can see the progress bar at 100%
+                      await new Promise((resolve) => setTimeout(resolve, 1000));
+                      updateFileProgress(addedFileState.key, "COMPLETE");
+                    }
+                  },
+                });
+                setMedia((prev) => [
+                  ...prev,
+                  { link: res.url, mimeType: addedFileState.file.type },
+                ]);
+              } catch (err) {
+                updateFileProgress(addedFileState.key, "ERROR");
+              }
+            })
+          );
+        }}
+        className="bg-green-500 mx-auto w-[70%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2 block"
+      >
+        upload media
+      </button>:<button
+        onClick={async (e) => {
+          e.preventDefault();
+          await Promise.all(
+            fileStates.map(async (addedFileState) => {
+              try {
+                const res = await edgestore.denonymousMedia.upload({
+                  file: addedFileState.file,
+                  options: {
+                    temporary: true,
+                    
+                  },
+                  onProgressChange: async (progress) => {
+                    updateFileProgress(addedFileState.key, progress);
+                    if (progress === 100) {
+                      // wait 1 second to set it to complete
+                      // so that the user can see the progress bar at 100%
+                      await new Promise((resolve) => setTimeout(resolve, 1000));
+                      updateFileProgress(addedFileState.key, "COMPLETE");
+                    }
+                  },
+                });
+                setMedia((prev) => [
+                  ...prev,
+                  { link: res.url, mimeType: addedFileState.file.type },
+                ]);
+              } catch (err) {
+                updateFileProgress(addedFileState.key, "ERROR");
+              }
+            })
+          );
+        }}
+        className="bg-green-500 block mx-auto w-[70%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2"
+      >
+        upload media
+      </button>}
 
       <button
       disabled={sending}
-        className="border-2 mx-2"
+        className=" block mx-auto w-[70%] text-black h-[50px] mt-4 mb-10 gradient_elements_div rounded-[10px]"
         onClick={async (e) => {
-          e.preventDefault();
+          try{e.preventDefault();
           setSending(true)
           for (let i = 0; i < media.length; i++) {
             await edgestore.denonymousMedia.confirmUpload({
@@ -117,11 +239,15 @@ export function MultiFileDropzoneUsage({
             text,
             media,
           } as replyModelType;
-          await sendRelpyAction(UUID, topic, reply);
+          await sendRelpyAction(username, topic, reply);
           (document.getElementById("response") as HTMLTextAreaElement).value = "";
           setFileStates([])
           setMedia([])
-          setSending(true)
+          setSending(false)
+        }catch(err:any){
+          console.log(err)
+            setSending(false)
+          }
         }}
       >
         Send response

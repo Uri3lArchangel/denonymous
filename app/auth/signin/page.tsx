@@ -7,7 +7,7 @@ function page() {
   return (
     <>
       <div
-        className={`h-screen flex items-center justify-center ${styles.authBg}`}
+        className={`min-h-[100vh] py-6 flex items-center justify-center `+ styles.authBg}
       >
 
         <SignInForm />

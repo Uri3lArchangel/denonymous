@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.all {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.authBg {
+  background: var(--de-bg-grad);
+}
+.signInBtn {
+  background-image: var(--de-bg-grad);
+}
+ 
+.denonymousResponsePage{
+  background-color: #000000;
+  background-image: url(/images/BACKG.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 180% 100%;
+  color: white;
+  min-height: 100vh;
+
+}
+.formInputsContainer{
+  background-color: #171717;
+  width: 100%;
+  border-bottom: 2px solid #daa521;
+  border-top: 2px solid #f6d108;
+  border-left: 2px solid #edc211;
+  border-right: 2px solid #ffdf00;
+  border-radius: 10px;
+
+
+
+}

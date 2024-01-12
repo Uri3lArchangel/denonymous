@@ -35,6 +35,7 @@ type InputProps = {
   onFilesAdded?: (addedFiles: FileState[]) => void | Promise<void>;
   disabled?: boolean;
   dropzoneOptions?: Omit<DropzoneOptions, "disabled">;
+  id?:string
 };
 
 const ERROR_MESSAGES = {
@@ -52,11 +53,7 @@ const ERROR_MESSAGES = {
   },
 };
 
-const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    { dropzoneOptions, value, className, disabled, onFilesAdded, onChange },
-    ref
-  ) => {
+const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ dropzoneOptions, value, className, disabled, onFilesAdded, onChange, id },ref) => {
     const [customError, setCustomError] = React.useState<string>();
     if (dropzoneOptions?.maxFiles && value?.length) {
       disabled = disabled ?? value.length >= dropzoneOptions.maxFiles;
@@ -79,11 +76,13 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
           (value?.length ?? 0) + files.length > dropzoneOptions.maxFiles
         ) {
           setCustomError(ERROR_MESSAGES.tooManyFiles(dropzoneOptions.maxFiles));
+          setTimeout(()=>{
+            setCustomError("")
+          },2000)
           return;
         }
       if(value){
         const unsupportedFile = files.reduce((unsupported, fileState) => {
-          console.log(fileState.type)
           if (!Formats.includes(fileState.type)) {
             return true; // Set unsupported to true if unsupported file type is found
           }
@@ -92,6 +91,9 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
         
         if (unsupportedFile) {
           setCustomError(ERROR_MESSAGES.fileNotSupported());
+          setTimeout(()=>{
+            setCustomError("")
+          },2000)
           return;
         }
   const totalSize = value.reduce((acc, fileState) => acc + fileState.file.size, 0);
@@ -158,7 +160,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
     }, [fileRejections, dropzoneOptions]);
 
     return (
-      <div>
+      <div id="chick">
         <div className="flex flex-col gap-2">
           <div>
             {/* Main File Input */}
@@ -167,7 +169,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
                 className: dropZoneClassName,
               })}
             >
-              <input ref={ref} {...getInputProps()} />
+              <input ref={ref} {...getInputProps()} id={id} />
               <div className="flex flex-col items-center justify-center text-xs text-gray-400">
                 <UploadCloudIcon className="mb-1 h-7 w-7" />
                 <div className="text-gray-400">

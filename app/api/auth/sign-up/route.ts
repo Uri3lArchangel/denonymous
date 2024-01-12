@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password, confirmPassword } = await req.json();
+    const { email, password, username, confirmPassword } = await req.json();
 
     // let the same email password and confirm password checks be done servers side too incase of sneaky users
 
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     //   NextResponse.json({message:"",data:null},{status:400})
     const hash = passwordHasher(password);
     await connectMongoClient();
-    const user = (await createUser(email, hash)) as userModelType;
+    const user = (await createUser(username,email, hash)) as userModelType;
     await disConnectMongoClient();
     const status = await Email_Signup_Verification(user.UUID, user.email);
     console.log(status, "email");
@@ -39,6 +39,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           message: "This email is already registered, try signing in",
+          data: null,
+        },
+        { status: 400 }
+      );
+    }
+    if (
+      errorMessage.includes("duplicate key error") &&
+      errorMessage.includes("username")
+    ) {
+      return NextResponse.json(
+        {
+          message: "This username is already used, try something else",
           data: null,
         },
         { status: 400 }

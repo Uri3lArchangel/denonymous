@@ -13,7 +13,7 @@ export const nextAuthConfig:NextAuthOptions={
     providers:[
 CredentialsProvider({
 credentials:{
-    email:{type:"email",placeholder:"abc...@gmail.com",label:"Email"},
+    email:{type:"text",placeholder:"abc...@gmail.com or abc",label:"Email or username"},
     password:{type:"password",placeholder:"*************",label:"Password"}
 },
 async authorize(credentials) {
@@ -23,7 +23,7 @@ async authorize(credentials) {
     await disConnectMongoClient()
     if(user){
         const {password,...userWithoutPassword}= user
-        const token = userDataTokenSign(user.email,user.UUID,user.isEmailVerified,user.isPremium)
+        const token = userDataTokenSign(user.username,user.email,user.UUID,user.isEmailVerified,user.isPremium)
         setSessionCookie(token)
         return userWithoutPassword as User
     }else{
@@ -42,15 +42,15 @@ async authorize(credentials) {
         async signIn({account,profile}){
 
          try{
-             if(account?.provider == "google" && profile && profile.email){
+            //  if(account?.provider == "google" && profile && profile.email){
                 
-                await connectMongoClient()
-                const newUser = await createUser(profile.email)
-                const token = userDataTokenSign(newUser.email,newUser.UUID,newUser.isEmailVerified,newUser.isPremium)
-                setSessionCookie(token)
-                await disConnectMongoClient()
-                return newUser
-            }
+            //     await connectMongoClient()
+            //     const newUser = await createUser(profile.email)
+            //     const token = userDataTokenSign(newUser.email,newUser.UUID,newUser.isEmailVerified,newUser.isPremium)
+            //     setSessionCookie(token)
+            //     await disConnectMongoClient()
+            //     return newUser
+            // }
             if(account?.provider == "credentials"){
                return true
             }

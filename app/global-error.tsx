@@ -1,9 +1,29 @@
-"use client"
-import React from 'react'
+ "use client"; // Error components must be Client Components
 
-export default function globalError() {
+import { useEffect } from "react";
+
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+  }, [error]);
+
   return (
-    <div>global-error</div>
-  )
+    <div>
+      <h2>Something went wrong!</h2>
+      <button
+        onClick={
+          // Attempt to recover by trying to re-render the segment
+          () => reset()
+        }
+      >
+        Try again
+      </button>
+    </div>
+  );
 }
-

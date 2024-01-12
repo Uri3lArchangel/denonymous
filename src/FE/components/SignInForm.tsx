@@ -24,6 +24,7 @@ const SignInForm = () => {
       password: formdata.get("password"),
       redirect: false,
     });
+
     if (signinResponse?.status == 200) {
       router.push("/");
     }else{
@@ -46,13 +47,13 @@ const errorname=signinResponse?.error
       </div>
       <div>
         <label htmlFor="email" className="block text-sm mb-5">
-          Your Email:
+          Your Email or Username:
         </label>
         <input
-          type="email"
+          type="text"
           name="email"
           id="email"
-          placeholder="Enter Email"
+          placeholder="Enter Email or Username"
           className=" border-b-2 border-[#B58419] w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none"
         />
       </div>
@@ -72,17 +73,17 @@ const errorname=signinResponse?.error
 
       <button
         type="submit"
-        className={"border-2  text-base text-black font-bold p-2  border-[#EDC211] rounded mb-3 block w-[200px] mx-auto "+signin.signInBtn}
+        className={"border-2  text-base text-black font-bold p-2 my-4 border-[#EDC211] rounded mb-3 block w-[100%] mx-auto sm:w-[200px] "+signin.signInBtn}
       >
         Sign In
       </button>
-      <button
+      {/* <button
         type="button"
         onClick={googleSignin}
         className={"border-2 border-[#fff] text-base font-bold  p-2 rounded  w-[200px] mx-auto flex items-center justify-center "+ signin.GoogleBtn}
       ><FcGoogle size={20} className="mx-[2px]" />
        <p className="">  Google Sign in</p>
-      </button>
+      </button> */}
       <p className="text-center mt-3">
         Don&apos;t have an account?
         <Link className=" underline text-[#edc211]" href={"/auth/signup"}>

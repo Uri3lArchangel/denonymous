@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 
-const ModalComponent = ({state,setState,children}:{state:boolean,setState:React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode}) => {
+const ModalComponent = ({state,setState,children,ok,title,key}:{state:boolean,setState:React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode,ok?:()=>Promise<void>,title:string | React.ReactNode,key?:any}) => {
 
 
   return (
     <>
    
-      <Modal title="share" open={state}  onCancel={()=>{setState(false)}}>
+      <Modal key={key} title={title} open={state} onOk={ok} onCancel={()=>{setState(false)}}>
  {children}
       </Modal>
     </>

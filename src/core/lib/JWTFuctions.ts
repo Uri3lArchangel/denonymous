@@ -1,9 +1,9 @@
 import { userDataJWTType } from '@/types'
 import JWT from 'jsonwebtoken'
 
-export const userDataTokenSign = (email:string,uuid:string,verified:boolean,premium:boolean)=>{
+export const userDataTokenSign = (username:string,email:string,uuid:string,verified:boolean,premium:boolean)=>{
     const randomKey=`${Math.random() * 10000}`
-    return JWT.sign({email,uuid,verified,premium,randomKey},process.env.userDataTokenKey!+randomKey)
+    return JWT.sign({email,username,uuid,verified,premium,randomKey},process.env.userDataTokenKey!+randomKey)
 }
 export const verifyUserDataToken=(token:string)=>{
     const {randomKey} = (JWT.decode(token) as userDataJWTType)

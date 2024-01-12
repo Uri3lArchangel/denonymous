@@ -7,7 +7,12 @@ const UserSchema = new Schema({
         default:new Date(Date.now())
     },
     
-    username:String,
+    username:{
+        type:String,
+        required:true,
+        unique:true,
+        lowercase:true
+    },
 
     email:{
         type:String,
@@ -34,9 +39,10 @@ const UserSchema = new Schema({
     denonymous:[{
         owner:String,
         isDeleted:{type:Boolean,default:false},
-        isActive: {type:Boolean,default:false},
+        isActive: {type:Boolean,default:true},
         link:String,
         topic:String,
+        description:String,
         dateCreated:{
             type:Number,
             default:Date.now()
