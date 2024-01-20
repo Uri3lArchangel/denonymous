@@ -6,9 +6,6 @@ import { denonymousType, replyModelType, userModelType } from '@/types';
 import { cookies } from 'next/headers';
 import React from 'react'
 import style from '../../../styles/styles.module.css'
-import { AiFillPicture } from "react-icons/ai";
-import { BsCameraVideoFill } from "react-icons/bs";
-import { MdOutlineAudioFile } from "react-icons/md";
 
 
 async function fetchUser(username:string) {
@@ -48,11 +45,12 @@ async function page({params}:{params:{response:string[]}}) {
 if(isSession && d.owner == userdata?.email){
   return (
     <div className={style.denonymousResponsePage}>
-        <h1 className='text-2xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
+      
+        <h1 className='text-3xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
         <h2 className='text-center'>{d.description?d.description:''}</h2>
         <div className="min-h-[80px] bg-gray-500">ads</div>
         <div  className='bg-[#1E1E1E]'>
-    {!replys || replys.length == 0?<></>:<Replys replys={replys} />}  
+    {!replys || replys.length == 0?<></>:<Replys replys={replys.reverse()} />}  
     </div> 
     </div>)
 }else{
@@ -62,7 +60,7 @@ if(isSession && d.owner == userdata?.email){
       <div>
         {
         <main className='py-10'>
-        <h1 className='text-2xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
+        <h1 className='text-4xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
         <h2 className='text-center text-[#7F7F7F]'>{d.description?d.description:''}</h2>
         <aside className="min-h-[80px] bg-gray-500 mb-12 rounded-md">ads</aside>
 
@@ -92,7 +90,7 @@ if(isSession && d.owner == userdata?.email){
 
      
     </div>
-{!replys || replys.length == 0?<></>:<Replys replys={replys} />}   
+{!replys || replys.length == 0?<></>:<Replys replys={replys.reverse()} />}   
     </div>
   )}
 

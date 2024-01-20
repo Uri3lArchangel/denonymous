@@ -2,7 +2,7 @@
 
 import { denonymousType } from "@/types";
 import { Share2Icon, Trash2 } from "lucide-react";
-import ModalComponent from "../libraries/antd";
+import {ModalComponent} from "../libraries/antd";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { RiTwitterXLine } from "react-icons/ri";
@@ -19,7 +19,7 @@ import { useEdgeStore } from "@/src/core/lib/edgestore";
 
 export const MyDenonyms = ({ posts }: { posts?: denonymousType[] }) => {
   const [modal, setModal] = useState(false);
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState("0");
   const [topic,setTopic] = useState<string>()
   const [activeStateModal,setactiveStateModal]=useState(false)
   const {edgestore}  = useEdgeStore()

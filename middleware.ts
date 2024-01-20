@@ -14,27 +14,27 @@ export async function middleware(request: NextRequest) {
     
     const session =await fetchUserViaJWT(request.cookies.get("denon_session_0"))
     console.log(session)
-    if(!session){
+    if(!session && !request.nextUrl.pathname.includes("/auth/signin")){
         return NextResponse.redirect(new URL("/auth/signin",request.nextUrl))
     }
 
-  if(request.nextUrl.pathname.includes("/auth/signin")){
-    if(session.verified){
-        return NextResponse.redirect(new URL("/",request.nextUrl))
-    }else{
-        return NextResponse.redirect(new URL("/auth/verify-email",request.nextUrl))
+//   if(request.nextUrl.pathname.includes("/auth/signin")){
+//     if(session.verified){
+//         return NextResponse.redirect(new URL("/",request.nextUrl))
+//     }else{
+//         return NextResponse.redirect(new URL("/auth/verify-email",request.nextUrl))
 
-    }
-  }
-  if(request.nextUrl.pathname.includes("verify-email")){
-    if(session.verified){
-        return NextResponse.redirect(new URL("/",request.nextUrl))
-    }
-  }
+//     }
+//   }
+//   if(request.nextUrl.pathname.includes("verify-email")){
+//     if(session.verified){
+//         return NextResponse.redirect(new URL("/",request.nextUrl))
+//     }
+//   }
   return NextResponse.next()
 
 }
  
 export const config = {
-    matcher: ['/',"/auth/:path*"],
+    matcher: ['/',"/auth/:path"],
 }

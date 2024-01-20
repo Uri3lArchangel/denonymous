@@ -71,8 +71,8 @@ export const fetchUUIDData = async(UUID:string)=>{
     return all
 }
 
-export const sendRelpy=async(UUID:string,topic:string,reply:replyModelType)=>{
-        const updatedUser = await User.findOne({ UUID, "denonymous.topic": topic });
+export const sendRelpy=async(username:string,topic:string,reply:replyModelType)=>{
+        const updatedUser = await User.findOne({ username, "denonymous.topic": topic });
       
         if (updatedUser) {
           const denonymousIndex = updatedUser.denonymous.findIndex(

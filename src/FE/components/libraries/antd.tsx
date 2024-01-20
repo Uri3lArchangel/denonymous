@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
+import { Carousel } from 'antd';
 
-const ModalComponent = ({state,setState,children,ok,title,key}:{state:boolean,setState:React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode,ok?:()=>Promise<void>,title:string | React.ReactNode,key?:any}) => {
+export const ModalComponent = ({state,setState,children,ok,title,key}:{state:boolean,setState:React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode,ok?:()=>Promise<void>,title:string | React.ReactNode,key?:any}) => {
 
 
   return (
@@ -14,4 +15,28 @@ const ModalComponent = ({state,setState,children,ok,title,key}:{state:boolean,se
   );
 };
 
-export default ModalComponent;
+
+
+
+const contentStyle: React.CSSProperties = {
+  margin: 0,
+  height: '160px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
+};
+
+export const CarouselApp = ({children,className}:{children:React.ReactNode,className?:any}) => {
+  const onChange = (currentSlide: number) => {
+    console.log(currentSlide);
+  };
+
+  return (
+    <Carousel afterChange={onChange}  className={className}>
+      {children}
+    </Carousel>
+  );
+};
+
+;

@@ -25,10 +25,29 @@ export function MultiFileDropzoneUsage({
   const [fileStates2, setFileStates2] = useState<FileState[]>([]);
   const [fileStates3, setFileStates3] = useState<FileState[]>([]);
   const [fileStates, setFileStates] = useState<FileState[]>([]);
-
+  const [isTextAreaEmpty,setIsTextAreaEmpty] = useState(true)
+  // const [mediaEmpty,setMediaEmpty] = useState(true)
   const [media, setMedia] = useState<{ link: string; mimeType: string }[]>([]);
   const { edgestore } = useEdgeStore();
+  useEffect(()=>{
+    const text = (
+      document.getElementById("response") as HTMLTextAreaElement
+    )
+    text.addEventListener("keyup",()=>{
+      if(text.value != ""){
+            setIsTextAreaEmpty(false)
+      }else{
+        setIsTextAreaEmpty(true)
 
+      }
+
+    })
+    if(fileStates.length > 0){
+      setIsTextAreaEmpty(false)
+    }else{
+      setIsTextAreaEmpty(true)
+    }
+  },[fileStates])
   // const replySendFunction = async()=>{
   //   const text  = (document.getElementById("response") as HTMLTextAreaElement).value;
   //   const reply = {
@@ -47,7 +66,27 @@ export function MultiFileDropzoneUsage({
   // }
 
   function updateFileProgress(key: string, progress: FileState["progress"]) {
-    setFileStates((fileStates) => {
+    setFileStates1((fileStates) => {
+      const newFileStates = structuredClone(fileStates);
+      const fileState = newFileStates.find(
+        (fileState) => fileState.key === key
+      );
+      if (fileState) {
+        fileState.progress = progress;
+      }
+      return newFileStates;
+    });
+    setFileStates2((fileStates) => {
+      const newFileStates = structuredClone(fileStates);
+      const fileState = newFileStates.find(
+        (fileState) => fileState.key === key
+      );
+      if (fileState) {
+        fileState.progress = progress;
+      }
+      return newFileStates;
+    });
+    setFileStates3((fileStates) => {
       const newFileStates = structuredClone(fileStates);
       const fileState = newFileStates.find(
         (fileState) => fileState.key === key
@@ -72,27 +111,27 @@ export function MultiFileDropzoneUsage({
         value={fileStates1}
         onChange={(files) => {
           setFileStates1(files);
-          setFileStates(files);
 
         }}
-        dropzoneOptions={{accept:{customFileType:["image/*"]}}}
+        dropzoneOptions={{accept:{"image/*":[".gif",".jpeg",".png",".tiff"]}}}
 
         onFilesAdded={async (addedFiles) => {
           setFileStates((prev) => [...prev, ...addedFiles]);
+
         }}
       />
         <MultiFileDropzone
         id="chick_b"
       className="w-[90%] mx-auto hidden"
-      dropzoneOptions={{accept:{customFileType:["video/*"]}}}
+      dropzoneOptions={{accept:{"video/*":[".mp4",".mkv",".webm"]}}}
 
         value={fileStates2}
         onChange={(files) => {
           setFileStates2(files);
-          setFileStates(files);
 
         }}
         onFilesAdded={async (addedFiles) => {
+console.log({addedFiles})
           setFileStates((prev) => [...prev, ...addedFiles]);
         }}
       /> 
@@ -100,96 +139,40 @@ export function MultiFileDropzoneUsage({
        id="chick_c"
       className="w-[90%] mx-auto hidden"
         value={fileStates3}
-        dropzoneOptions={{accept:{customFileType:["audio/*"]}}}
+        dropzoneOptions={{accept:{"audio/*":[".wav",".ogg",".aac",".mpeg",".mp3"]}}}
 
         onChange={(files) => {
           setFileStates3(files);
-          setFileStates(files);
 
         }}
         onFilesAdded={async (addedFiles) => {
           setFileStates((prev) => [...prev, ...addedFiles]);
+
         }}
       />
     {fileStates.length ==0 ? <button
     disabled
-        onClick={async (e) => {
-          e.preventDefault();
-          await Promise.all(
-            fileStates.map(async (addedFileState) => {
-              try {
-                const res = await edgestore.denonymousMedia.upload({
-                  file: addedFileState.file,
-                  options: {
-                    temporary: true,
-                    
-                  },
-                  onProgressChange: async (progress) => {
-                    updateFileProgress(addedFileState.key, progress);
-                    if (progress === 100) {
-                      // wait 1 second to set it to complete
-                      // so that the user can see the progress bar at 100%
-                      await new Promise((resolve) => setTimeout(resolve, 1000));
-                      updateFileProgress(addedFileState.key, "COMPLETE");
-                    }
-                  },
-                });
-                setMedia((prev) => [
-                  ...prev,
-                  { link: res.url, mimeType: addedFileState.file.type },
-                ]);
-              } catch (err) {
-                updateFileProgress(addedFileState.key, "ERROR");
-              }
-            })
-          );
-        }}
+       
         className=" mx-auto w-[70%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2 hidden  "
       >
         upload media
       </button>:sending?<button
       disabled
-        onClick={async (e) => {
-          e.preventDefault();
-          await Promise.all(
-            fileStates.map(async (addedFileState) => {
-              try {
-                const res = await edgestore.denonymousMedia.upload({
-                  file: addedFileState.file,
-                  options: {
-                    temporary: true,
-                    
-                  },
-                  onProgressChange: async (progress) => {
-                    updateFileProgress(addedFileState.key, progress);
-                    if (progress === 100) {
-                      // wait 1 second to set it to complete
-                      // so that the user can see the progress bar at 100%
-                      await new Promise((resolve) => setTimeout(resolve, 1000));
-                      updateFileProgress(addedFileState.key, "COMPLETE");
-                    }
-                  },
-                });
-                setMedia((prev) => [
-                  ...prev,
-                  { link: res.url, mimeType: addedFileState.file.type },
-                ]);
-              } catch (err) {
-                updateFileProgress(addedFileState.key, "ERROR");
-              }
-            })
-          );
-        }}
+       
         className="bg-green-500 mx-auto w-[70%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2 block"
       >
         upload media
       </button>:<button
         onClick={async (e) => {
           e.preventDefault();
+          console.log({fileStates,fileStates1,fileStates2,fileStates3})
+
           await Promise.all(
             fileStates.map(async (addedFileState) => {
               try {
-                const res = await edgestore.denonymousMedia.upload({
+                if(addedFileState.progress!="COMPLETE")
+                {
+                  const res = await edgestore.denonymousMedia.upload({
                   file: addedFileState.file,
                   options: {
                     temporary: true,
@@ -209,7 +192,7 @@ export function MultiFileDropzoneUsage({
                   ...prev,
                   { link: res.url, mimeType: addedFileState.file.type },
                 ]);
-              } catch (err) {
+              }} catch (err) {
                 updateFileProgress(addedFileState.key, "ERROR");
               }
             })
@@ -221,17 +204,11 @@ export function MultiFileDropzoneUsage({
       </button>}
 
       <button
-      disabled={sending}
+      disabled={sending || isTextAreaEmpty }
         className=" block mx-auto w-[70%] text-black h-[50px] mt-4 mb-10 gradient_elements_div rounded-[10px]"
         onClick={async (e) => {
           try{e.preventDefault();
           setSending(true)
-          for (let i = 0; i < media.length; i++) {
-            await edgestore.denonymousMedia.confirmUpload({
-              url: media[i].link,
-            });
-          }
-          // (document.getElementById("reply_form") as HTMLFormElement).submit()
           const text = (
             document.getElementById("response") as HTMLTextAreaElement
           ).value;
@@ -240,12 +217,22 @@ export function MultiFileDropzoneUsage({
             media,
           } as replyModelType;
           await sendRelpyAction(username, topic, reply);
+
+          for (let i = 0; i < media.length; i++) {
+            await edgestore.denonymousMedia.confirmUpload({
+              url: media[i].link,
+            });
+          }
+          // (document.getElementById("reply_form") as HTMLFormElement).submit()
+         
           (document.getElementById("response") as HTMLTextAreaElement).value = "";
           setFileStates([])
           setMedia([])
           setSending(false)
         }catch(err:any){
           console.log(err)
+          setFileStates([])
+          setMedia([])
             setSending(false)
           }
         }}

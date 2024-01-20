@@ -14,7 +14,11 @@ const sessionToken = verifyUserDataToken(cookie.value)
 if(!sessionToken) return
 const topic = e.get("topic") as string | undefined
 const desc = e.get("description") as string | undefined
+
 if(!topic) throw new Error("denonymous topic cannot be empty")
+if(topic.length > 50) throw new Error("topic too long max is 50 characters")
+if(desc && desc.length > 100) throw new Error("description too long max is 50 characters")
+
 await connectMongoClient()
 await createDenonymous(sessionToken.email,topic,sessionToken.uuid,desc)
 await disConnectMongoClient()

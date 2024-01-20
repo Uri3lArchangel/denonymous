@@ -38,11 +38,12 @@ const CreatePost = async () => {
       <h1>Create a Denonymous</h1>
       <form action={createDenonyous}>
         <input
+        maxLength={50}
           placeholder="denonymous title"
           name="topic"
           className="border border-black"
         />
-        <textarea name="description" id="" cols={30} className="block" rows={10} placeholder="write a short description (optional)"></textarea>
+        <textarea name="description" id="" maxLength={100} cols={30} className="block" rows={10} placeholder="write a short description (optional)"></textarea>
         <button className="bg-green-400" type="submit">
           Create
         </button>
