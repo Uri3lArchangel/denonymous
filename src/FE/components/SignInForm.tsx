@@ -7,7 +7,7 @@ import Image from "next/image";
 import styles from "../../../styles/styles.module.css";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import signin from '../../../styles/styles.module.css'
+import signin from "../../../styles/styles.module.css";
 
 const SignInForm = () => {
   const router = useRouter();
@@ -27,10 +27,9 @@ const SignInForm = () => {
 
     if (signinResponse?.status == 200) {
       router.push("/");
-    }else{
-// handle error here 
-const errorname=signinResponse?.error 
-
+    } else {
+      // handle error here
+      const errorname = signinResponse?.error;
     }
   };
   return (
@@ -73,7 +72,10 @@ const errorname=signinResponse?.error
 
       <button
         type="submit"
-        className={"border-2  text-base text-black font-bold p-2 my-4 border-[#EDC211] rounded mb-3 block w-[100%] mx-auto sm:w-[200px] "+signin.signInBtn}
+        className={
+          "border-2  text-base text-black font-bold p-2 my-4 border-[#EDC211] rounded mb-3 block w-[100%] mx-auto sm:w-[200px] " +
+          signin.signInBtn
+        }
       >
         Sign In
       </button>

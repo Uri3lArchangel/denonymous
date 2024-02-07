@@ -35,7 +35,7 @@ type InputProps = {
   onFilesAdded?: (addedFiles: FileState[]) => void | Promise<void>;
   disabled?: boolean;
   dropzoneOptions?: Omit<DropzoneOptions, "disabled">;
-  id?:string
+  id?: string;
 };
 
 const ERROR_MESSAGES = {
@@ -53,7 +53,11 @@ const ERROR_MESSAGES = {
   },
 };
 
-const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ dropzoneOptions, value, className, disabled, onFilesAdded, onChange, id },ref) => {
+const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    { dropzoneOptions, value, className, disabled, onFilesAdded, onChange, id },
+    ref
+  ) => {
     const [customError, setCustomError] = React.useState<string>();
     if (dropzoneOptions?.maxFiles && value?.length) {
       disabled = disabled ?? value.length >= dropzoneOptions.maxFiles;
@@ -76,38 +80,39 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
           (value?.length ?? 0) + files.length > dropzoneOptions.maxFiles
         ) {
           setCustomError(ERROR_MESSAGES.tooManyFiles(dropzoneOptions.maxFiles));
-          setTimeout(()=>{
-            setCustomError("")
-          },2000)
+          setTimeout(() => {
+            setCustomError("");
+          }, 2000);
           return;
         }
-      if(value){
-        const unsupportedFile = files.reduce((unsupported, fileState) => {
-          if (!Formats.includes(fileState.type)) {
-            return true; // Set unsupported to true if unsupported file type is found
+        if (value) {
+          const unsupportedFile = files.reduce((unsupported, fileState) => {
+            if (!Formats.includes(fileState.type)) {
+              return true; // Set unsupported to true if unsupported file type is found
+            }
+            return unsupported;
+          }, false);
+
+          if (unsupportedFile) {
+            setCustomError(ERROR_MESSAGES.fileNotSupported());
+            setTimeout(() => {
+              setCustomError("");
+            }, 2000);
+            return;
           }
-          return unsupported;
-        }, false);
-        
-        if (unsupportedFile) {
-          setCustomError(ERROR_MESSAGES.fileNotSupported());
-          setTimeout(()=>{
-            setCustomError("")
-          },2000)
-          return;
+          const totalSize = value.reduce(
+            (acc, fileState) => acc + fileState.file.size,
+            0
+          );
+          const newSize = files.reduce((acc, file) => acc + file.size, 0);
+          const ByteToMB = 1048576;
+          const maxSize = 60;
+
+          if ((totalSize + newSize) / ByteToMB > maxSize) {
+            setCustomError(ERROR_MESSAGES.fileTooLarge(maxSize));
+            return;
+          }
         }
-  const totalSize = value.reduce((acc, fileState) => acc + fileState.file.size, 0);
-  const newSize = files.reduce((acc, file) => acc + file.size, 0);
-  const ByteToMB = 1048576;
-  const maxSize = 60;
-   
-  if ((totalSize + newSize) / ByteToMB > maxSize) {
-    setCustomError(ERROR_MESSAGES.fileTooLarge(maxSize));
-    return;
-  }
-
-
-}
         if (files) {
           const addedFiles = files.map<FileState>((file) => ({
             file,
@@ -191,7 +196,12 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
               className="flex h-16 w-96 max-w-[100vw] flex-col justify-center rounded border border-gray-300 my-4 px-4 py-2"
             >
               <div className="flex items-center gap-2 text-gray-500 dark:text-white">
-                <Image src={URL.createObjectURL(file)} alt={file.name} width={90} height={90} />
+                <Image
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                  width={90}
+                  height={90}
+                />
                 {/* <FileIcon size="30" className="shrink-0" /> */}
                 <div className="min-w-0 text-sm">
                   <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">
@@ -207,7 +217,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
                     <button
                       className="rounded-md p-1 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                       onClick={(e) => {
-                        e.preventDefault()
+                        e.preventDefault();
                         void onChange?.(
                           value.filter((_, index) => index !== i)
                         );
