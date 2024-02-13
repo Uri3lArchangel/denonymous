@@ -37,7 +37,7 @@ export const filterMediaLimitOn = (all:userModelType,topic:string)=>{
 
 // export const screenshot=async()=>{}
 
-export const downloadFile = async(a:string,type:"image"|"video"|"audio",ext:string,e:React.MouseEvent<HTMLDivElement>)=>{
+export const downloadFile = async(a:string,type:string,ext:string)=>{
   
     let link =document.createElement("a") as HTMLAnchorElement;
         link.href=a;
@@ -46,3 +46,25 @@ export const downloadFile = async(a:string,type:"image"|"video"|"audio",ext:stri
         link.click()
         document.body.removeChild(link)
 }
+export const downloadMedia=async(src:string)=>{
+    const response = await fetch(src);
+    const blob =await response.blob()
+          // Create a download link
+          var downloadLink = document.createElement("a");
+    
+          // Create a Blob URL for the audio file
+          var blobUrl = URL.createObjectURL(blob);
+
+          downloadLink.href = blobUrl;
+          let s =src.split(".")
+        alert(s[s.length -1])
+          downloadLink.download = `denonymous_media_${(Math.random()*1000).toFixed(0)}.${s[s.length -1]}`;
+
+          document.body.appendChild(downloadLink);
+
+          downloadLink.click();
+
+          document.body.removeChild(downloadLink);
+          
+          URL.revokeObjectURL(blobUrl);
+  }

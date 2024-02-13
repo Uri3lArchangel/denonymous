@@ -40,6 +40,8 @@ cursor:not-allowed ;
     "media1 media2"
     ;
     grid-template-columns:1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
     width: 100%;
     gap: 6px;
 
@@ -52,6 +54,8 @@ cursor:not-allowed ;
     ;
     justify-content: center;
     grid-template-columns:1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 200px;
     width: 100%;
     gap: 6px;
 }
@@ -70,17 +74,20 @@ cursor:not-allowed ;
 .media_0{
     grid-area: media0;
     height: 100%;
+    min-height: 150px;
     width: 100%;
 }
 .media_1{
     grid-area: media1;
     height: 100%;
+    min-height: 150px;
     width: 100%;
 
 }
 .media_2{
     grid-area: media2;
     height: 100%;
+    min-height: 150px;
     width: 100%;
 
  
@@ -89,6 +96,7 @@ cursor:not-allowed ;
 .media_3{
     grid-area: media3;
     height: 100%;
+    min-height: 150px;
     width: 100%;
 
  }
@@ -102,10 +110,13 @@ cursor:not-allowed ;
   }
 
   .centered-image {
-    max-width: 100%;
-    max-height: 100%;
+    /* max-width: 100%;
+    max-height: 100%; */
+    object-fit: contain !important;
     display: block;
     margin: auto;
+    height:100%;
+    
   }
 
   .centered-video {
@@ -114,6 +125,15 @@ cursor:not-allowed ;
     display: block;
     margin: auto;
   }
+  .ant-float-btn-body{
+    /* bottom: -10% !important; */
+    /* opacity: 0; */
+    background-color: #ffdf00 !important;
+    width: 55px !important;
+    height: 55px !important;
+    
+  }
+  
   .swiper-button-next,.swiper-button-prev{
     fill: #ffdf00 !important;
     color: #ffdf00 !important;
@@ -122,9 +142,17 @@ cursor:not-allowed ;
   .swiper-pagination{
     position: absolute !important;
     bottom: 10% !important;
-    background-color: #ffdf00 !important;
+    /* background-color: #ffdf00 !important; */
+    color: #444 !important;
   }
 
+.swiper-pagination-bullet{
+  background-color: #c8c8c8 !important;
+
+}
+.swiper-pagination-bullet-active{
+  background-color: #ffdf00 !important;
+}
  audio::-webkit-media-controls {
     appearance: none;
   }
@@ -157,3 +185,39 @@ cursor:not-allowed ;
     color: #f6d108;
 
   }
+
+  #reply_container_ul{
+    max-width: 570px !important;
+    margin: auto !important;
+  }
+
+
+@media screen and (min-width:768px) {
+  .full_response_container_textarea{
+    display: grid;
+    grid-template-areas: 
+    "icons send_resp"
+    "prev prev"
+    ;
+    width: 100%;
+    grid-column: 1fr 1fr;
+  }
+ #uploadMediaIcons{
+    grid-area: icons;
+    align-self: center;
+    
+  }
+  #previewMediaContainer{
+    grid-area: prev;
+    width: 100%;
+    /* margin: auto !important; */
+  }
+  #sendResponseContainer{
+    grid-area: send_resp;
+  }
+  #upload_media_container{
+    grid-area: upload_media_container;
+  }  #reply_container_ul{
+  padding: 3em 2em !important;
+  }
+}

@@ -13,12 +13,12 @@ export const fetchDenonymousOnLoad = async () => {
     mode: "no-cors",
     body: JSON.stringify({ cookie: cookie.value }),
     next: {  
-          revalidate: 1,  
+          revalidate: false,  
           tags:["denonymous_box_0102"]
     },
   });
    
-
+console.log("a")
   if (res.status == 301) return;
 
 

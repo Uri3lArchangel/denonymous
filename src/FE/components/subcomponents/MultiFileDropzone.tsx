@@ -1,10 +1,15 @@
 "use client";
 
+import md5 from 'md5';
+
 import { Formats } from "@/src/core/lib/acceptableFilesFormats";
 import {
   CheckCircleIcon,
   FileIcon,
   LucideFileWarning,
+  PauseCircle,
+  PlayCircle,
+  PlayIcon,
   Trash2Icon,
   UploadCloudIcon,
 } from "lucide-react";
@@ -35,7 +40,9 @@ type InputProps = {
   onFilesAdded?: (addedFiles: FileState[]) => void | Promise<void>;
   disabled?: boolean;
   dropzoneOptions?: Omit<DropzoneOptions, "disabled">;
-  id?:string
+  id?:string,
+  setGeneralFileStateAction:React.Dispatch<React.SetStateAction<FileState[]>>
+  generalFileStateAction:FileState[]
 };
 
 const ERROR_MESSAGES = {
@@ -43,6 +50,10 @@ const ERROR_MESSAGES = {
     return `File(s) too large. Max total size is ${maxSize} MB.`;
   },
   fileInvalidType() {
+    setTimeout(()=>{
+      document.getElementById("error_container")!.innerHTML=""
+    },2000)
+
     return "Invalid file type.";
   },
   tooManyFiles(maxFiles: number) {
@@ -53,11 +64,15 @@ const ERROR_MESSAGES = {
   },
 };
 
-const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ dropzoneOptions, value, className, disabled, onFilesAdded, onChange, id },ref) => {
+
+
+const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ dropzoneOptions, value, className, disabled, onFilesAdded, onChange, id,generalFileStateAction, setGeneralFileStateAction },ref) => {
     const [customError, setCustomError] = React.useState<string>();
-    if (dropzoneOptions?.maxFiles && value?.length) {
+    const [audioPlayState,setAudioPlayState]=React.useState(true)
+        if (dropzoneOptions?.maxFiles && value?.length) {
       disabled = disabled ?? value.length >= dropzoneOptions.maxFiles;
     }
+    const [key,setK]=React.useState(0)
     // dropzone configuration
     const {
       getRootProps,
@@ -108,14 +123,18 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
 
 
 }
+
+
         if (files) {
+          setK(prev=>prev+1)
           const addedFiles = files.map<FileState>((file) => ({
             file,
-            key: Math.random().toString(36).slice(2),
+            key: md5(file.name+`${Date.now()}`), 
             progress: "PENDING",
           }));
           void onFilesAdded?.(addedFiles);
           void onChange?.([...(value ?? []), ...addedFiles]);
+          
         }
       },
       ...dropzoneOptions,
@@ -143,7 +162,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
     );
 
     // error validation messages
-    const errorMessage = React.useMemo(() => {
+    let errorMessage = React.useMemo(() => {
       if (fileRejections[0]) {
         const { errors } = fileRejections[0];
         if (errors[0]?.code === "file-too-large") {
@@ -159,9 +178,18 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
       return undefined;
     }, [fileRejections, dropzoneOptions]);
 
+
+    
+React.useEffect(()=>{
+},[generalFileStateAction,value,key])
+
+
+
+
+
     return (
-      <div id="chick">
-        <div className="flex flex-col gap-2">
+      <div>
+        <div className="flex flex-col w-full">
           <div>
             {/* Main File Input */}
             <div
@@ -169,7 +197,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
                 className: dropZoneClassName,
               })}
             >
-              <input ref={ref} {...getInputProps()} id={id} />
+              <input ref={ref} {...getInputProps()} id={id} key={key}/>
               <div className="flex flex-col items-center justify-center text-xs text-gray-400">
                 <UploadCloudIcon className="mb-1 h-7 w-7" />
                 <div className="text-gray-400">
@@ -179,20 +207,50 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
             </div>
 
             {/* Error Text */}
-            <div className="mt-1 text-xs text-red-500">
+            <div className="mt-1 text-xs text-red-500 text-center" id="error_container">
               {customError ?? errorMessage}
             </div>
           </div>
 
           {/* Selected Files */}
-          {value?.map(({ file, progress }, i) => (
+          {value?.map(({ file, progress }, i) =>{
+            let media = file.type.split("/")[0]
+            return (
             <div
               key={i}
-              className="flex h-16 w-96 max-w-[100vw] flex-col justify-center rounded border border-gray-300 my-4 px-4 py-2"
+              className="flex h-[100px] flex-col justify-center rounded border  border-gray-600 my-4 px-4 py-2 w-full"
             >
-              <div className="flex items-center gap-2 text-gray-500 dark:text-white">
-                <Image src={URL.createObjectURL(file)} alt={file.name} width={90} height={90} />
-                {/* <FileIcon size="30" className="shrink-0" /> */}
+              <div className="flex items-center gap-2 h-full text-gray-500 dark:text-white">
+{media == 'image'?<Image src={URL.createObjectURL(file)} alt={file.name} width={90} height={90} className="h-full" />:media == 'video'?<video width={90} height={90} className="h-full" loop autoPlay muted>
+  <source src={URL.createObjectURL(file)}    />
+</video>
+:
+<label >{
+
+<>
+<PauseCircle size={30} id={`audio_prev_${i}_pa`} style={{display:"none"}} className="text-[#ffdf00]" onClick={
+  (e:React.MouseEvent<HTMLDivElement>)=>{
+    let a = document.querySelector("#"+(e.currentTarget.id).replace("_pa","_au")) as HTMLAudioElement;
+        a.pause()
+        let pl = document.querySelector("#"+(e.currentTarget.id).replace("_pa","_pl")) as HTMLDivElement;
+        pl.style.display="block"
+    e.currentTarget.style.display="none"
+
+  }
+} />
+<PlayCircle id={`audio_prev_${i}_pl`}  onClick={
+  (e:React.MouseEvent<HTMLDivElement>)=>{
+    let a = document.querySelector("#"+(e.currentTarget.id).replace("_pl","_au")) as HTMLAudioElement;
+
+    a.play()
+    let p = document.querySelector("#"+(e.currentTarget.id).replace("_pl","_pa")) as HTMLDivElement;
+    p.style.display="block"
+    e.currentTarget.style.display="none"
+  }
+} size={30} className="text-[#ffdf00]" /></>
+}<audio className={`prev_audio`} id={`audio_prev_${i}_au`} ><source  src={URL.createObjectURL(file)} type={file.type}/></audio></label>
+
+}                {/* <FileIcon size="30" className="shrink-0" /> */}
                 <div className="min-w-0 text-sm">
                   <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">
                     {file.name}
@@ -205,9 +263,16 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
                 <div className="flex w-12 justify-end text-xs">
                   {progress === "PENDING" ? (
                     <button
+                        id={String(i)}
                       className="rounded-md p-1 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                       onClick={(e) => {
                         e.preventDefault()
+                       let id =e.currentTarget.id
+                          // Remove the file from the state
+    const updatedFiles = value.filter((_, index) => index !== Number(id));
+    setGeneralFileStateAction(updatedFiles);
+
+    // Set the state to
                         void onChange?.(
                           value.filter((_, index) => index !== i)
                         );
@@ -238,7 +303,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
                 </div>
               )}
             </div>
-          ))}
+          )})}
         </div>
       </div>
     );

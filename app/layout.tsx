@@ -18,7 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <EdgeStoreProvider>{children}</EdgeStoreProvider>        
+      <div className="min-h-[80px] bg-gray-500 md:hidden pb-10">ads</div>
+        <div className="hidden md:block absolute top-[0] left-0 h-[100%] w-[12%] bg-white">ads</div>
+        <div className="hidden md:block absolute top-[0] right-0 h-[100%] w-[12%] bg-white">ads</div>
+      <EdgeStoreProvider>
+       <div className="md:w-[70%] w-full mx-auto">{children}</div> 
+        </EdgeStoreProvider>        
       </body>
     </html>
   );

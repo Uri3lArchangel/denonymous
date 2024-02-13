@@ -45,10 +45,8 @@ async function page({params}:{params:{response:string[]}}) {
 if(isSession && d.owner == userdata?.email){
   return (
     <div className={style.denonymousResponsePage}>
-      
         <h1 className='text-3xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
-        <h2 className='text-center'>{d.description?d.description:''}</h2>
-        <div className="min-h-[80px] bg-gray-500">ads</div>
+        <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?d.description:''}</h2>
         <div  className='bg-[#1E1E1E]'>
     {!replys || replys.length == 0?<></>:<Replys replys={replys.reverse()} />}  
     </div> 
@@ -56,22 +54,21 @@ if(isSession && d.owner == userdata?.email){
 }else{
   return (
     <div className={style.denonymousResponsePage}>
-      
+
       <div>
         {
         <main className='py-10'>
         <h1 className='text-4xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
-        <h2 className='text-center text-[#7F7F7F]'>{d.description?d.description:''}</h2>
-        <aside className="min-h-[80px] bg-gray-500 mb-12 rounded-md">ads</aside>
+        <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?d.description:''}</h2>
 
-        <form id='reply_form' className='bg-[#1E1E1E] px-4 py-12'>
+        <form id='reply_form' className='bg-[#1E1E1E] max-w-[578px] px-4 py-12 md:px-12 mx-auto md:h-fit'>
           <h3 className='text-center text-xl font-semibold gradient_elements_text'>Send Response</h3>
           <p className='text-center text-[#7F7F7F] py-4'>send text, photos, audios and even videos to {username}</p>
           <div className={style.formInputsContainer}>
           <textarea
         name="text_reply"
         id="response"
-        className="block w-full bg-[#171717] rounded-[10px] outline-none p-2 text-white/78"
+        className="block w-full md:w-[94%] mx-auto bg-[#0d0d0d] rounded-[10px] outline-none p-2 text-white/78 md:h-[200px] "
         rows={10}
       />
             {/* this is the div for everything upload */}

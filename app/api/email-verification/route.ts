@@ -11,7 +11,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const key = req.nextUrl.searchParams.get("key");
-      console.log(key,"key")
 
     if (!key) throw new Error("Invalid verification key");
     await connectMongoClient();
@@ -26,7 +25,7 @@ export async function GET(req: NextRequest) {
     setSessionCookie(token);
     
     await disConnectMongoClient();
-    return NextResponse.redirect(new URL(process.env.baseURL+"/auth/signin"));
+    return NextResponse.redirect(new URL("/auth/signin",req.nextUrl));
   } catch (err: any) {
     console.log(err);
     // this return would be modified with if else to check for several possible errors and return the appropraite messages and the respective status codes

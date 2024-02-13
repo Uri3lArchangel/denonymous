@@ -3,6 +3,7 @@ import WaveSurfer from 'wavesurfer.js';
 import { DownloadIcon, Pause } from 'lucide-react';
 import { IoMdPlay } from "react-icons/io";
 import { FaPause } from "react-icons/fa6";
+import { downloadMedia } from '@/src/core/lib/helpers';
 
 
 
@@ -24,28 +25,7 @@ gradient.addColorStop(1, '#daa521')
 return gradient
 }
 const WaveformComponent = ({ audioSrc,index }: { audioSrc: string,index:number }) => {
-  const fetcha=async()=>{
-    const response = await fetch(audioSrc);
-    const blob =await response.blob()
-          // Create a download link
-          var downloadLink = document.createElement("a");
-    
-          // Create a Blob URL for the audio file
-          var blobUrl = URL.createObjectURL(blob);
 
-          downloadLink.href = blobUrl;
-          let s =audioSrc.split(".")
-        alert(s[s.length -1])
-          downloadLink.download = `denonymous_audio_${(Math.random()*1000).toFixed(0)}.${s[s.length -1]}`;
-
-          document.body.appendChild(downloadLink);
-
-          downloadLink.click();
-
-          document.body.removeChild(downloadLink);
-          
-          URL.revokeObjectURL(blobUrl);
-  }
   const waveformRef = useRef<HTMLDivElement>(null);
   // let wavesurfer =null as WaveSurfer|null;
   const wavesurferRef = useRef<WaveSurfer | null>(null);
@@ -119,7 +99,7 @@ useEffect(() => {
         <></>
       )}
       <div ref={waveformRef} key={index} className={loading ? 'hidden' : 'block w-[90%] bg-transparent'} />
-      <div onClick={fetcha}>
+      <div onClick={()=>{downloadMedia(audioSrc)}}>
         <DownloadIcon className={!ready ? 'hidden' : 'block mx-2 text-[#f6d108]'} size={35} />
       </div>
     </div>

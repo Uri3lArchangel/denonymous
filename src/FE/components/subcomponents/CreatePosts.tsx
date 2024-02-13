@@ -1,9 +1,9 @@
 "use client";
 
-import { denonymousType } from "@/types";
+import { denonymousType, replyModelType } from "@/types";
 import { Share2Icon, Trash2 } from "lucide-react";
 import {ModalComponent} from "../libraries/antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa6";
@@ -24,6 +24,12 @@ export const MyDenonyms = ({ posts }: { posts?: denonymousType[] }) => {
   const [activeStateModal,setactiveStateModal]=useState(false)
   const {edgestore}  = useEdgeStore()
   const [deleteDenonymousModal,setDeleteDenonymousModal]=useState(false)
+  
+
+  useEffect(()=>{
+    console.log(deleteDenonymousModal)
+  })
+ 
   const randomSelect = (a: string[]) => {
     const array = a;
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -151,19 +157,22 @@ changeDenonymousViewState(topic!);setactiveStateModal(false);
 
 
 <ModalComponent key={i} state={deleteDenonymousModal} setState={setDeleteDenonymousModal} title="delete denonymous" ok={async()=>{
-let a = await deleteDenonymousAction(topic!);
-if(a){
-for(let i=0;i<a.length;i++){
-  for(let j=0;j<a[i].media.length;j++){
-    await edgestore.denonymousMedia.delete({url:a[i].media[j].link})
-  }
+let urls = await deleteDenonymousAction(topic!);
+console.log(urls,"urls")
+if(urls && urls.length >0){
+  for(let i=0;i<urls.length;i++){
+ let a=   await edgestore.denonymousMedia.delete({url:urls[i]})
+ 
 }
+
+  
+
 }
 
 }}>
   <div className=" text-red-500">Are you sure you want to delete this denonymous?, this action cannot be undone !</div>
 </ModalComponent>
-<div className="flex cursor-pointer" onClick={()=>{  setTopic(e.topic);setDeleteDenonymousModal(true)
+<div className="flex cursor-pointer" onClick={()=>{  setTopic(e.topic);setDeleteDenonymousModal(true);
 }}><Trash2 /><p>delete denonymous</p></div>
 
             </li>

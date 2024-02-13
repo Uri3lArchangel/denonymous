@@ -2,11 +2,9 @@
 import { replyModelType } from "@/types";
 import Image from "next/image";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import { MdCancel } from "react-icons/md";
-import { MultiFileDropzoneUsage } from "./MultiFileComponent";
 import style from "../../../../styles/styles.module.css";
-import { PlayCircle, Share2Icon, XIcon } from "lucide-react";
-import {CarouselApp, ModalComponent} from "../libraries/antd";
+import { Download, DownloadIcon, PlayCircle, Share2Icon, XIcon, XOctagonIcon } from "lucide-react";
+import {CarouselApp, FloatButtonComponent, ModalComponent} from "../libraries/antd";
 import { CiLink } from "react-icons/ci";
 import { render } from "react-dom";
 import * as htmlImages from "html-to-image";
@@ -18,6 +16,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import WaveformComponent from "../libraries/Wavesurfer";
+import { downloadFile, downloadMedia } from "@/src/core/lib/helpers";
 
 
 
@@ -45,16 +44,15 @@ export function Replys({ replys }: { replys: replyModelType[] }) {
   // };
 
 // All states
-
   const [viewer,setViewerState]= useState<{img: {
     link: string;
     mimeType: string;
 }[],display:boolean}>({img:[],display:false})
   const [shareState, setShareState] = useState(false);
   const [index, setIndex] = useState(0);
-  const [image, setImage] = useState("");
-  const [moreMedia,setMoreMedia]=useState(false)
   const [initialSlide,setInitialSlide]=useState(0)
+  const [selectedReplys,setSelectedReplys]=useState<string[]>([])
+
 // refs
 const audioRef = useRef<HTMLAudioElement | null>(null);
 const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -77,7 +75,7 @@ const canvasRef = useRef<HTMLCanvasElement | null>(null);
     initialSlide:initialSlide,
     slidesPerView:1,parallax:true
    ,pagination:{
-    el:'.swiper-pagination'
+    el:'.swiper-pagination',
    },
    navigation:{
     nextEl:'.swiper-button-next',
@@ -103,7 +101,8 @@ return ()=>{
   return (
     // style={{filter:viewer.display == true?"brightness(0.4) blur(10px)":"brightness(1) blur(0px)" }}
     <>
-{viewer.display?<XIcon className={"fixed  text-[#ffdf00] bg-black p-[2px]  border-2 border-[#ffdf00] rounded-full right-[2%] top-10 z-[10] " } size={40} onClick={
+    <FloatButtonComponent className={`${selectedReplys.length ==0?"bottom-[-10%] opacity-0 transition-[bottom] duration-[0.4s]":"bottom-[10%] opacity-[1] transition-[bottom] duration-[0.4s]"}`} />
+{viewer.display?<XIcon className={"fixed  text-[#ffdf00] bg-black p-[2px] cursor-pointer  rounded-full right-[2%] top-10 z-[10] " } size={40} onClick={
   ()=>{
     setViewerState((prev)=>{
       return{img:[],display:false}
@@ -111,11 +110,17 @@ return ()=>{
   }
 } />:<></>
 }    
-<div id="image_viewer"  className={viewer.display ? "fixed h-[100vh] w-full top-0 z-[5] bg-black overflow-y-scroll " : ""}>
+<div id="image_viewer"  className={viewer.display ? "fixed h-[100vh]  w-full left-0 top-0 z-[5] bg-black overflow-y-scroll " : ""}>
 <div className="swiper relative h-[100%] ">
 <div className="swiper-wrapper absolute">
   {viewer.img.map((e, index) => (
+
     <div key={index} className="image-container swiper-slide">
+      <DownloadIcon size={35} className="absolute top-12 left-[5%] text-[#ffdf00] z-10 cursor-pointer" onClick={
+        ()=>{
+          downloadMedia(e.link)
+        }
+      } />
    { e.mimeType.split("/")[0].toLowerCase() == "image"?  <Image
 
         src={e.link}
@@ -147,12 +152,13 @@ return ()=>{
 
 
 </div>
-    <section className={viewer.display?"overflow-hidden bg-[#1e1e1e] py-12 ":"bg-[#1e1e1e] py-12 "} >
+
+    <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
 
  <h3 className="text-center text-xl font-extrabold gradient_elements_text">
         All Responses({replys.length})
       </h3>
-      <ul className={viewer.display?"overflow-y-hidden":""}>
+      <ul  className={viewer.display?"overflow-y-hidden":""}>
         {/* <div id="content" className="text-white text-2xl">hellooooooo</div>
       <Image src={image} alt="" width={500} height={500}/>
       <div onClick={()=>{
@@ -169,15 +175,32 @@ return ()=>{
           let l = e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "video" || f.mimeType.split("/")[0].toLowerCase() == "image")
           let a =e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "audio" ) 
           return(
+            <>
           <li
-            id={`${n}`}
+            id={`reply_${n}`}
             key={n}
-            className="my-10 py-6 px-4 w-[95%] rounded-[10px] mx-auto bg-[#111010]"
+            onClick={
+              (e)=>{
+                const id = `${(e.currentTarget.id)}`
+                let index=selectedReplys.findIndex((n)=>n==id);
+                if(index < 0){
+                if(selectedReplys.length >= 3)return
+
+                  setSelectedReplys(prev=>[...prev,id])
+                  e.currentTarget.style.backgroundColor="#555"
+
+                }else{
+                  setSelectedReplys(prev=>prev.filter(a=>a!=id))
+                  e.currentTarget.style.backgroundColor="#1E1E1E"
+
+                }
+              }
+            }
+            className="mt-10 mb-4 py-16 px-4 w-[95%] rounded-[10px] mx-auto bg-[#1E1E1E] cursor-pointer"
           >
-            anonymous user:
             
             <div className={
-              l.length >= 4?"gridMediaDisplay4":l.length==3?"gridMediaDisplay3":l.length == 2?"gridMediaDisplay2":"gridMediaDisplay1"}>
+             ` md:w-full md:mx-auto ${l.length >= 4?"gridMediaDisplay4":l.length==3?"gridMediaDisplay3":l.length == 2?"gridMediaDisplay2":"gridMediaDisplay1"}`}>
                
               {l.map((mediaItem, index) => {
                 let mimeType = mediaItem.mimeType.split("/")[0].toLowerCase();
@@ -187,9 +210,11 @@ return ()=>{
                     return(
                       <div
                       id={`media_${index}`}
-                      className={`w-fit relative media_${index} h-fit `}
+                      className={`w-fit media_${index} bg-gray-900/80 border-[#595119a8]  border-2 rounded-[3px] flex items-center justify-center relative`}
                       key={index}
                       onClick={(e)=>{
+                        e.stopPropagation()
+
                          if(!viewer.display){ 
                           setInitialSlide(3)
                           setViewerState({display:true,img:l})
@@ -202,10 +227,10 @@ return ()=>{
                           height={240}
                           
                           alt=""
-                          className="min-h-[100px]  h-full hover:scale-[1.07] transition-transform duration-[0.3s] "
+                          className="min-h-[100px]  h-full h "
                          
-                        />:mimeType == "video"?<PlayCircle className=" p-8 w-full h-[100px] opacity-[0.4]" />:null}
-                       <p className="absolute text-center text-2xl mx-auto left-0 right-0 top-1/2 z-2 ">
+                        />:mimeType == "video"?<PlayCircle className="rounded-[3px] h-full opacity-[0.4] " />:null}
+                       <p className="absolute text-center text-2xl mx-auto left-0 right-0 top-[20%] z-2 ">
                       +{e.media.length - 4}
                     </p>
                     </div>
@@ -218,9 +243,10 @@ return ()=>{
                     return (
                       <div
                         id={`media_${index}`}
-                        className={`w-fit media_${index} flex items-center justify-center `}
+                        className={`w-fit media_${index} bg-gray-900 border-[#ffdd00a8] border-2 rounded-[3px] flex items-center justify-center hover:scale-[1.07] transition-transform duration-[0.3s] `}
                         key={index}
                         onClick={(e)=>{
+                          e.stopPropagation()
                            if(!viewer.display){ 
                             setInitialSlide(index)
                             setViewerState({display:true,img:l})
@@ -233,9 +259,9 @@ return ()=>{
                           height={400}
                           
                           alt=""
-                          className="block  hover:scale-[1.07] transition-transform duration-[0.3s] "
+                          className="block rounded-[3px]  "
                          
-                        />:mimeType == "video"?<PlayCircle size={40} className={` hover:scale-[1.07] transition-transform duration-[0.3s] `} />:null}
+                        />:mimeType == "video"?<PlayCircle size={40} className={` rounded-[3px] h-full  `} />:null}
                         
                       </div>
                     );
@@ -255,7 +281,7 @@ return ()=>{
                 if (mimeType == "audio") {
             
                   return (
-                    <div className="audio-player my-4" key={index}>
+                    <div className="audio-player my-4" key={index} onClick={(e)=>{e.stopPropagation()}}>
                    <WaveformComponent index={index} audioSrc={mediaItem.link}/>
 
                     </div>
@@ -293,6 +319,8 @@ return ()=>{
               }}
             />
           </li>
+          <small className=" italic text-white/70 text-center block">click on response to select </small>
+          </>
         )}
         
         

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import {  Modal } from 'antd';
 import { Carousel } from 'antd';
+import { CommentOutlined, CustomerServiceOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
+import { BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
+import { Share2Icon } from 'lucide-react';
 
 export const ModalComponent = ({state,setState,children,ok,title,key}:{state:boolean,setState:React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode,ok?:()=>Promise<void>,title:string | React.ReactNode,key?:any}) => {
 
@@ -40,3 +44,22 @@ export const CarouselApp = ({children,className}:{children:React.ReactNode,class
 };
 
 ;
+
+// icon={<BsThreeDotsVertical size className="text-black" />}
+
+
+export const FloatButtonComponent = ({className,selectedIds}:{className?:string,selectedIds?:string}) => (
+  <>
+    <FloatButton.Group
+      className={className}
+      type="primary"
+      style={{ right: 30 }}
+    
+    >
+      <FloatButton  icon={<Share2Icon size={20} className="translate-x-[-2px]" />} />
+      {/* <FloatButton icon={<CommentOutlined />} /> */}
+    </FloatButton.Group>
+   
+  </>
+);
+

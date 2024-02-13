@@ -113,7 +113,6 @@ export const denonymousViewStateChange = async(UUID:string,topic:string)=>{
 
 export const deleteDenonymousDB = async(UUID:string,topic:string)=>{
   const updatedUser = await User.findOne({ UUID, "denonymous.topic": topic }) 
-    console.log(updatedUser,"user",3)
   if (updatedUser) {
       const denonymousIndex = updatedUser.denonymous.findIndex(
         (d:any) => d.topic === topic

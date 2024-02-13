@@ -65,7 +65,6 @@ console.log(topic,"topic")
 
 export const deleteDenonymousAction=async(topic:string)=>{
     let cookie = cookies().get("denon_session_0")
-    console.log(cookie)
     if(!cookie || !cookie.value) redirect("/auth/signin")
     const sessionToken = verifyUserDataToken(cookie.value)
     if(!sessionToken) redirect("/auth/signin")
@@ -73,12 +72,21 @@ export const deleteDenonymousAction=async(topic:string)=>{
     
         await connectMongoClient()
       let r=   await deleteDenonymousDB(sessionToken.uuid,topic)
-        
+         console.log(r,"replys")
+    const urls=[]
+                if(!r) return
+                for(let i=0;i<r.length;i++){
+                    console.log(i)
+                  for(let j=0;j<r[i].media.length;j++){
+                urls.push(r[i].media[j].link)
+                  }
+                }
+              
         await disConnectMongoClient()
         revalidateTag("denonymous_box_0102")
         revalidateTag("raieneidmie_00")
-
-        return r
+        console.log(urls,11)
+        return urls
     }catch(err:any){
             console.log(err)
             throw new Error("something went wrong!")
