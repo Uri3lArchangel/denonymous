@@ -1,6 +1,5 @@
 import { userModelType } from "@/types"
-import React from "react"
-
+import crypto from 'crypto'
 export const URLRESOLVE =(a:string)=>{
 if(process.env.NODE_ENV =="production"){
     return window.location.origin+a
@@ -9,12 +8,13 @@ if(process.env.NODE_ENV =="production"){
 }
 }
 export const filterDenonymous=(all:userModelType,topic:string)=>{
-    console.log({all,topic})
     if(!all) throw new Error("This denonymous does not exist or has been deleted|client")
 
-    if(!all.denonymous) return {}
+    if(!all.denonymous) throw new Error("This denonymous does not exist or has been deleted|client")
+
     const Denonymous = all.denonymous.filter((e)=>(e.responsesViewState && e.topic==topic && !e.isDeleted)) 
-    if(Denonymous.length == 0) return {}
+    console.log({Denonymous,topic})
+    if(Denonymous.length == 0)  throw new Error("This denonymous does not exist or has been deleted|client")
     return Denonymous[0]
 }
 
@@ -68,3 +68,63 @@ export const downloadMedia=async(src:string)=>{
           
           URL.revokeObjectURL(blobUrl);
   }
+  export const generateAndSendResetEmailLink=(email:string)=>{
+    const hash = crypto.createHash('SHA256').update(process.env.resetSalt+email+process.env.resetSalt+Date.now()).digest('hex')
+    
+    }
+    
+
+    export function validateEmail(email: string): { status: string } {
+        // Regular expression for email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+     
+    
+        if (!emailRegex.test(email)) {
+            return { status: "error"};
+        }
+    
+        return { status: "success" };
+    }
+    
+
+
+export const formatTime = (milliseconds: number): string => {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+  const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+  return `${formattedMinutes}:${formattedSeconds}`;
+};
+
+
+export const calculateStrength = (pass: string) => {
+    let score = 0;
+
+    // Check for length
+    if (pass.length>0) {
+
+      score += 1;
+    }
+    if (pass.length >= 8 ) {
+      score += 1;
+    }
+
+    // Check for lowercase and uppercase letters
+    if (/[a-z]/.test(pass) && /[A-Z]/.test(pass)) {
+      score += 1;
+    }
+
+    // Check for digits
+    if (/\d/.test(pass)) {
+      score += 1;
+    }
+
+    // Check for special characters
+    if (/[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(pass)) {
+      score += 1;
+    }
+
+    return score;
+  };

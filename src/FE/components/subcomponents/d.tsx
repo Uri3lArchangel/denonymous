@@ -1,22 +1,24 @@
 "use client";
 import { replyModelType } from "@/types";
 import Image from "next/image";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import style from "../../../../styles/styles.module.css";
 import { Download, DownloadIcon, PlayCircle, Share2Icon, XIcon, XOctagonIcon } from "lucide-react";
 import {CarouselApp, FloatButtonComponent, ModalComponent} from "../libraries/antd";
 import { CiLink } from "react-icons/ci";
-import { render } from "react-dom";
+import { render, useFormState, useFormStatus } from "react-dom";
 import * as htmlImages from "html-to-image";
-import Link from "next/link";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { createDenonyous } from "@/src/BE/serverActions/actions";
+import styles from "../../../../styles/styles.module.css";
 import Swiper from "swiper";
 import {Navigation,Pagination} from 'swiper/modules';
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import WaveformComponent from "../libraries/Wavesurfer";
-import { downloadFile, downloadMedia } from "@/src/core/lib/helpers";
+import { downloadMedia } from "@/src/core/lib/helpers";
+import Loading from "@/app/loading";
+import CreateDenonymousForm from "@/src/BE/components/CreateDenonymousForm";
 
 
 
@@ -352,3 +354,83 @@ return ()=>{
 //       </section>
 //   )
 // }
+export const CreateDenonymousClient = () => {
+  const initialState = {
+    message: '',
+  }
+  const [isOpen, setIsOpen] = useState(false);
+  const [state, formAction] = useFormState(createDenonyous, initialState)
+
+  const handleModalOpen = () => {
+    setIsOpen(true);
+  };
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+  return (
+    <div>
+      <div
+        onClick={handleModalOpen}
+        style={{ cursor: "pointer" }}
+        className="flex items-center justify-center flex-col"
+      >
+        <svg
+          width="76"
+          height="68"
+          viewBox="0 0 76 68"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M69.0909 35.1594C65.4005 33.8728 61.4153 33.6413 57.5967 34.4915C53.7782 35.3418 50.2823 37.2391 47.514 39.9637C44.7456 42.6884 42.8178 46.129 41.954 49.8873C41.0901 53.6456 41.3253 57.5679 42.6325 61.2H3.45455C2.53834 61.2 1.65967 60.8418 1.01181 60.2042C0.36396 59.5665 0 58.7017 0 57.8V3.4C0 2.49826 0.36396 1.63346 1.01181 0.995837C1.65967 0.358213 2.53834 0 3.45455 0H65.6364C66.5526 0 67.4313 0.358213 68.0791 0.995837C68.727 1.63346 69.0909 2.49826 69.0909 3.4V35.1594ZM34.7527 29.5222L12.6022 11.0092L8.12855 16.1908L34.7976 38.4778L60.9865 16.1738L56.468 11.0296L34.7527 29.5222ZM65.6364 51H76V57.8H65.6364V68H58.7273V57.8H48.3636V51H58.7273V40.8H65.6364V51Z"
+            fill="url(#paint0_linear_169_1289)"
+          />
+          <defs>
+            <linearGradient
+              id="paint0_linear_169_1289"
+              x1="76"
+              y1="34.0725"
+              x2="-4.16699e-07"
+              y2="34.0725"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#FFDF00" />
+              <stop offset="0.276042" stop-color="#F6D108" />
+              <stop offset="0.541667" stop-color="#EDC211" />
+              <stop offset="0.776042" stop-color="#E3B419" />
+              <stop offset="1" stop-color="#DAA521" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <h1 className={styles.gradientHeader + " mt-7 text-xl text-center"}>
+        Create a Denonymous{state?.message}
+      </h1>
+      {isOpen && (
+        <>
+          <section className={`${styles.modal} h-full w-full`}>
+            <div
+              className={`${styles.modalContent} relative bg-[#242222] p-5 w-5/6 sm:w-[500px] h-[500px] mx-auto my-auto`}
+            >
+              <h1
+                className={
+                  "text-center font-bold text-xl pb-3 " + styles.gradientHeader
+                }
+              >
+                Create a Denonymous
+              </h1>
+              <CreateDenonymousForm formAction={formAction} />
+              <button
+                onClick={handleModalClose}
+                className="absolute top-0 right-0 p-4 text-[#fff] text-2xl"
+              >
+                &times;
+              </button>
+            </div>
+          </section>
+        </>
+      )}
+    </div>
+  );
+};

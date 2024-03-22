@@ -2,10 +2,6 @@ import {  createUser, findUserByEmailAndPassword } from "@/src/BE/DB/queries/aut
 import { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
-
-import { passwordHasher } from "./hashers";
-import { connectMongoClient, disConnectMongoClient } from "@/src/BE/DB/conection";
-import { userModelType } from "@/types";
 import { setSessionCookie } from "./Cookie";
 import { userDataTokenSign } from "./JWTFuctions";
 
@@ -18,9 +14,7 @@ credentials:{
 },
 async authorize(credentials) {
     if(!credentials || !credentials.email || !credentials.password) throw new Error("Invalid credentials");
-    await connectMongoClient()
     const user = await findUserByEmailAndPassword(credentials.email,credentials.password);
-    await disConnectMongoClient()
     if(user){
         const {password,...userWithoutPassword}= user
         const token = userDataTokenSign(user.username,user.email,user.UUID,user.isEmailVerified,user.isPremium)

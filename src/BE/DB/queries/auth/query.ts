@@ -1,9 +1,11 @@
 import { denonymousType, replyModelType, userModelType } from "@/types"
 import User from "../../schema/User"
 import { passwordHasher } from "@/src/core/lib/hashers"
+import crypto from 'crypto'
 
 export const findUserByEmail = async(email:string)=>{
-try{const user = await User.findOne({email})
+try{
+  const user = await User.findOne({email})
 return user
 }
 catch(err:any){
@@ -14,6 +16,7 @@ catch(err:any){
 
 export const findUserByEmailAndPassword = async(email:string,password:string)=>{
     try{
+
       const hash = passwordHasher(password)
 
       let user =await User.findOne({username:email,password:hash})
@@ -28,21 +31,17 @@ export const findUserByEmailAndPassword = async(email:string,password:string)=>{
     }
     
 
-    export const createDenonymous = async(email:string,topic:string,uuid:string,desc?:string)=>{
-        const user = await User.findOne({email}) as userModelType
-       let a= user.denonymous.filter((e)=> (e.topic == topic && !e.isDeleted)) 
-       if(a.length > 0){
-    throw new Error("A denonymous with this same topic already exists")
 
-       }
-
-     const link = `${process.env.baseURL}/r/${user.username}/${topic}`
-    await User.updateOne({email},{$push:{denonymous:{topic,link,owner:email,description:desc}}})
-    }
 
 export const createUser=async(username:string,email:string,password?:string)=>{
+
     if(password){
-const user =await User.create({UUID:crypto.randomUUID(),email,password,username})
+     const token = crypto.randomBytes(102).toString('hex')
+const user =await User.create({UUID:crypto.randomUUID(),email,password,username,token:{
+  value:token,
+  requestCount:0,
+  nextRequestable:0
+}})
 return user 
     }else{
         let user = User.findOne({email})
@@ -54,80 +53,34 @@ return user
 }
 
 export const updateUserEmailStatusByUUID=async(UUID:string)=>{
+
     await User.updateOne({UUID},{isEmailVerified:true});
     const user =await User.findOne({UUID})
     return user
 }
 
 export const fetchUsernameData = async(username:string)=>{
+
   const all = await User.findOne({username}) as userModelType;
   if(!all) return
   return all
 }
 
-export const fetchUUIDData = async(UUID:string)=>{
-    const all = await User.findOne({UUID}) as userModelType;
-    if(!all) return
-    return all
+
+export const changeEmailQuery=async(email:string,newEmail:string)=>{
+
+  await User.updateOne({ email },{email:newEmail}) 
+ 
 }
 
-export const sendRelpy=async(username:string,topic:string,reply:replyModelType)=>{
-        const updatedUser = await User.findOne({ username, "denonymous.topic": topic });
-      
-        if (updatedUser) {
-          const denonymousIndex = updatedUser.denonymous.findIndex(
-            (d:any) => d.topic === topic
-          );
-      
-          if (denonymousIndex !== -1) {
-            updatedUser.denonymous[denonymousIndex].replys.push({
-              text: reply.text,
-              media: reply.media,
-              bookmarked: false,
-            });
-      
-            await updatedUser.save(); // Save the updated document
-          }
-        }
-    
-      
-}
-export const denonymousViewStateChange = async(UUID:string,topic:string)=>{
-    const updatedUser = await User.findOne({ UUID, "denonymous.topic": topic });
-      
-    if (updatedUser) {
-        const denonymousIndex = updatedUser.denonymous.findIndex(
-          (d:any) => d.topic === topic
-        );
-    
-        if (denonymousIndex !== -1) {
-          updatedUser.denonymous[denonymousIndex].isActive = !updatedUser.denonymous[denonymousIndex].isActive;
-    
-          await updatedUser.save(); // Save the updated document
-        }else{
-            throw new Error("Something went wrong!")
-        }
-      }
+export const updateTokenData=async(email:string)=>{
+
+let updated = await User.updateOne({email},{$inc:{"token.requestCount":1},"token.nextRequestable":Date.now()+(120*1000)})
+
+return await findUserByEmail(email)
 
 }
 
-export const deleteDenonymousDB = async(UUID:string,topic:string)=>{
-  const updatedUser = await User.findOne({ UUID, "denonymous.topic": topic }) 
-  if (updatedUser) {
-      const denonymousIndex = updatedUser.denonymous.findIndex(
-        (d:any) => d.topic === topic
-      );
-
+export const changePassword = async()=>{
   
-      if (denonymousIndex !== -1) {
-       let r= updatedUser.denonymous[denonymousIndex].replys as replyModelType[]
-       
-        updatedUser.denonymous.splice(denonymousIndex,1)
-        await updatedUser.save(); // Save the updated document
-        return r
-      }else{
-          throw new Error("Something went wrong!")
-      }
-    }
-
 }

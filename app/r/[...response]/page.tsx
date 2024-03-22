@@ -15,8 +15,9 @@ async function fetchUser(username:string) {
 }
 
 async function page({params}:{params:{response:string[]}}) {
-  const [username,topic_]= params.response
+  const [username_,topic_]= params.response
   let topic = decodeURI(topic_)
+  let username = decodeURI(username_)
   let userdata
 
   let isSession = false

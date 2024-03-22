@@ -1,7 +1,4 @@
-import {
-  connectMongoClient,
-  disConnectMongoClient,
-} from "@/src/BE/DB/conection";
+
 import { updateUserEmailStatusByUUID } from "@/src/BE/DB/queries/auth/query";
 import { setSessionCookie } from "@/src/core/lib/Cookie";
 import { userDataTokenSign } from "@/src/core/lib/JWTFuctions";
@@ -13,7 +10,6 @@ export async function GET(req: NextRequest) {
     const key = req.nextUrl.searchParams.get("key");
 
     if (!key) throw new Error("Invalid verification key");
-    await connectMongoClient();
     const user = (await updateUserEmailStatusByUUID(key)) as userModelType;
     const token = userDataTokenSign(
       user.username,
@@ -24,14 +20,12 @@ export async function GET(req: NextRequest) {
     );
     setSessionCookie(token);
     
-    await disConnectMongoClient();
     return NextResponse.redirect(new URL("/auth/signin",req.nextUrl));
   } catch (err: any) {
     console.log(err);
     // this return would be modified with if else to check for several possible errors and return the appropraite messages and the respective status codes
     // e g the check logic is to see if an email is already on the db and return a fitting response to users
     const errorMessage = err.message as string;
-    await disConnectMongoClient();
 
     return NextResponse.json(
       { message: "internal error", data: null },

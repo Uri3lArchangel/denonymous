@@ -35,7 +35,13 @@ const UserSchema = new Schema({
         type:Boolean,
         default:false
     },
-    passworResetToken:String,
+    token:{
+       type:{
+        value:String,
+        requestCount:Number,
+        nextRequestable:Number
+       } 
+    },
     denonymous:[{
         owner:String,
         isDeleted:{type:Boolean,default:false},

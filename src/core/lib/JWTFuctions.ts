@@ -14,3 +14,9 @@ export const decodeUserDataToken=(token:string)=>{
     const data = JWT.decode(token) as userDataJWTType
     return data
 }
+
+export const signKeyData=({...a})=>{
+    a['timestamp']=Date.now()
+const key = JWT.sign(a,process.env.keygenkey!)
+return key
+}

@@ -6,6 +6,12 @@ export type userModelType = {
   isPremium: boolean;
   username: string;
   isEmailVerified: boolean;
+  token:{
+     value:string,
+     requestCount:number,
+     nextRequestable:number
+    
+ };
   denonymous: {
     owner:string;
     description:string;

@@ -1,13 +1,10 @@
-import { connectMongoClient, disConnectMongoClient } from "@/src/BE/DB/conection";
 import { fetchUUIDData } from "@/src/BE/DB/queries/auth/query";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const { UUID }: { UUID: string } = await req.json();
-await connectMongoClient()
     const all = await fetchUUIDData(UUID);
-    await disConnectMongoClient()
     return NextResponse.json({ user:all },{status:200});
   } catch (err: any) {
     console.log(err);
