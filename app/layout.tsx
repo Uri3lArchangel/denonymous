@@ -34,6 +34,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+      <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
+      </head>
       <body className={inter.className}>
       <div className="min-h-[80px] bg-gray-500 md:hidden pb-10">ads</div>
       <div className="fixed z-[3] left-10 top-20 w-[200px] hidden md:block h-[80%] bg-red-400">ads</div>
