@@ -76,12 +76,12 @@ function PasswordAndConfirm({passwordRef,confirmPasswordRef,strength,setStrength
  * Changes the visibility state of password
  * @param e 
  */
-  const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const togglePasswordVisibility = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
 
-  const toggleConfirmPasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleConfirmPasswordVisibility = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
     setShowPassword2(!showPassword2);
   };

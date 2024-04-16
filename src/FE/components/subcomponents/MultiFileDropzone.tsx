@@ -229,7 +229,7 @@ React.useEffect(()=>{
 
 <>
 <PauseCircle size={30} id={`audio_prev_${i}_pa`} style={{display:"none"}} className="text-[#ffdf00]" onClick={
-  (e:React.MouseEvent<HTMLDivElement>)=>{
+  (e:React.MouseEvent<SVGSVGElement, MouseEvent>)=>{
     let a = document.querySelector("#"+(e.currentTarget.id).replace("_pa","_au")) as HTMLAudioElement;
         a.pause()
         let pl = document.querySelector("#"+(e.currentTarget.id).replace("_pa","_pl")) as HTMLDivElement;
@@ -239,7 +239,7 @@ React.useEffect(()=>{
   }
 } />
 <PlayCircle id={`audio_prev_${i}_pl`}  onClick={
-  (e:React.MouseEvent<HTMLDivElement>)=>{
+  (e:React.MouseEvent<SVGSVGElement, MouseEvent>)=>{
     let a = document.querySelector("#"+(e.currentTarget.id).replace("_pl","_au")) as HTMLAudioElement;
 
     a.play()

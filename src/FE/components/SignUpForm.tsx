@@ -128,12 +128,12 @@ const SignUpForm = () => {
  * Changes the visibility state of password
  * @param e 
  */
-  const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const togglePasswordVisibility = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
 
-  const toggleConfirmPasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleConfirmPasswordVisibility = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
     setShowPassword2(!showPassword2);
   };
@@ -314,7 +314,7 @@ const SignUpForm = () => {
         <p id="email_display"></p>
         <div>
           <label htmlFor="password" className="block text-sm mb-3">
-            Password "
+            Password *
           </label>
           <div>
             <div className="flex border-b-2 border-[#B58419] mb-6">  

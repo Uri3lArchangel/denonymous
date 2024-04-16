@@ -60,7 +60,7 @@ const SixDigitInputField = () => {
     return()=>{
       set({message:"",type:""})
     }
-  },[state.type,pending])
+  },[state.type,pending,notification,router,state])
 
   const handleSubmit = async(e:React.MouseEvent<HTMLButtonElement>) => {
     setPending(true)

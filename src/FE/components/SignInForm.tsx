@@ -22,7 +22,7 @@ const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const {setSession}=useSession()
   const notification = useContext(NotificationContext)!
-  const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const togglePasswordVisibility = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
@@ -31,7 +31,7 @@ const SignInForm = () => {
     await signIn("google", { redirect: false });
   };
 
-  const credentialSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const credentialSignIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     const display1 = document.getElementById("display1") as HTMLParagraphElement;
     const display2 = document.getElementById("display2") as HTMLParagraphElement;

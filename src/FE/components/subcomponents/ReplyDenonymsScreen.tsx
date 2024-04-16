@@ -150,7 +150,7 @@ function ReplyDenonymsScreen({ids,setState}:{ids:string[],setState:React.Dispatc
         setTexts([])
     }
    
-  },[])
+  },[ids])
   return (
     <>
     {pending?<Loading />:null}

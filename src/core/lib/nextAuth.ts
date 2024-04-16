@@ -51,10 +51,7 @@ async authorize(credentials) {
                return true
             }
             return false}catch(err:any){
-                const errorMessage = err.message as string
-                if(errorMessage.includes("duplicate key error") && errorMessage.includes("email")){
-                  throw new Error("This email is already registered, try signing in")
-                }
+               return false
             }
         },
       

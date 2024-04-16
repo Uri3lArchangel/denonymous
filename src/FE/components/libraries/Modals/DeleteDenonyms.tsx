@@ -16,7 +16,7 @@ function DeleteDenonymsModal({setModal,modal,topic,setLoading}:{modal:boolean,se
     const {edgestore}  = useEdgeStore()
 
   useEffect(()=>{
-    modal=false
+   setModal(false)
   })
     const styles = {mask:{backdropFilter:"blur(6px)"},"body":{backgroundColor:"transparent"},header:{backgroundColor:"transparent"},content:{backgroundColor:"#000",border:"1px solid #f6d108"},wrapper:{backgroundColor:"#fff3"},footer:{backgroundColor:"transparent"}} as ModalStyles
   return (

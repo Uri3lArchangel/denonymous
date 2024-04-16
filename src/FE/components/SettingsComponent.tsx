@@ -143,7 +143,7 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
            }
         }
 
-    },[unameState.type,emailState.type,passwordState.type])
+    },[unameState.type,emailState.type,passwordState.type,emailState.message,notification,passwordState.message,unameState.message])
   return (
 <section className='bg-black py-8 pt-6 backgroundVector'>
     <DeleteAccountModal state={deleteModalState} setState={setDeleteModalState}/>

@@ -14,7 +14,7 @@ import { NotificationContext } from "../contexts/NotificationContext";
 import ResponsesSVG from "../assets/ResponsesSVG";
 
 export const MyDenonyms = ({ posts }: { posts?: denonymousType[] }) => {
-  const [isCopied, setIsCopied] = useState(false);
+  // const [isCopied, setIsCopied] = useState(false);
   const [modal, setModal] = useState(false);
   const [topic,setTopic] = useState<string>()
   const [deleteDenonymousModal,setDeleteDenonymousModal]=useState(false)

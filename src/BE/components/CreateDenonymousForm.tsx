@@ -20,7 +20,7 @@ function CreateDenonymousForm({handleModalClose}:{handleModalClose:any}) {
         notification({type:state.type as any,message:state.message,description:""})
         handleModalClose()
       }
-    },[state.type])
+    },[state.type,handleModalClose,notification,state.message])
 
 
   return (

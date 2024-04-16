@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 function PasswordInput({passwordRef,password,handleChange}:{passwordRef?:React.LegacyRef<HTMLInputElement>,password?:string,handleChange?:React.ChangeEventHandler<HTMLInputElement> }) {
     const [showPassword, setShowPassword] = useState(false);
-    const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const togglePasswordVisibility = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
         e.preventDefault();
         setShowPassword(!showPassword);
       };

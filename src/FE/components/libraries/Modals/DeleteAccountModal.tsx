@@ -1,8 +1,6 @@
 import React, { CSSProperties, SetStateAction, useContext, useEffect, useState } from 'react'
 import { ModalComponent } from '../antd'
 import { deleteAccountAction } from '@/src/BE/serverActions/settingsactions'
-import { NotificationContext } from '../../contexts/NotificationContext'
-import DeleteAccountButton from '@/src/BE/components/DeleteAccountButton'
 import { useSession } from '../../hooks/SessionHook'
 import Loading from '@/app/loading'
 

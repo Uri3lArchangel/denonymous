@@ -7,10 +7,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req:NextRequest) {
     let {cookie} =await req.json()
   
-    if(!cookie ) return NextResponse.redirect(new URL("/auth/sigin",req.nextUrl));
+    if(!cookie) return NextResponse.redirect(new URL("/auth/sigin",req.nextUrl));
   
     const token = verifyUserDataToken(cookie)
     if(!token) return NextResponse.redirect(new URL("/auth/sigin",req.nextUrl));
 const user = await findUserByEmail(token.email) as userModelType
+if(!user){
+     return NextResponse.redirect(new URL("/auth/sigin",req.nextUrl));
+}
 return NextResponse.json({data:user},{status:200})
 }

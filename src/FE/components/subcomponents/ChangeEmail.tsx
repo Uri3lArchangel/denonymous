@@ -19,7 +19,7 @@ useEffect(()=>{
     notification({type:state.type as any,message:state.message,description:''})
     }
 
-},[state.type,pending])
+},[state.type,pending,notification,state.message])
 
 
     const saveEmail = async(e:React.MouseEvent<HTMLButtonElement>)=>{
