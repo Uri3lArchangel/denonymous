@@ -1,4 +1,3 @@
-'use server'
 import {  replyModelType, userModelType } from "@/types"
 import User from "../../schema/User"
 import { removeWhitespace } from "@/src/core/lib/helpers"
@@ -23,12 +22,6 @@ revalidateTag("notifications_fetch_tag")
 
 }
 
-export const fetchUUIDData = async(UUID:string)=>{
-
-    const all = await User.findOne({UUID}) as userModelType;
-    if(!all) return
-    return all
-}
 
 export const sendRelpy=async(username:string,topic:string,reply:replyModelType)=>{
 
