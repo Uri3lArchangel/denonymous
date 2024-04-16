@@ -4,11 +4,8 @@ import Image from "next/image";
 import React, { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import style from "../../../../styles/styles.module.css";
 import { Download, DownloadIcon, PlayCircle, Share2Icon, XIcon, XOctagonIcon } from "lucide-react";
-import {CarouselApp, FloatButtonComponent, ModalComponent} from "../libraries/antd";
+import {FloatButtonComponent, ModalComponent} from "../libraries/antd";
 import { CiLink } from "react-icons/ci";
-import { render, useFormState, useFormStatus } from "react-dom";
-import * as htmlImages from "html-to-image";
-import { createDenonyous } from "@/src/BE/serverActions/actions";
 import styles from "../../../../styles/styles.module.css";
 import Swiper from "swiper";
 import {Navigation,Pagination} from 'swiper/modules';
@@ -19,6 +16,8 @@ import WaveformComponent from "../libraries/Wavesurfer";
 import { downloadMedia } from "@/src/core/lib/helpers";
 import Loading from "@/app/loading";
 import CreateDenonymousForm from "@/src/BE/components/CreateDenonymousForm";
+import ReplyDenonymsScreen from "./ReplyDenonymsScreen";
+import { useSession } from "../hooks/SessionHook";
 
 
 
@@ -38,13 +37,8 @@ function VideoElement({ src, mimeType }: { src: string; mimeType: string }) {
 
 
 export function Replys({ replys }: { replys: replyModelType[] }) {
-  // const ss = async () => {
-  //   let node = document.getElementById("content") as HTMLDivElement;
-  //   let data = await htmlImages.toJpeg(node);
-  //   console.log(data);
-  //   setImage(data);
-  // };
 
+const {user,session} = useSession()
 // All states
   const [viewer,setViewerState]= useState<{img: {
     link: string;
@@ -53,8 +47,9 @@ export function Replys({ replys }: { replys: replyModelType[] }) {
   const [shareState, setShareState] = useState(false);
   const [index, setIndex] = useState(0);
   const [initialSlide,setInitialSlide]=useState(0)
-  const [selectedReplys,setSelectedReplys]=useState<string[]>([])
-
+  const [selectedResponses,setSelectedResponses]=useState<string[]>([])
+  const [reply,setReplyState]=useState(false)
+  const [uname,setUname]=useState("")
 // refs
 const audioRef = useRef<HTMLAudioElement | null>(null);
 const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -64,10 +59,16 @@ const canvasRef = useRef<HTMLCanvasElement | null>(null);
     navigator.clipboard.writeText(a);
   };
 
+const replySS=()=>{
+  setReplyState(true)
+}
 
   // use effect
 
   useEffect(() => {
+    const url = window.location.pathname
+   
+    setUname( url.split("/")[2])
     let swiper:Swiper
    if(viewer.display){
     swiper = new Swiper('.swiper',{
@@ -103,8 +104,9 @@ return ()=>{
   return (
     // style={{filter:viewer.display == true?"brightness(0.4) blur(10px)":"brightness(1) blur(0px)" }}
     <>
-    <FloatButtonComponent className={`${selectedReplys.length ==0?"bottom-[-10%] opacity-0 transition-[bottom] duration-[0.4s]":"bottom-[10%] opacity-[1] transition-[bottom] duration-[0.4s]"}`} />
-{viewer.display?<XIcon className={"fixed  text-[#ffdf00] bg-black p-[2px] cursor-pointer  rounded-full right-[2%] top-10 z-[10] " } size={40} onClick={
+    {reply?<ReplyDenonymsScreen setState={setReplyState} ids={selectedResponses} />:null}
+    <FloatButtonComponent  replySS={replySS} className={`${selectedResponses.length ==0?"bottom-[-10%] opacity-0 transition-[bottom] duration-[0.4s]":"bottom-[10%] opacity-[1] transition-[bottom] duration-[0.4s]"}`} />
+{viewer.display?<XIcon className={"fixed  text-[#ffdf00] bg-black p-[2px] cursor-pointer  rounded-full right-[2%] top-10 z-[8] " } size={40} onClick={
   ()=>{
     setViewerState((prev)=>{
       return{img:[],display:false}
@@ -112,13 +114,13 @@ return ()=>{
   }
 } />:<></>
 }    
-<div id="image_viewer"  className={viewer.display ? "fixed h-[100vh]  w-full left-0 top-0 z-[5] bg-black overflow-y-scroll " : ""}>
+<div id="image_viewer"  className={viewer.display ? "fixed h-[100vh] py-8  w-full left-0 top-0 z-[7] bg-black overflow-y-scroll " : ""}>
 <div className="swiper relative h-[100%] ">
 <div className="swiper-wrapper absolute">
   {viewer.img.map((e, index) => (
 
     <div key={index} className="image-container swiper-slide">
-      <DownloadIcon size={35} className="absolute top-12 left-[5%] text-[#ffdf00] z-10 cursor-pointer" onClick={
+      <DownloadIcon size={35} className="absolute top-12 left-[5%] text-[#ffdf00] z-[7] cursor-pointer" onClick={
         ()=>{
           downloadMedia(e.link)
         }
@@ -151,8 +153,7 @@ return ()=>{
   <div className="swiper-button-next"></div>
   <div className="swiper-pagination"></div>
   </div>
-
-
+    
 </div>
 
     <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
@@ -161,17 +162,7 @@ return ()=>{
         All Responses({replys.length})
       </h3>
       <ul  className={viewer.display?"overflow-y-hidden":""}>
-        {/* <div id="content" className="text-white text-2xl">hellooooooo</div>
-      <Image src={image} alt="" width={500} height={500}/>
-      <div onClick={()=>{
-        let link =document.createElement("a") as HTMLAnchorElement;
-        link.href=image;
-        link.download = `image.png`
-        link.click()
-
-      }}>Download image</div>
-      <button onClick={ss} className="bg-red-500">take ss</button> */}
-      
+   
         {replys.map((e, n) => 
         {
           let l = e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "video" || f.mimeType.split("/")[0].toLowerCase() == "image")
@@ -183,22 +174,25 @@ return ()=>{
             key={n}
             onClick={
               (e)=>{
+                if(!session || !user || user.username != uname){
+                  return
+                } 
                 const id = `${(e.currentTarget.id)}`
-                let index=selectedReplys.findIndex((n)=>n==id);
+                let index=selectedResponses.findIndex((n)=>n==id);
                 if(index < 0){
-                if(selectedReplys.length >= 3)return
+                if(selectedResponses.length >= 3)return
 
-                  setSelectedReplys(prev=>[...prev,id])
+                  setSelectedResponses(prev=>[...prev,id])
                   e.currentTarget.style.backgroundColor="#555"
 
                 }else{
-                  setSelectedReplys(prev=>prev.filter(a=>a!=id))
-                  e.currentTarget.style.backgroundColor="#1E1E1E"
+                  setSelectedResponses(prev=>prev.filter(a=>a!=id))
+                  e.currentTarget.style.backgroundColor="#000"
 
                 }
               }
             }
-            className="mt-10 mb-4 py-16 px-4 w-[95%] rounded-[10px] mx-auto bg-[#1E1E1E] cursor-pointer"
+            className="mt-10 mb-4 py-16 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-pointer"
           >
             
             <div className={
@@ -212,7 +206,7 @@ return ()=>{
                     return(
                       <div
                       id={`media_${index}`}
-                      className={`w-fit media_${index} bg-gray-900/80 border-[#595119a8]  border-2 rounded-[3px] flex items-center justify-center relative`}
+                      className={`w-fit media_${index}bg-[#111]  rounded-[3px] flex items-center justify-center relative`}
                       key={index}
                       onClick={(e)=>{
                         e.stopPropagation()
@@ -229,7 +223,7 @@ return ()=>{
                           height={240}
                           
                           alt=""
-                          className="min-h-[100px]  h-full h "
+                          className="min-h-[100px]  h-full  "
                          
                         />:mimeType == "video"?<PlayCircle className="rounded-[3px] h-full opacity-[0.4] " />:null}
                        <p className="absolute text-center text-2xl mx-auto left-0 right-0 top-[20%] z-2 ">
@@ -245,7 +239,7 @@ return ()=>{
                     return (
                       <div
                         id={`media_${index}`}
-                        className={`w-fit media_${index} bg-gray-900 border-[#ffdd00a8] border-2 rounded-[3px] flex items-center justify-center hover:scale-[1.07] transition-transform duration-[0.3s] `}
+                        className={`w-fit media_${index} bg-[#111]  rounded-[3px] flex items-center justify-center hover:scale-[1.02] transition-transform duration-[0.3s] `}
                         key={index}
                         onClick={(e)=>{
                           e.stopPropagation()
@@ -293,7 +287,7 @@ return ()=>{
                 }
               })}
             </div>
-            <p>{e.text}</p>
+            <p id="text-response" className="my-2">{e.text}</p>
             <ModalComponent
               setState={setShareState}
               state={shareState}
@@ -355,12 +349,11 @@ return ()=>{
 //   )
 // }
 export const CreateDenonymousClient = () => {
-  const initialState = {
-    message: '',
-  }
-  const [isOpen, setIsOpen] = useState(false);
-  const [state, formAction] = useFormState(createDenonyous, initialState)
 
+
+  const [isOpen, setIsOpen] = useState(false);
+
+ 
   const handleModalOpen = () => {
     setIsOpen(true);
   };
@@ -405,7 +398,7 @@ export const CreateDenonymousClient = () => {
       </div>
 
       <h1 className={styles.gradientHeader + " mt-7 text-xl text-center"}>
-        Create a Denonymous{state?.message}
+        Create a Denonymous
       </h1>
       {isOpen && (
         <>
@@ -419,11 +412,11 @@ export const CreateDenonymousClient = () => {
                 }
               >
                 Create a Denonymous
-              </h1>
-              <CreateDenonymousForm formAction={formAction} />
+              </h1> 
+              <CreateDenonymousForm handleModalClose={handleModalClose} />
               <button
-                onClick={handleModalClose}
                 className="absolute top-0 right-0 p-4 text-[#fff] text-2xl"
+                onClick={handleModalClose}
               >
                 &times;
               </button>

@@ -1,4 +1,4 @@
-import { userDataJWTType } from '@/types'
+import { userDataJWTType, userNotificationType } from '@/types'
 import JWT from 'jsonwebtoken'
 
 export const userDataTokenSign = (username:string,email:string,uuid:string,verified:boolean,premium:boolean)=>{
@@ -6,6 +6,7 @@ export const userDataTokenSign = (username:string,email:string,uuid:string,verif
     return JWT.sign({email,username,uuid,verified,premium,randomKey},process.env.userDataTokenKey!+randomKey)
 }
 export const verifyUserDataToken=(token:string)=>{
+    if(!token){return}
     const {randomKey} = (JWT.decode(token) as userDataJWTType)
     const data = JWT.verify(token,process.env.userDataTokenKey!+randomKey) as userDataJWTType | undefined 
     return data

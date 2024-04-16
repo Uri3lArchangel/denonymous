@@ -38,7 +38,7 @@ const UserSchema = new Schema({
     token:{
        type:{
         value:String,
-        requestCount:Number,
+        expires:Number,
         nextRequestable:Number
        } 
     },
@@ -77,6 +77,17 @@ const UserSchema = new Schema({
                 
             }
             ]
+    }],
+    notifications:[{
+     
+        owner:String,
+        category:{type:String,required:true},
+        data:String,
+        link:String,
+        opened:{type:Boolean,default:false},
+        date:{
+            type:Number,
+            default:Date.now()}
     }]
 })
 

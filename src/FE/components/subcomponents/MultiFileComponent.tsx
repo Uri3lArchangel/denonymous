@@ -105,9 +105,9 @@ export function MultiFileDropzoneUsage({
   return (
     <div className="full_response_container_textarea">
              <div className='flex w-[60%] max-w-[300px]  md:h-fit justify-between mx-auto my-2 md:my-0 md:w-fit ' id="uploadMediaIcons">
-     <label htmlFor="chick_a"><AiFillPicture  size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2"/></label>
-     <label htmlFor="chick_b"><BsCameraVideoFill size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>
-     <label htmlFor="chick_c"><MdOutlineAudioFile size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>
+     <label aria-disabled={sending}  htmlFor={`${sending?"":"chick_a"}`}><AiFillPicture disabled={sending}  size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2"/></label>
+     <label aria-disabled={sending} htmlFor={`${sending?"":"chick_b"}`}><BsCameraVideoFill  disabled={sending} size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>
+     <label aria-disabled={sending} htmlFor={`${sending?"":"chick_c"}`}><MdOutlineAudioFile disabled={sending} size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>
 </div>
 <div id="previewMediaContainer"
 >
@@ -115,7 +115,7 @@ export function MultiFileDropzoneUsage({
       id="chick_a"
       className="w-[90%] mx-auto hidden"
         value={fileStates1}
-    
+      disabled={sending}
         generalFileStateAction={fileStates}
         setGeneralFileStateAction={setFileStates}
         onChange={(files) => {
@@ -134,6 +134,8 @@ export function MultiFileDropzoneUsage({
       />
         <MultiFileDropzone
         id="chick_b"
+      disabled={sending}
+
       className="w-[90%] mx-auto hidden"
       dropzoneOptions={{accept:{"video/*":videoExtensions}}}
 
@@ -151,7 +153,9 @@ export function MultiFileDropzoneUsage({
       /> 
        <MultiFileDropzone
        id="chick_c"
-      className="w-[90%] mx-auto hidden"
+      disabled={sending}
+
+      className="w-[90%] mx-auto hidden "
         value={fileStates3}
     
         generalFileStateAction={fileStates}
@@ -181,6 +185,7 @@ export function MultiFileDropzoneUsage({
               try {
                 if(addedFileState.progress!="COMPLETE")
                 {
+                  setSending(true)
                   const res = await edgestore.denonymousMedia.upload({
                   file: addedFileState.file,
                   options: {
@@ -194,6 +199,8 @@ export function MultiFileDropzoneUsage({
                       // so that the user can see the progress bar at 100%
                       await new Promise((resolve) => setTimeout(resolve, 1000));
                       updateFileProgress(addedFileState.key, "COMPLETE");
+                setSending(false)
+
                     }
                   },
                 });
@@ -201,8 +208,11 @@ export function MultiFileDropzoneUsage({
                   ...prev,
                   { link: res.url, mimeType: addedFileState.file.type },
                 ]);
+
               }} catch (err) {
                 updateFileProgress(addedFileState.key, "ERROR");
+                setSending(false)
+
               }
             })
           );
@@ -237,11 +247,17 @@ export function MultiFileDropzoneUsage({
          
           (document.getElementById("response") as HTMLTextAreaElement).value = "";
           setFileStates([])
+          setFileStates1([])
+          setFileStates2([])
+          setFileStates3([])
           setMedia([])
           setSending(false)
         }catch(err:any){
           setFileStates([])
-          setMedia([])
+          setFileStates1([])
+          setFileStates2([])
+          setFileStates3([])
+                setMedia([])
             setSending(false)
           }
         }}

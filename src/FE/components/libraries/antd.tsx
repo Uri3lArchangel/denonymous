@@ -4,8 +4,8 @@ import {  ButtonProps, Modal } from 'antd';
 import { Carousel } from 'antd';
 import { CommentOutlined, CustomerServiceOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
-import { BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
-import { Share2Icon } from 'lucide-react';
+import { BsReplyFill, BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
+import { Download, Share2Icon } from 'lucide-react';
 
 export interface ModalStyles {
   header?: CSSProperties;
@@ -15,13 +15,13 @@ export interface ModalStyles {
   wrapper?: CSSProperties;
   content?: CSSProperties;
 }
-export const ModalComponent = ({state,setState,styles,children,ok,title,key,mask,maskC,CancelButton,onOk}:{state:boolean,setState:React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode,ok?:boolean,title:string | React.ReactNode,key?:any,mask?:boolean,maskC?:boolean,styles?:Omit<ModalStyles, "wrapper"> | undefined,CancelButton?:ButtonProps,onOk?:any}) => {
+export const ModalComponent = ({children,state,setState,styles,ok,title,key,mask,maskC,CancelButton,onOk}:{state:boolean,setState:React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode,ok?:boolean,title:string | React.ReactNode,key?:any,mask?:boolean,maskC?:boolean,styles?:Omit<ModalStyles, "wrapper"> | undefined,CancelButton?:ButtonProps,onOk?:any}) => {
 
 
   return (
     <>
    
-      <Modal key={key} styles={styles} title={title} mask={mask} maskClosable={maskC} open={state} cancelButtonProps={{className:"text-white",danger:true}} onOk={onOk} okType={'default'}  okText={ok?"ok":null} okButtonProps={ok?{className:"text-[#fff]"}:undefined} onCancel={()=>{setState(false)}}>
+      <Modal key={key} styles={styles} title={title} mask={mask} maskClosable={maskC} open={state} cancelButtonProps={{className:"text-white",danger:true}} onOk={onOk} okType={'default'}  okText={ok?"ok":null} okButtonProps={ok?{className:"text-[#fff]"}:{hidden:true}} onCancel={()=>{setState(false)}}>
  {children}
       </Modal>
     </>
@@ -57,16 +57,32 @@ export const CarouselApp = ({children,className}:{children:React.ReactNode,class
 // icon={<BsThreeDotsVertical size className="text-black" />}
 
 
-export const FloatButtonComponent = ({className,selectedIds}:{className?:string,selectedIds?:string}) => (
+export const FloatButtonComponent = ({className,selectedIds,replySS}:{className?:string,selectedIds?:string,replySS:any}) => (
   <>
     <FloatButton.Group
       className={className}
       type="primary"
       style={{ right: 30 }}
+      icon={<BsThreeDotsVertical />}
+      trigger='click'
+      
     
     >
-      <FloatButton  icon={<Share2Icon size={20} className="translate-x-[-2px]" />} />
-      {/* <FloatButton icon={<CommentOutlined />} /> */}
+      {/* <TooltipApp text='' title='share resonses'>
+
+      <FloatButton  icon={
+      <Share2Icon size={20} className="translate-x-[-2px]" />
+      }  />
+      </TooltipApp> */}
+      <TooltipApp text='' title='reply and share responses'>
+
+      <FloatButton icon={
+      
+      <BsReplyFill size={20} 
+      
+      />
+      } onClick={replySS}/>
+      </TooltipApp>
     </FloatButton.Group>
    
   </>
@@ -123,3 +139,66 @@ if(text.length >= 24){
     </Dropdown>)
   };
   
+
+import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group',
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
+
+const items: MenuItem[] = [
+  getItem('Company', 'sub1',null, [
+    getItem('About Us', '1'),
+    getItem('Community', '2'),
+
+  ]),
+  getItem('Contact', 'sub2', null, [
+    getItem('Option 5', '5'),
+    getItem('Option 6', '6'),
+    getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+  ]),
+
+];
+
+// submenu keys of first level
+const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+
+const MenuApp = () => {
+  const [openKeys, setOpenKeys] = useState(['sub1']);
+
+  const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+    if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  };
+
+  return (
+    <Menu
+      mode="inline"
+      openKeys={openKeys}
+      onOpenChange={onOpenChange}
+      style={{ width: 256 }}
+      items={items}
+    />
+  );
+};
+
+export default MenuApp;

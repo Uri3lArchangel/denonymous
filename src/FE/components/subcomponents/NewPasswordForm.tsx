@@ -1,17 +1,25 @@
 'use client'
+import { changePasswordAction } from '@/src/BE/serverActions/authactions';
 import { calculateStrength } from '@/src/core/lib/helpers';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
+import { NotificationContext } from '../contexts/NotificationContext';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import logo from "@/public/images/logo.png";
+import Image from 'next/image';
 
-const NewPasswordForm = () => {
+const NewPasswordForm = ({token}:{token:string}) => {
     //  states
     const [password, setPassword] = useState('');
     const [strength, setStrength] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-  
-  
-  
+  const [pending,setPending]=useState(false)
+
+//router
+const router = useRouter()
+
 /**
  * Calculates the strength of each feature of the password
  * @param {string} pass 
@@ -93,11 +101,52 @@ const NewPasswordForm = () => {
 
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
-
+  const notification = useContext(NotificationContext)!
+    
+  const passwordChangeFunction = async(e:React.MouseEvent<HTMLButtonElement>)=>{
+    e.preventDefault()
+    
+    if(!passwordRef.current || !confirmPasswordRef.current){
+    
+      return 
+    }
+    const p = document.getElementById("pass_display") as HTMLParagraphElement;
+    p.innerText=""
+    if(!passwordRef.current.value){
+      p.innerText="Please provide a password"
+      p.style.color="red"
+      return
+    }
+    p.innerText=""
+    if(strength <3){
+      return
+    }
+    if(passwordRef.current.value != confirmPasswordRef.current.value){
+      return
+    }
+ setPending(true)
+   const stat = await changePasswordAction(token,passwordRef.current.value)
+   setPending(false)
+   if(stat != "success"){
+    router.push("/auth/signin")
+    notification({
+      message:"An error occured",
+      type:"error",
+      description:""
+     })
+   }
+   notification({
+    message:"Password changed successfully",
+    type:"success",
+    description:""
+   })
+  }
 
   return (
    <div>
-    <form action="" className=' backgroundVector bg-black text-white  transform shadow-div rounded-md px-10 w-[95%] max-w-[350px] mx-auto py-20'>
+    <form  className=' backgroundVector bg-black text-white  transform shadow-div rounded-md px-10 w-[95%] max-w-[350px] mx-auto py-20'>
+    <Link href="/"><Image src={logo}  alt="denonymous" className="w-[60%] mx-auto"/></Link>
+        
         <h1 className='mb-4'>Create a new password</h1>
         <hr />
         <div className='mt-8'>
@@ -148,8 +197,14 @@ const NewPasswordForm = () => {
           </div>
         </div>
         <p id="password_display"></p>
-        <button className='gradient_elements_div w-full max-w-[100px] rounded-md block text-black py-4'>Submit</button>
-    </form>
+
+        <button 
+    onClick={
+      passwordChangeFunction
+      
+    }
+    
+    className='gradient_elements_div w-full sm:w-fit sm:px-6 max-w-[100px] rounded-md block text-black py-4' disabled={pending}>{pending?"Submitting...":"Submit"}</button>     </form>
    </div>
   
   )

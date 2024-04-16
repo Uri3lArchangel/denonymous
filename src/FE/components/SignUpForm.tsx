@@ -276,9 +276,9 @@ const SignUpForm = () => {
       <form
         action=""
         id="form_signup"
-        className={`border  w-[95%] rounded-[15px] max-w-[450px]  border-none  py-12 px-10 bg-[#020106] text-white backgroundVector ${styles.all}`}
+        className={`border shadow-div w-[95%] rounded-[15px] max-w-[450px]  border-none my-8 py-12 px-10 bg-[#020106] text-white backgroundVector ${styles.all}`}
       >
-      
+        <Link href="/"><Image src={logo}  alt="denonymous" className="w-[60%] mx-auto"/></Link>
         <div className="text-center mb-8">
           <h2 className="font-bold text-[19px] my-3">Create a new account</h2>
           <p className="text-sm italic text-[#c9c1c1c9] ">&quot;share and receive anonymous messages&quot;</p>

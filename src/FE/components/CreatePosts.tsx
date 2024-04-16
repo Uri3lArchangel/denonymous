@@ -26,7 +26,6 @@ export const fetchDenonymousOnLoad = async () => {
   const data = await res.json();
   if (!data.data) return [];
   let user = data.data;
-  console.log({de:user.denonymous})
   return user.denonymous as denonymousType[];
 };
 
@@ -40,7 +39,7 @@ const CreatePost = async () => {
     <>
       <section
         className={
-          "bg-[#000000] min-h-[100vh] pt-24  pb-10" + styles.background
+          "bg-[#000000] min-h-[100vh] pt-24 " + styles.background
         }
       >
         <div className="mb-20">
@@ -54,7 +53,7 @@ const CreatePost = async () => {
           <CreateDenonymousClient />
         <h2>My Denonyms</h2>
 
-        <div>
+        <div className="pb-10">
           <MyDenonyms posts={posts ? posts.reverse() : []} />
         </div>
       </section>

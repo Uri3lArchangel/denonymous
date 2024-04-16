@@ -2,7 +2,7 @@
 import { getCsrfToken, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useContext } from "react";
-import logo from "../../../public/images/logo.png";
+import logo from "@/public/images/logo.png";
 import Image from "next/image";
 import styles from "../../../styles/styles.module.css";
 import Link from "next/link";
@@ -13,12 +13,14 @@ import { NotificationContext } from "./contexts/NotificationContext";
 import { FaEyeSlash } from "react-icons/fa";
 import loader from '../../../public/images/spinner.gif'
 import { EyeIcon, EyeOffIcon, ScanEyeIcon } from "lucide-react";
+import { SessionContext } from "./contexts/SessionContext";
+import { useSession } from "./hooks/SessionHook";
 
 const SignInForm = () => {
   const [loading,setLoading]=useState(false)
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-
+  const {setSession}=useSession()
   const notification = useContext(NotificationContext)!
   const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -57,8 +59,10 @@ const SignInForm = () => {
       password: formdata.get("password"),
       redirect: false,
     });
+
       setLoading(false)
     if (signinResponse?.status == 200) {
+      setSession(true)
       notification(
         {
           type:"success",
@@ -66,7 +70,7 @@ const SignInForm = () => {
           description:""
         }
       )
-      setTimeout(()=>{router.push("/")},2000)
+      setTimeout(()=>{window.location.href="/"},2000)
     }else{
 
    const errorname=signinResponse?.error 
@@ -83,8 +87,9 @@ const SignInForm = () => {
     <>
     <form
     id="signinform"
-      className={`border backgroundVector border-[#EDC211] rounded-[15px] max-w-[400px] w-[95%] px-8 py-12 bg-[#020106] text-white ${styles.all}`}
+      className={` shadow-div backgroundVector my-8 rounded-[15px] max-w-[400px] w-[95%] px-8 py-12 bg-[#020106] text-white ${styles.all}`}
     >
+        <Link href="/"><Image src={logo}  alt="denonymous" className="w-[60%] mx-auto"/></Link>
      
       <div className="text-center mb-14">
         <h2 className="font-bold text-[19px] my-3">Log in to your account</h2>

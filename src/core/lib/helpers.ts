@@ -1,4 +1,4 @@
-import { userModelType } from "@/types"
+import { userModelType, userNotificationType } from "@/types"
 import crypto from 'crypto'
 export const URLRESOLVE =(a:string)=>{
 if(process.env.NODE_ENV =="production"){
@@ -13,7 +13,6 @@ export const filterDenonymous=(all:userModelType,topic:string)=>{
     if(!all.denonymous) throw new Error("This denonymous does not exist or has been deleted|client")
 
     const Denonymous = all.denonymous.filter((e)=>(e.responsesViewState && e.topic==topic && !e.isDeleted)) 
-    console.log({Denonymous,topic})
     if(Denonymous.length == 0)  throw new Error("This denonymous does not exist or has been deleted|client")
     return Denonymous[0]
 }
@@ -70,11 +69,11 @@ export const downloadMedia=async(src:string)=>{
   }
   export const generateAndSendResetEmailLink=(email:string)=>{
     const hash = crypto.createHash('SHA256').update(process.env.resetSalt+email+process.env.resetSalt+Date.now()).digest('hex')
-    
+    return hash
     }
     
 
-    export function validateEmail(email: string): { status: string } {
+    export function validateEmail(email: string): { status: "error"|"success" } {
         // Regular expression for email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
@@ -128,3 +127,53 @@ export const calculateStrength = (pass: string) => {
 
     return score;
   };
+
+  export function removeWhitespace(str: string): string {
+    return str.trim();
+}
+
+export function code_generator() {
+  if(`${Math.ceil(Math.random() * 1000000)}`.length != 6){
+    code_generator()
+  }
+  return Math.ceil(Math.random() * 1000000);
+}
+
+export const notificationDataTraucate = (a:string)=>{
+if(a.length >= 50){
+  
+a = a.substring(0,50)
+a= a+"...."
+return a
+}
+}
+export const largeNumbersTrauncate=(a:number | string )=>{
+  if(typeof a == "number"){
+    if(a > 99){
+      return String(a+"+")
+    }else{
+      return String(a)
+    }
+    
+  }else if(typeof a == "string"){
+      let n = parseInt(a)
+      if(n > 99){
+
+        return String(n+"+")
+      }else{
+      return  String(a)
+      }
+    }else{
+      return "0"
+    }
+  
+}
+
+export const fetchNotificationsClient = async()=>{
+
+  const res = await fetch(URLRESOLVE("/api/fetchUserNav"),{next:{tags:['notifications_fetch_tag'],revalidate:0}})
+  const data = await res.json()
+
+ const a = (data.data.notifications.filter((e:any)=>!e.opened)).length
+ return a as number
+}

@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { verifyUserDataToken } from './src/core/lib/JWTFuctions'
 import { cookies } from 'next/headers'
-import { userDataJWTType } from './types'
-import { connectMongoClient } from './src/BE/DB/conection'
- 
+import { userDataJWTType, userModelType } from './types'
+
+
 const fetchUserViaJWT=async(cookie:any)=>{
-   try{ if(!cookie) return null
+   try{ 
+    
+    if(!cookie) return null
     const res = await fetch(process.env.baseURL+"/api/verifyJWT",{method:"POST",body:JSON.stringify({cookie:cookie.value}),mode:"no-cors",next:{revalidate:0}})
 
     return (await res.json()).user as userDataJWTType | null}
@@ -16,10 +17,15 @@ const fetchUserViaJWT=async(cookie:any)=>{
 }
 
 export async function middleware(request: NextRequest) {
-   try{ await fetch(process.env.baseURL+"/api/connect",{next:{revalidate:false}})
+  
+   try{ 
+    let cookie;
+    const cookieObj = cookies().get("denon_session_0")
+    if(cookieObj){
+        cookie = cookieObj.value
+    }
 
     const session =await fetchUserViaJWT(request.cookies.get("denon_session_0"))
-
     if(!session && (!request.nextUrl.pathname.includes("/auth"))){
         return NextResponse.redirect(new URL("/auth/signin",request.nextUrl))
     }
@@ -36,9 +42,13 @@ export async function middleware(request: NextRequest) {
         if(session.verified){
             return NextResponse.redirect(new URL("/",request.nextUrl))
         }
-      }
-      if( !request.nextUrl.pathname.includes("verify-email")){
         if(!session.verified){
+            const res = await fetch(process.env.baseURL+"/api/auth/updateVerification",{method:"POST",body:JSON.stringify({cookie})})   
+        }
+      }
+      if( !request.nextUrl.pathname.includes("verify-email") ){
+        if(!session.verified){
+         
             return NextResponse.redirect(new URL("/auth/verify-email",request.nextUrl))
     
         }
@@ -53,5 +63,5 @@ export async function middleware(request: NextRequest) {
 }
  
 export const config = {
-    matcher: ['/',"/auth/:path+"],
+    matcher: ["/auth/:path+","/dashboard","/r","/settings"],
 }

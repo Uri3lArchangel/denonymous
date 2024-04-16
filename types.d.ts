@@ -1,3 +1,13 @@
+
+export interface userNotificationType{
+  category:string,
+  data:string,
+  link:string,
+  opened:boolean,
+  date:number,
+  owner:string
+
+}
 export type userModelType = {
   email: string;
   password: string;
@@ -8,7 +18,7 @@ export type userModelType = {
   isEmailVerified: boolean;
   token:{
      value:string,
-     requestCount:number,
+     expires:number,
      nextRequestable:number
     
  };
@@ -33,7 +43,10 @@ export type userModelType = {
       bookmarked: boolean;
     }[];
   }[];
+  notifications:userNotificationType[]
 };
+
+
 export interface denonymousType {
   owner:string;
   link: string;

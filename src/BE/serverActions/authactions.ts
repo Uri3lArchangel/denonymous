@@ -1,9 +1,8 @@
 'use server'
 
 import { userModelType } from "@/types"
-import { findUserByEmail, updateTokenData } from "../DB/queries/auth/query"
+import { changePasswordQuery, findUserByEmail, updateTokenData } from "../DB/queries/auth/query"
 import { passwordReset } from "../email-service/nodemailer"
-import { calculateStrength } from "@/src/core/lib/helpers"
 
 export const sendResetLink = async(prev:any,e:FormData)=>{
 try{
@@ -19,9 +18,9 @@ try{
     if(user.token.nextRequestable > Date.now()){
         return {type:"warning",message:'Please wait for the cooldown period ',time:user.token.nextRequestable}
     }
+    const u= await updateTokenData(email) as userModelType
 
-    await passwordReset(email,user.token.value)
-   const u= await updateTokenData(email) as userModelType
+    await passwordReset(email,u.token.value)
     return {type:"success",message:"Password reset link sent to "+email,time:u.token.nextRequestable}
 
 
@@ -32,17 +31,13 @@ try{
 }
 
 
-export const changePassword =async(prev:any,e:FormData)=>{
+export const changePasswordAction =async(key:string,password:string)=>{
 try{
-    const password = e.get('password') as string
-    const conf = e.get('confirmPassword') as string
+    await changePasswordQuery(key,password)
+    return "success"
 
-    if(calculateStrength(password) < 3 || conf != password){
-        return 
-    }
-
-    
 }catch(err:any){
+return err.message
+}
+}
 
-}
-}

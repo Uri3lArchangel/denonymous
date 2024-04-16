@@ -2,14 +2,13 @@
 
 import { verifyUserDataToken } from "@/src/core/lib/JWTFuctions"
 import { cookies } from "next/headers"
-import { createDenonymous, deleteDenonymousDB, denonymousViewStateChange, findUserByEmail, sendRelpy } from "../DB/queries/auth/query"
 import { revalidatePath, revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
+import { createDenonymous, deleteDenonymousDB, denonymousViewStateChange, sendRelpy } from "../DB/queries/denonymous/query"
 
 
 export const createDenonyous = async(prev:any,e:FormData)=>{
-  revalidatePath("/")
-  revalidateTag("raieneidmie_00")
+
 try{
 let cookie = cookies().get("denon_session_0")
 if(!cookie || !cookie.value){
@@ -22,15 +21,18 @@ if(!sessionToken){
 const topic = e.get("topic") as string | undefined
 const desc = e.get("description") as string | undefined
 
-if(!topic) throw new Error("denonymous topic cannot be empty|client")
-if(topic.length > 50) throw new Error("topic too long max is 50 characters|client")
-if(desc && desc.length > 100) throw new Error("description too long max is 100 characters|client")
+if(!topic) return {message:"Topic cannot be empty",type:"warning",reason:"topic"}
+if(topic.length > 50)return {message:"Invalid topic length",type:"warning",reason:"topic"}
+if(desc && desc.length > 100) return {message:"Invalid decription length",type:"warning",reason:"description"}
 await createDenonymous(sessionToken.email,topic,sessionToken.uuid,desc)
-return {message:"denonymous created"}
+revalidatePath("/")
+revalidateTag("denonymous_box_0102")
+revalidateTag("raieneidmie_00")
+return {message:"Denonymous created",type:"success"}
 }
 
 catch(err:any){
- throw new Error(err.message)
+  return {message:err.message,type:"error"}
 }
 
 
@@ -82,7 +84,7 @@ export const deleteDenonymousAction=async(topic:string)=>{
                 urls.push(r[i].media[j].link)
                   }
                 }
-              
+              revalidateTag("notifications_fetch_tag")
         revalidateTag("denonymous_box_0102")
         revalidateTag("raieneidmie_00")
         return urls

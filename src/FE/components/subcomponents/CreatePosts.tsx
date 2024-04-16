@@ -3,12 +3,15 @@
 import { denonymousType } from "@/types";
 import Link from "next/link";
 import styles from "@/styles/styles.module.css";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ShareDenonymsModal from "../libraries/Modals/ShareDenonyms";
 import { Trash2Icon } from "lucide-react";
 import { TooltipApp } from "../libraries/antd";
 import DeleteDenonymsModal from "../libraries/Modals/DeleteDenonyms";
 import ActivateDenonyms from "../libraries/Modals/ActivateDenonyms";
+import Loading from "@/app/loading";
+import { NotificationContext } from "../contexts/NotificationContext";
+import ResponsesSVG from "../assets/ResponsesSVG";
 
 export const MyDenonyms = ({ posts }: { posts?: denonymousType[] }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -17,22 +20,35 @@ export const MyDenonyms = ({ posts }: { posts?: denonymousType[] }) => {
   const [deleteDenonymousModal,setDeleteDenonymousModal]=useState(false)
   const [activeStateModal,setactiveStateModal]=useState(false)
   const [link, setLink] = useState("0");
-
+const [loading,setLoading]=useState(false)
+const notification  = useContext(NotificationContext)!
+useEffect(()=>{
+  console.log(topic)
+},[topic])
   const copyToClipboard = (a: string) => {
       navigator.clipboard.writeText(a);
     };
 
+function handleClick(a:React.MouseEvent<HTMLInputElement>, i:number) {
+    a.preventDefault();
+    console.log(i);
+    setTopic(posts![i].topic);
+    setactiveStateModal(true);
+}
+
   return (
     <>
-    <ShareDenonymsModal link={link} modal={modal} setModal={setModal} />
-    <DeleteDenonymsModal setModal={setDeleteDenonymousModal} modal={deleteDenonymousModal} topic={topic!} />
+{loading?    <Loading />:null
+}    <ShareDenonymsModal link={link} modal={modal} setModal={setModal} />
+    <DeleteDenonymsModal setLoading={setLoading} setModal={setDeleteDenonymousModal} modal={deleteDenonymousModal} topic={topic!} />
 
     <ul className="grid grid-cols-1 gap-4 mx-auto">
       {posts
         ? posts.map((e, i) => (
 
             <li 
-              className={`border relative border-[#EDC211] px-8 text-white max-w-[100%] w-[30rem] rounded-lg h-[14rem] py-4 bg-[#242222] mx-auto `}
+            id={i.toString()}
+              className={`border h-fit border-[#EDC211] px-8 text-white max-w-[100%] w-[30rem] rounded-lg  py-8 bg-[#242222] mx-auto `}
               key={i}
             >
               <h2 className="text-3xl font-bold text-center uppercase">
@@ -41,119 +57,28 @@ export const MyDenonyms = ({ posts }: { posts?: denonymousType[] }) => {
               {/* <br /> date created:
               {new Date(e.dateCreated).toLocaleDateString()} <br /> */}
               <section className="flex items-center justify-between">
-                <div className="relative w-min flex items-center pl-10 mt-7 mb-10">
-                  <svg
-                    width="140"
-                    height="100"
-                    viewBox="0 0 124 89"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={
-                      e.replys.length > 100
-                        ? "absolute translate-x-[-56px]"
-                        : "absolute translate-x-[-67px]"
-                    }
-                  >
-                    <circle
-                      cx="74.2719"
-                      cy="44.6826"
-                      r="35.136"
-                      stroke="url(#paint0_linear_223_1227)"
-                      stroke-width="16"
-                    />
-                    <path
-                      d="M74.2719 21.3889L75.135 0.683247"
-                      stroke="#242222"
-                      stroke-width="4"
-                    />
-                    <line
-                      x1="90.8346"
-                      y1="23.5814"
-                      x2="105.501"
-                      y2="5.46433"
-                      stroke="#242222"
-                      stroke-width="4"
-                    />
-                    <line
-                      x1="96.0886"
-                      y1="35.015"
-                      x2="122.833"
-                      y2="26.3878"
-                      stroke="#242222"
-                      stroke-width="4"
-                    />
-                    <line
-                      x1="98.9231"
-                      y1="49.6462"
-                      x2="117.198"
-                      y2="54.3157"
-                      stroke="#242222"
-                      stroke-width="4"
-                    />
-                    <line
-                      x1="91.1716"
-                      y1="63.0687"
-                      x2="105.838"
-                      y2="76.8723"
-                      stroke="#242222"
-                      stroke-width="4"
-                    />
-                    <line
-                      x1="2.76942"
-                      y1="69.0483"
-                      x2="12.4095"
-                      y2="76.4609"
-                      stroke="#242222"
-                      stroke-width="6"
-                    />
-                    <line
-                      x1="73.6838"
-                      y1="71.4265"
-                      x2="73.6838"
-                      y2="88.6809"
-                      stroke="#242222"
-                      stroke-width="4"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="paint0_linear_223_1227"
-                        x1="6.67732"
-                        y1="52.2425"
-                        x2="147.647"
-                        y2="56.2448"
-                        gradientUnits="userSpaceOnUse"
-                      >
-                        <stop offset="0.105903" stop-color="#DAAD20" />
-                        <stop offset="1" stop-opacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <p className={`${styles.gradientHeader} font-bold text-3xl `}>
+                <div className="relative w-[100px] h-[100px] flex items-center justify-center  mb-4">
+                  <ResponsesSVG />
+                  <p className={`${styles.gradientHeader} font-bold text-3xl absolute `}>
                     {e.replys.length > 100 ? "99+" : e.replys.length}
                   </p>
                 </div>
-                <TooltipApp text="" title="If others can see your responses">
+                <TooltipApp text="" title="Disallow everyone from sending you responses">
                 <div className="flex items-center">
                   <input
                     className="cursor-pointer mx-3"
                     id="show_responses"
                     type="checkbox"
                     checked={!e.isActive}
-                    onClick={
-                      (a)=>{
-                        a.preventDefault();
-                        setTopic(e.topic);
-                        setactiveStateModal(true);
+                    onClick={(a) => handleClick(a, i)}
 
-                      }
-                    }
                   />
                   <label
                     className="cursor-pointer select-none"
                     htmlFor="show_responses"
                   >
 
-                    Hide all responses
+                    Disable Denonymous
 
                   </label>{" "}
                 </div>
@@ -172,7 +97,10 @@ export const MyDenonyms = ({ posts }: { posts?: denonymousType[] }) => {
                     className={` rounded-l px-4  border-[#EDC211] border-2 `}
                     onClick={ () => {
                      copyToClipboard(e.link);
-                     alert("copied")
+                      notification({
+                        message:"Link copied",type:"success",
+                        description:""
+                      })
                     }}
                   >
                     <svg

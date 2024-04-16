@@ -4,6 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import { setSessionCookie } from "./Cookie";
 import { userDataTokenSign } from "./JWTFuctions";
+import { revalidateTag } from "next/cache";
 
 export const nextAuthConfig:NextAuthOptions={
     providers:[
@@ -19,6 +20,7 @@ async authorize(credentials) {
         const {password,...userWithoutPassword}= user
         const token = userDataTokenSign(user.username,user.email,user.UUID,user.isEmailVerified,user.isPremium)
         setSessionCookie(token)
+        revalidateTag("nav_revalidate")
         return userWithoutPassword as User
     }else{
          throw new Error("Incorrect email or password")

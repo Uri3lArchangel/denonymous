@@ -2,12 +2,22 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../styles/globals.css";
 import { EdgeStoreProvider } from "@/src/core/lib/edgestore";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import { Suspense } from "react";
 import Nav from "@/src/FE/components/Nav";
 import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
+import logoWhite from '../public/images/denonlogowhite.svg'
+import Image from "next/image";
+import MenuApp from "@/src/FE/components/libraries/antd";
+import Link from "next/link";
+import twitter from '../public/images/twitter.svg'
+import insta from '../public/images/insta.svg'
+import linkedin from '../public/images/linkedin.svg'
+import medium from '../public/images/medium.svg'
+import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
+
 
 const inter = Poppins({ weight:["500"],subsets:["latin-ext"] });
+
+
 
 export const metadata: Metadata = {
   title: "Denonymous",
@@ -20,16 +30,56 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+
   return (
     <html lang="en">
       <body className={inter.className}>
       <div className="min-h-[80px] bg-gray-500 md:hidden pb-10">ads</div>
+      <div className="fixed z-[3] left-10 top-20 w-[200px] hidden md:block h-[80%] bg-red-400">ads</div>
+      <div className="fixed z-[3] right-10 top-20 w-[200px] hidden md:block h-[80%] bg-red-400">ads</div>
       <EdgeStoreProvider>
         <NotificationApp >
-        <Nav />
-       <div className="md:w-[70%] w-full  mx-auto " >
+          <SessionProvider>
+          <Nav />
+
+       <div className="md:w-[100%] w-full  mx-auto" >
         {children}
         </div> 
+        <footer className="min-h-[30vh] bg-black text-white pt-10 px-4">
+          <div className="max-w-[900px] mx-auto">
+        <Image src={logoWhite} alt="denonymous" className="mt-4"/>
+        <p className=' font-extralight my-4 text-sm sm:w-[60%]'>Denonymous: The No 1 platform for Sharing video, image, audio and text responses anonymously. Register with us, create a Denonymous, and share with others to receive responses on any topic today.</p>
+        <ul className="flex space-x-4 my-4">
+          <li>
+            <Link href="#">
+            <Image src={twitter} alt="twitter" />
+            </Link>
+          </li>
+          <li>
+          <Link href="#">
+
+            <Image src={insta} alt="instagram" />
+            </Link>
+          </li>
+          <li>
+          <Link href="#">
+
+            <Image src={linkedin} alt="linkedin" />
+            </Link>
+          </li>
+          <li>
+          <Link href="#">
+
+            <Image src={medium} alt="medium" />
+            </Link>
+          </li>
+        </ul>
+          <Link href="/support" className="block mx-auto  w-fit  underline">Support</Link>
+          <h4 className="text-sm text-bold text-center mt-4 border-t py-2  mx-auto">All Rights Reserved. Copyright © 2024.</h4>
+          </div>
+        </footer>
+        </SessionProvider>
         </NotificationApp>
         </EdgeStoreProvider>        
       </body>
