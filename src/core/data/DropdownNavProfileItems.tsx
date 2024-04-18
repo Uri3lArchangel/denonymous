@@ -66,7 +66,7 @@ export const AuthDropdown: MenuProps["items"] = [
     key: "1",
     label: (
       <div className="navlinks">
-        <Link href="/" className="mx-2 lg:mx-4 text-[#fffb]">
+        <Link href="/" className="mx-2 lg:mx-4 text-[#fffb] gradient_elements_text">
           Home
         </Link>
       </div>
@@ -76,7 +76,7 @@ export const AuthDropdown: MenuProps["items"] = [
     key: "2",
     label: (
       <div className="navlinks">
-        <Link href="/dashboard" className="mx-2 lg:mx-4 text-[#fffb] ">
+        <Link href="/dashboard" className="mx-2 lg:mx-4 text-[#fffb]  gradient_elements_text">
           Dashboard
         </Link>
       </div>
@@ -90,7 +90,7 @@ export const AuthDropdown: MenuProps["items"] = [
           <Link
             aria-disabled
             href="/#"
-            className="mx-2 lg:mx-4 cursor-not-allowed opacity-[0.7]"
+            className="mx-2 lg:mx-4 cursor-not-allowed opacity-[0.8] gradient_elements_text"
           >
             Premium
           </Link>

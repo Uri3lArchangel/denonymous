@@ -96,7 +96,7 @@ function handleClick(a:React.MouseEvent<HTMLInputElement>, i:number) {
                   <button
                     className={` rounded-l px-4  border-[#EDC211] border-2 `}
                     onClick={ () => {
-                     copyToClipboard(e.link);
+                     copyToClipboard(encodeURIComponent(e.link));
                       notification({
                         message:"Link copied",type:"success",
                         description:""

@@ -28,7 +28,7 @@ function CreateDenonymousForm({handleModalClose}:{handleModalClose:any}) {
     <input
       placeholder="Enter denonymous title"
       name="topic"
-      className="border-2 border-[#404040] p-2 mb-3 w-full rounded-md bg-transparent focus:outline-none placeholder-[#404040] placeholder:text-sm"
+      className="border-2 text-white border-[#404040] p-2 mb-3 w-full rounded-md bg-transparent focus:outline-none placeholder-[#404040] placeholder:text-sm"
     />
     <p className='text-red-500 text-md'>{state.type == 'warning' && state.reason == 'description'?state.message:null}</p>
     <textarea

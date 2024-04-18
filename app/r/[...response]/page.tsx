@@ -45,8 +45,8 @@ async function page({params}:{params:{response:string[]}}) {
 
 if(isSession && d.owner == userdata?.email){
   return (
-    <div className={style.denonymousResponsePage}>
-        <h1 className='text-3xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
+    <div className={style.denonymousResponsePage+' py-4'}>
+        <h1 className='text-3xl sm:text-4xl text-center text-ellipsis '>{d.topic}</h1>
         <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?d.description:''}</h2>
         <div  className='bg-[#1E1E1E]'>
     {!replys || replys.length == 0?<></>:<Replys replys={replys.reverse()} />}  
