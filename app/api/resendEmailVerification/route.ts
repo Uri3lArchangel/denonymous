@@ -47,6 +47,7 @@ export async function POST(req:NextRequest){
 
 
 }catch(err:any){
+    return NextResponse.json({type:"error",message:"An error occured"},{status:500})
 
     }
 }

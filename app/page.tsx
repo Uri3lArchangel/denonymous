@@ -50,7 +50,7 @@ function page() {
           <div  className='sm:w-[60%] mx-auto'>
           <h2 className='text-white text-[20px] text-center mb-8 font-bold '> Empower Your Thoughts</h2>
           <p className='text-[#fff] font-extralight my-6 text-center'>Denonymous invites you to step into a world where your thoughts matter, and your identity remains concealed. Join us in creating a community built on understanding, support, and the freedom to express yourself without reservations. Be a part of the power of anonymity.</p>
-          <Link href="/dashoard" className='gradient_elements_div text-[16px] w-full py-2 block rounded-md text-center sm:w-fit sm:px-8 sm:mx-auto'>Dashboard</Link>
+          <Link href="/dashboard" className='gradient_elements_div text-[16px] w-full py-2 block rounded-md text-center sm:w-fit sm:px-8 sm:mx-auto'>Dashboard</Link>
 </div>
         </section>
       </main>
