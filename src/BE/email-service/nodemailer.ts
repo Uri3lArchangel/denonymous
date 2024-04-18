@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
-import { imageurl } from "./image";
-import logo from '@/public/images/logo.png'
+
 const transporter = nodemailer.createTransport({
   host: "mail.privateemail.com",
   port: 465,
@@ -12,6 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 // https://denonymous.denexus.xyz
 export async function signUpConfirmation(recipientEmail: string, key: string) {
+console.log(recipientEmail)
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: "Denonymous <denonymous-contact@denexus.xyz>", // sender address

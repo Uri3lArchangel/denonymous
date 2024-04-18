@@ -46,7 +46,7 @@ export async function POST(req:NextRequest){
     }
 
 
-}catch(err:any){
+}catch(err:any){console.log(err)
     return NextResponse.json({type:"error",message:"An error occured"},{status:500})
 
     }
