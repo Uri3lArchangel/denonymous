@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (err: any) {
 
-console.log(err.message)
+console.log(err)
     const errorMessage = err.message as string;
     if (
       errorMessage.includes("duplicate key error") &&

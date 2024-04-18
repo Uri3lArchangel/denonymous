@@ -244,8 +244,6 @@ const SignUpForm = () => {
     setLoading(true)
     const res = await fetch(URLRESOLVE("/api/auth/sign-up"), {
       method: "POST",
-      mode: "no-cors",
-      cache: "no-cache",
       body: JSON.stringify(body),
     });
     setLoading(false)
