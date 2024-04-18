@@ -12,6 +12,15 @@ function ResenVerificationCode({email}:{email:string}) {
   
     useEffect(() => {
       let timerId: NodeJS.Timeout;
+      if(countdown == 0){
+        const p = document.getElementById("error_display") as HTMLParagraphElement;
+        if(p.innerText){
+          p.innerText = "All good! You can request now";p.style.color="limegreen"
+          setTimeout(()=>{
+            p.innerText=""
+          },1000)
+        }
+      }
       if(countdown>0){
         timerId = setInterval(() => {
           setCountdown(prev => {
@@ -22,7 +31,9 @@ function ResenVerificationCode({email}:{email:string}) {
             return prev - 1;
           });
         }, 1000);
+
       }
+    
 
       return () => {
         clearInterval(timerId);
@@ -72,9 +83,9 @@ function ResenVerificationCode({email}:{email:string}) {
     resend
       }
     >
-      {countdown>0?formatTime(countdown * 1000):"Resend Code"}
+      {pending?"Resending.....":countdown>0?formatTime(countdown * 1000):"Resend Code"}
     </button>
-    <p id='error_display'></p>
+    <p id='error_display' className='text-center'></p>
     </form>
     )
 }

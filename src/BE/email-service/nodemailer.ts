@@ -1,4 +1,6 @@
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
+import { imageurl } from "./image";
+import logo from '@/public/images/logo.png'
 const transporter = nodemailer.createTransport({
   host: "mail.privateemail.com",
   port: 465,
@@ -9,56 +11,108 @@ const transporter = nodemailer.createTransport({
   },
 });
 // https://denonymous.denexus.xyz
-export async function signUpConfirmation(recipientEmail:string,key:string) {
+export async function signUpConfirmation(recipientEmail: string, key: string) {
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: 'Denonymous <denonymous-contact@denexus.xyz>', // sender address
+    from: "Denonymous <denonymous-contact@denexus.xyz>", // sender address
     to: recipientEmail, // list of receivers
-    subject: "Email verification ✔", // Subject line
+    subject: "Registration Email verification ✔", // Subject line
     // text: "Hello world?", // plain text body
-    html: `<div>
-    <div style="text-align: center;">
-        <div style="background-color: black; text-align: center;">
-        <img src="http://127.0.0.1:3000/images/delogo.svg" width="70px" height="70px" />
+    html: `
+    <div style="padding:2em 0;background-image:linear-gradient(270deg,#f2d204 0%,#f6d108 27.6%,#edc211 54.17%,#e3b419 77.6%,#daa521 100%);">
+    <div style="max-width:400px;width:100%;margin:auto;background-color:black;padding:2em 0.1em;border-radius:10px;box-shadow: 2px 2px 20px #000b;">
+        <div style="background-color: black; text-align: left;padding:1em; ">
+        <h1 style="font-size:1.2rem;font-weight:bold;color:white;">WELCOME!</h1>
+        <img style="display:block;" src="https://denonymous.denexus.xyz/images/logo.png" width="180px" height="40px" />
         </div>
-        <h1>You Are Almost There!</h1>
-        <p>Verify your email, to complete this process pase the code provided below</p>
-        <p>code: ${key}</p>
-
+        <div style="text-align:left;padding:1em;border-radius:10px;background-color:white;width:80%;margin:auto;">
+        <h2 style="font-size:1.1rem;color:black;">You Are Almost There!</h2>
+        <p style="font-size:0.9rem;color:black;">Verify your email, to complete this process pase the code provided below</p>
+        <hr>
+        <p style="font-size:0.9rem;color:black;">Here is your code: ${key}</p>
+          </div>
+    <div style="background-color: black; text-align: center;padding:2em 0">
+    Copyright © 2023 denonymous, All rights reserved.
+    <ul  style="display:flex; margin:2em 0;">
+    <li style="margin:0 1em;">
+      <a href="#" style="text-decoration:none;">
+      <img src="https://denonymous.denexus.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
+      </a>
+    </li>
+    <li style="margin:0 1em;">
+    <a href="#" style="text-decoration:none;">
+    <img src="https://denonymous.denexus.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+    </a>
+    </li>
+    <li style="margin:0 1em;">
+    <a href="#" style="text-decoration:none;">
+    <img src="https://denonymous.denexus.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+    </a>
+    </li>
+    <li style="margin:0 1em;">  
+    <a href="#" style="text-decoration:none;">
+    <img src="https://denonymous.denexus.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+    </a>
+    </li>
+  </ul>
     </div>
-    <footer style="display: flex; align-items:center; font-size: 1.5rem;color: #ffdf00; background-color: black; justify-content: center;margin: 2em auto;">
-        <img  src="http://127.0.0.1:3000/images/delogo.svg" width="40px" height="40px" />
-        <p>nonymous</p>
-    </footer>
-</div>`, // html body
+    </div>
+`, // html body
   });
 
   console.log("Message sent: %s", info);
 }
 
-
-export async function passwordReset(recipientEmail:string,key:string) {
+export async function passwordReset(recipientEmail: string, key: string) {
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: 'Denonymous <denonymous-contact@denexus.xyz>', // sender address
+    from: "Denonymous <denonymous-contact@denexus.xyz>", // sender address
     to: recipientEmail, // list of receivers
     subject: "Password Reset ✔", // Subject line
-    html: `<div>
-    <div style="text-align: center;">
-        <div style="background-color: black; text-align: center;">
-        <img src="http://127.0.0.1:3000/images/delogo.svg" width="70px" height="70px" />
-        </div>
-        <h1>Reset your password</h1>
-        <p>A password reset was initiated to your email, follow the link below to continue and create a new password</p>
-        <p>code: http://127.0.0.1:3000/auth/new-password/${key}</p>
+    html: `
+    <div style="padding:2em 0;background-image:linear-gradient(270deg,#f2d204 0%,#f6d108 27.6%,#edc211 54.17%,#e3b419 77.6%,#daa521 100%);">
+    <div style="max-width:400px;width:100%;margin:auto;background-color:black;padding:2em 0.1em;border-radius:10px;box-shadow: 2px 2px 20px #000b;">
+
+    <div style="background-color: black; text-align: left;padding:1em; ">
+    <h1 style="font-size:1.2rem;font-weight:bold;color:white;">RESET!</h1>
+    <img style="display:block;" src="https://denonymous.denexus.xyz/images/logo.png" width="180px" height="40px" />
     </div>
-    <footer style="display: flex; align-items:center; font-size: 1.5rem;color: #ffdf00; background-color: black; justify-content: center;margin: 2em auto;">
-        <img  src="http://127.0.0.1:3000/images/delogo.svg" width="40px" height="40px" />
-        <p>nonymous</p>
-    </footer>
+    <div style="text-align:left;padding:1em;border-radius:10px;background-color:white;width:80%;margin:auto;">
+
+    <h2 style="font-size:1.1rem;color:black;">Reset your password</h2>
+        <p style="font-size:0.9rem;color:black;">A password reset was initiated to your email, follow the link below to continue and create a new password</p>
+        <hr>
+        <p style="font-size:0.9rem;color:black;">link: https://denonymous.denexus.xyz/auth/new-password/${key}</p>
+    </div>
+    <div style="background-color: black; text-align: center;padding:2em 0">
+
+    <div style="background-color: black; text-align: center;">
+    Copyright © 2023 denonymous, All rights reserved.
+    <ul  style="display:flex; margin:2em 0;">
+    <li style="margin:0 1em;">
+      <a href="#" style="text-decoration:none;">
+      <img src="https://denonymous.denexus.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
+      </a>
+    </li>
+    <li style="margin:0 1em;">
+    <a href="#" style="text-decoration:none;">
+    <img src="https://denonymous.denexus.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+    </a>
+    </li>
+    <li style="margin:0 1em;">
+    <a href="#" style="text-decoration:none;">
+    <img src="https://denonymous.denexus.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+    </a>
+    </li>
+    <li style="margin:0 1em;">  
+    <a href="#" style="text-decoration:none;">
+    <img src="https://denonymous.denexus.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+    </a>
+    </li>
+  </ul>    
+    </div>
 </div>`, // html body
   });
 
   console.log("Message sent: %s", info);
 }
-

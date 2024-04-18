@@ -7,14 +7,22 @@ import { NotificationContext } from '../contexts/NotificationContext';
 
 
 const SixDigitInputField = () => {
-
+// states
   const [inputs, setInputs] = useState<string[]>(Array(6).fill(''));
   const [pending,setPending]=useState(false)
   const [state,set]=useState({message:"",type:""})
+
+// router
   const router = useRouter()
+
+// contexts
   const notification = useContext(NotificationContext)!
 
+// refs
   const inputRefs = useRef<(HTMLInputElement | null)[]>(Array(6).fill(null));
+
+
+  // functions
   const handleInputChange = (index: number, value: string) => {
     if (!isNaN(Number(value)) && value.length <= 1) {
       const newInputs = [...inputs];
@@ -48,6 +56,10 @@ const SixDigitInputField = () => {
     }
   };
 
+
+
+  // useEffect
+
   useEffect(()=>{
     if(state.type){
       console.log(state)
@@ -60,13 +72,14 @@ const SixDigitInputField = () => {
     return()=>{
       set({message:"",type:""})
     }
-  },[state.type,pending,notification,router,state])
+  },[])
 
   const handleSubmit = async(e:React.MouseEvent<HTMLButtonElement>) => {
     setPending(true)
     const fullNumber = inputs.join('');
     set(await verifyEmailAction(fullNumber))
     setPending(false)  
+    window.location.href="/dashboard"
   };
 
   return (

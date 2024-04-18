@@ -70,7 +70,7 @@ const SignInForm = () => {
           description:""
         }
       )
-      setTimeout(()=>{window.location.href="/"},2000)
+      setTimeout(()=>{window.location.href="/auth/verify-email"},2000)
     }else{
 
    const errorname=signinResponse?.error 

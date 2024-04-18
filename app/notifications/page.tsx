@@ -13,12 +13,14 @@ async function page() {
   return (
 <section className='bg-black backgroundVector py-10 h-[100vh] overflow-y-scroll '>
   <h1 className='my-6 text-white text-2xl sm:text-3xl text-center'>Notifications({nots.length})</h1>
+  <div className='w-fit h-fit rounded-md mx-auto'>
       {nots.map((e,i)=>(
         <div className='w-full max-w-[400px] mx-auto' key={i}>
      <NotificationDetailLink i={i} e={e} />
           </div>
       ))
       }
+      </div>
 </section>  
 
 )

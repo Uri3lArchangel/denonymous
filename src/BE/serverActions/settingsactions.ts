@@ -144,6 +144,7 @@ return {message:"Email changed",type:"success"}
         }
 export const verifyEmailAction=async(code:string)=>{
     try {
+        console.log(11)
        const r=  await updateUserEmailStatusByToken(code)
        const user = r.data
 

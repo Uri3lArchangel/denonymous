@@ -6,7 +6,7 @@ import React from 'react'
 function Backarrow() {
     const router = useRouter()
   return (
-    <ChevronsLeftIcon className="gradient_elements_div p-1 rounded-full cursor-pointer" onClick={
+    <ChevronsLeftIcon className="text-black gradient_elements_div p-1 rounded-full cursor-pointer" onClick={
         ()=>{
             router.back()
         }

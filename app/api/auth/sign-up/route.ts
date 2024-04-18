@@ -60,6 +60,11 @@ console.log(err.message)
         { status: 400 }
       );
     }
-    return NextResponse.error();
-  }
+    return NextResponse.json(
+      {
+        message: "An error occured",
+        data: null,
+      },
+      { status: 500 }
+    );  }
 }
