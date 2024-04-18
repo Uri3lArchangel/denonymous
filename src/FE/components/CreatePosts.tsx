@@ -30,7 +30,7 @@ export const fetchDenonymousOnLoad = async () => {
 };
 
 const CreatePost = async () => {
-  let posts = (await fetchDenonymousOnLoad()).denonymous;
+ try{ let posts = (await fetchDenonymousOnLoad()).denonymous;
   const username = (await fetchDenonymousOnLoad()).username;
 
   // const handlePostChange = () => {};
@@ -45,7 +45,7 @@ const CreatePost = async () => {
       >
         <div className="mb-20">
           <h1 className="text-[#FEFEFE] md:text-[45px] sm:text-[30px] max-[599px]:text-[25px] text-center">
-            {username}&apos; Profile
+            {username}&apos;s Profile
           </h1>
           <p className="text-[#959595] text-[20px] max-[599px]:text-[12px] text-center">
             Create and receive responses to a Denonymous
@@ -59,7 +59,9 @@ const CreatePost = async () => {
         </div>
       </section>
     </>
-  );
+  );}catch(err:any){
+    throw new Error("An error occurred while fetching denonyms|client")
+  }
 };
 
 export default CreatePost;

@@ -31,7 +31,6 @@ useEffect(()=>{
 
 function handleClick(a:React.MouseEvent<HTMLInputElement>, i:number) {
     a.preventDefault();
-    console.log(i);
     setTopic(posts![i].topic);
     setactiveStateModal(true);
 }
@@ -48,7 +47,7 @@ function handleClick(a:React.MouseEvent<HTMLInputElement>, i:number) {
 
             <li 
             id={i.toString()}
-              className={`border h-fit border-[#EDC211] px-8 text-white max-w-[100%] w-[30rem] rounded-lg  py-8 bg-[#242222] mx-auto `}
+              className={`border h-fit border-[#EDC211] w-[90%] px-8 text-white max-w-[500px] rounded-lg  py-8 bg-[#242222] mx-auto `}
               key={i}
             >
               <h2 className="text-3xl font-bold text-center uppercase">
@@ -56,7 +55,7 @@ function handleClick(a:React.MouseEvent<HTMLInputElement>, i:number) {
               </h2>
               {/* <br /> date created:
               {new Date(e.dateCreated).toLocaleDateString()} <br /> */}
-              <section className="flex items-center justify-between">
+              <section className="flex flex-col my-6 sm:my-2 sm:flex-row items-center justify-between">
                 <div className="relative w-[100px] h-[100px] flex items-center justify-center  mb-4">
                   <ResponsesSVG />
                   <p className={`${styles.gradientHeader} font-bold text-3xl absolute `}>
@@ -84,19 +83,19 @@ function handleClick(a:React.MouseEvent<HTMLInputElement>, i:number) {
                 </div>
                 </TooltipApp>
               </section>
-              <div className="flex items-center justify-between">
-                <Link href={e.link} target="blank">
+              <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-center sm:justify-between ">
+                <Link href={e.link} target="blank" className=" w-full sm:w-fit block ">
                   <button
-                    className={`${styles.signInBtn} rounded p-2 text-[#0f0f0f]`}
+                    className={`gradient_elements_div px-6 py-2 rounded  text-[#0f0f0f] w-full sm:w-fit max-w-[250px] sm:mx-0 mx-auto block`}
                   >
                     View Responses
                   </button>
                 </Link>
-                <div className="flex">
+                <div className="flex w-full max-w-[250px] sm:w-fit mx-auto sm:mx-0" >
                   <button
                     className={` rounded-l px-4  border-[#EDC211] border-2 `}
                     onClick={ () => {
-                     copyToClipboard(encodeURIComponent(e.link));
+                     copyToClipboard(encodeURI(e.link));
                       notification({
                         message:"Link copied",type:"success",
                         description:""
@@ -122,7 +121,7 @@ function handleClick(a:React.MouseEvent<HTMLInputElement>, i:number) {
                     </svg>
                   </button>
                   <button
-                    className={` rounded-r px-4 py-2 text-[#0f0f0f] bg-[#EDC211]`}
+                    className={`w-full max-w-[200px] sm:w-fit rounded-r px-4 py-2 text-[#0f0f0f] bg-[#EDC211]`}
                     onClick={()=>{
                       setLink(e.link);
                       setModal(true);

@@ -18,6 +18,7 @@ const sessionToken = verifyUserDataToken(cookie.value)
 if(!sessionToken){
   redirect("/auth/signin")
 }
+console.log(1)
 const topic = e.get("topic") as string | undefined
 const desc = e.get("description") as string | undefined
 

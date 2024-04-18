@@ -38,7 +38,7 @@ export function MultiFileDropzoneUsage({
       document.getElementById("response") as HTMLTextAreaElement
     )
     text.addEventListener("keyup",()=>{
-      if(text.value != ""){
+      if(text.value != "" || fileStates.length > 0){
             setIsTextAreaEmpty(false)
       }else{
         setIsTextAreaEmpty(true)
@@ -46,7 +46,7 @@ export function MultiFileDropzoneUsage({
       }
 
     })
-    if(fileStates.length > 0){
+    if(fileStates.length > 0 || text.value != ""){
       setIsTextAreaEmpty(false)
     }else{
       setIsTextAreaEmpty(true)
@@ -179,10 +179,13 @@ export function MultiFileDropzoneUsage({
     disabled={ sending || isTextAreaEmpty}
         onClick={async (e) => {
           e.preventDefault();
+          setMedia([])
 
           await Promise.all(
             fileStates.map(async (addedFileState) => {
               try {
+              console.log({fileStates})
+
                 if(addedFileState.progress!="COMPLETE")
                 {
                   setSending(true)

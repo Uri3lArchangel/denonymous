@@ -1,7 +1,7 @@
 "use client";
 import { replyModelType } from "@/types";
 import Image from "next/image";
-import React, { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, Fragment, useContext, useEffect, useRef, useState } from "react";
 import style from "../../../../styles/styles.module.css";
 import { Download, DownloadIcon, PlayCircle, Share2Icon, XIcon, XOctagonIcon } from "lucide-react";
 import {FloatButtonComponent, ModalComponent} from "../libraries/antd";
@@ -14,25 +14,12 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import WaveformComponent from "../libraries/Wavesurfer";
 import { downloadMedia } from "@/src/core/lib/helpers";
-import Loading from "@/app/loading";
 import CreateDenonymousForm from "@/src/BE/components/CreateDenonymousForm";
 import ReplyDenonymsScreen from "./ReplyDenonymsScreen";
 import { useSession } from "../hooks/SessionHook";
 
 
 
-interface AudioElementProps {
-  src: string;
-  mimeType: string;
-}
-
-function VideoElement({ src, mimeType }: { src: string; mimeType: string }) {
-  return (
-    <video controls width={300} className=" object-cover h-[90%]" height={300}>
-      <source src={src} type={mimeType} />
-    </video>
-  );
-}
 
 
 
@@ -50,9 +37,6 @@ const {user,session} = useSession()
   const [selectedResponses,setSelectedResponses]=useState<string[]>([])
   const [reply,setReplyState]=useState(false)
   const [uname,setUname]=useState("")
-// refs
-const audioRef = useRef<HTMLAudioElement | null>(null);
-const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // internal functions
   const copyReplyLinkToClipBoard = (a: string) => {
@@ -106,7 +90,7 @@ return ()=>{
     <>
     {reply?<ReplyDenonymsScreen setState={setReplyState} ids={selectedResponses} />:null}
     <FloatButtonComponent  replySS={replySS} className={`${selectedResponses.length ==0?"bottom-[-10%] opacity-0 transition-[bottom] duration-[0.4s]":"bottom-[10%] opacity-[1] transition-[bottom] duration-[0.4s]"}`} />
-{viewer.display?<XIcon className={"fixed  text-[#ffdf00] bg-black p-[2px] cursor-pointer  rounded-full right-[2%] top-10 z-[8] " } size={40} onClick={
+{viewer.display?<XIcon className={"fixed  text-[#ffdf00] bg-black p-[2px] cursor-pointer  rounded-full right-[2%] top-[10%] z-[8] " } size={40} onClick={
   ()=>{
     setViewerState((prev)=>{
       return{img:[],display:false}
@@ -114,13 +98,13 @@ return ()=>{
   }
 } />:<></>
 }    
-<div id="image_viewer"  className={viewer.display ? "fixed h-[100vh] py-8  w-full left-0 top-0 z-[7] bg-black overflow-y-scroll " : ""}>
+<div id="image_viewer"  className={viewer.display ? "fixed h-[100vh]   w-full left-0 top-0 z-[7] bg-black overflow-y-scroll " : ""}>
 <div className="swiper relative h-[100%] ">
 <div className="swiper-wrapper absolute">
   {viewer.img.map((e, index) => (
 
     <div key={index} className="image-container swiper-slide">
-      <DownloadIcon size={35} className="absolute top-12 left-[5%] text-[#ffdf00] z-[7] cursor-pointer" onClick={
+      <DownloadIcon size={35} className="absolute top-[10%] left-[5%] text-[#ffdf00] z-[7] cursor-pointer" onClick={
         ()=>{
           downloadMedia(e.link)
         }
@@ -168,10 +152,9 @@ return ()=>{
           let l = e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "video" || f.mimeType.split("/")[0].toLowerCase() == "image")
           let a =e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "audio" ) 
           return(
-            <>
+            <div key={n}>
           <li
             id={`reply_${n}`}
-            key={n}
             onClick={
               (e)=>{
                 if(!session || !user || user.username != uname){
@@ -192,7 +175,7 @@ return ()=>{
                 }
               }
             }
-            className="mt-10 mb-4 py-16 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-pointer"
+            className={`mt-10 mb-4 py-16 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] ${user?"cursor-pointer":"cursor-default"}`}
           >
             
             <div className={
@@ -206,7 +189,7 @@ return ()=>{
                     return(
                       <div
                       id={`media_${index}`}
-                      className={`w-fit media_${index}bg-[#111]  rounded-[3px] flex items-center justify-center relative`}
+                      className={`w-full media_${index}bg-[#111]  rounded-[3px] flex items-center justify-center relative`}
                       key={index}
                       onClick={(e)=>{
                         e.stopPropagation()
@@ -226,14 +209,14 @@ return ()=>{
                           className="min-h-[100px]  h-full  "
                          
                         />:mimeType == "video"?<PlayCircle className="rounded-[3px] h-full opacity-[0.4] " />:null}
-                       <p className="absolute text-center text-2xl mx-auto left-0 right-0 top-[20%] z-2 ">
+                       <p className="absolute text-center text-2xl mx-auto left-0 right-0 top-[40%] z-2 ">
                       +{e.media.length - 4}
                     </p>
                     </div>
                     )
                   }
                   if(index > 3){
-                    return null
+                    return <Fragment key={index}></Fragment>
                   }
                   if (index <= 3 ) {
                     return (
@@ -287,7 +270,7 @@ return ()=>{
                 }
               })}
             </div>
-            <p id="text-response" className="my-2">{e.text}</p>
+            <p id="text-response" className="bg-[#222]  p-4 rounded-md my-2">{e.text}</p>
             <ModalComponent
               setState={setShareState}
               state={shareState}
@@ -315,8 +298,8 @@ return ()=>{
               }}
             />
           </li>
-          <small className=" italic text-white/70 text-center block">click on response to select </small>
-          </>
+{user?          <small  className=" italic text-white/70 text-center block">click on response to select </small>:<></>
+}          </div>
         )}
         
         
@@ -327,27 +310,6 @@ return ()=>{
   );
 }
 
-//  export const ImageCollapse=(images:string[])=>{
-//   return(
-//       <section>
-//         {
-//           images.map((e,n)=>{
-//             if(n <4){
-//             return(
-//               <div id={`${n}_image`}>
-//                 <Image src={e} alt=""/>
-//               </div>
-//             )}
-//             if(n == 4){
-//               <div id={`${n}_image`} className="relative">
-//                 <Image src={e} alt=""/>
-//               </div>
-//             }
-//           })
-//         }
-//       </section>
-//   )
-// }
 export const CreateDenonymousClient = () => {
 
 

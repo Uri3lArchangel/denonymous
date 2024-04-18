@@ -12,7 +12,7 @@ import insta from '../public/images/insta.svg'
 import linkedin from '../public/images/linkedin.svg'
 import medium from '../public/images/medium.svg'
 import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
-import Tags from "@/ads/Tags";
+// import Tags from "@/ads/Tags";
 
 
 const inter = Poppins({ weight:["500"],subsets:["latin-ext"] });
@@ -37,7 +37,7 @@ export default async function RootLayout({
     <html lang="en">
       <head>
       <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
-      <Tags />      
+      {/* <Tags />       */}
       </head>
       <body className={inter.className}>
         

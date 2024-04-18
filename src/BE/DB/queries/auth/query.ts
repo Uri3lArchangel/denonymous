@@ -9,6 +9,7 @@ import { categories, signupwelocme } from "@/src/core/data/notficationCore"
 connectMongo()
 
 export const findUserByEmail = async(email:string)=>{
+
 try{
   const user = await User.findOne({email})
 return user

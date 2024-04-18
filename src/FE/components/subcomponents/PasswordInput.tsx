@@ -9,7 +9,7 @@ function PasswordInput({passwordRef,password,handleChange}:{passwordRef?:React.L
         setShowPassword(!showPassword);
       };
   return (
-    <div className="flex border-b-2 border-[#B58419] mb-6">  
+    <div className="flex border-b-2 border-[#B58419] mt-4">  
     <input
       ref={passwordRef}
       type={showPassword ? 'text' : 'password'}

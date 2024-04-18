@@ -88,11 +88,11 @@ function PasswordAndConfirm({passwordRef,confirmPasswordRef,strength,setStrength
 
   return (
 <>
-<div className='mt-8'>
-        <label htmlFor="password" className="block text-sm mb-3">
+<div className='my-4'>
+        <label htmlFor="password" className="block text-sm mb-2">
          New Password *
           </label>
-            <div className="flex border-b-2 border-[#B58419] mb-6">  
+            <div className="flex border-b-2 border-[#B58419] mb-2">  
           <input
             ref={passwordRef}
             type={showPassword ? 'text' : 'password'}
@@ -115,11 +115,11 @@ function PasswordAndConfirm({passwordRef,confirmPasswordRef,strength,setStrength
       </div>
       <p id="pass_display"></p>
     </div>
-    <div>
+    <div className='my-4'>
           <label htmlFor="confirmPassword" className="block text-sm mb-3">
             Confirm New Password *
           </label>
-          <div className="flex border-b-2 border-[#B58419] mb-6">  
+          <div className="flex border-b-2 border-[#B58419] mb-2">  
 
           <input
             ref={confirmPasswordRef}
@@ -134,8 +134,9 @@ function PasswordAndConfirm({passwordRef,confirmPasswordRef,strength,setStrength
                   {showPassword2 ?  <EyeOffIcon className="cursor-pointer" onClick={toggleConfirmPasswordVisibility} /> :  <EyeIcon className="cursor-pointer" onClick={toggleConfirmPasswordVisibility} />}
 
           </div>
-        </div>
         <p id="password_display"></p>
+
+        </div>
 </>  )
 }
 

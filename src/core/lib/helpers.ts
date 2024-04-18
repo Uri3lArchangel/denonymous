@@ -56,7 +56,6 @@ export const downloadMedia=async(src:string)=>{
 
           downloadLink.href = blobUrl;
           let s =src.split(".")
-        alert(s[s.length -1])
           downloadLink.download = `denonymous_media_${(Math.random()*1000).toFixed(0)}.${s[s.length -1]}`;
 
           document.body.appendChild(downloadLink);

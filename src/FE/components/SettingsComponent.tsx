@@ -15,13 +15,9 @@ import DeleteAccountModal from './libraries/Modals/DeleteAccountModal'
 
 const SettingsComponent = ({username,email,verified}:{username:string,email:string,verified:boolean}) => {
     const notification = useContext(NotificationContext)!
-    const [pendingUname,setPendingUname]=useState(false)
     const [pendingEmail,setPendingEmail]=useState(false)
     const [emailValue,setEmailValue]=useState("")
-    const [verifyEmailModalState,setVerifyEmailModalState] = useState(false)
-    const [hasAnyInputChanged,setInputChangeTrigger]=useState(false)
     const [hasAnyInputChangedEmail,setInputChangeTriggerEmail]=useState(false)
-    const [unameState,setUnameState]=useState({message:"",type:""})
     const [emailState,setEmailState]=useState({message:"",type:""})
     const currentPasswordRef = useRef<HTMLInputElement>(null)
     const newPasswordRef = useRef<HTMLInputElement>(null)
@@ -41,28 +37,7 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
         return element.value
     }
 
-    const saveUname =async (e:React.MouseEvent<HTMLButtonElement>)=>{
-        e.preventDefault()
-        const unameError=document.getElementById("username-error") as HTMLParagraphElement
-        unameError.innerText=""
-            
-            const form = new FormData()
-            if(username != getUsernameInputElement()){
-                setPendingUname(true)
-                form.append("uname-input",getUsernameInputElement())
-                form.append("uname",username)
-
-               setUnameState(await changeUsernameAction(form))
-            setPendingUname(false)
-                
-            
-            }
-        
-     
-
-        
-   
-    }
+ 
 
     const saveEmail = async(e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault()
@@ -118,13 +93,7 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
 
     useEffect(()=>{
         getEmailInputElement()
-        getUsernameInputElement()
-        if(unameState.type){
-            notification({type:unameState.type as any,message:unameState.message,description:''})
-            if(unameState.type == "success"){
-                setInputChangeTrigger(false)
-            }
-        }
+      
         if(emailState.type){
             notification({type:emailState.type as any,message:emailState.message,description:''})
             if(emailState.type == "success"){
@@ -143,21 +112,21 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
            }
         }
 
-    },[unameState.type,emailState.type,passwordState.type,emailState.message,notification,passwordState.message,unameState.message])
+    },[emailState.type,passwordState.type,emailState.message,notification,passwordState.message])
   return (
 <section className='bg-black py-8 pt-6 backgroundVector'>
     <DeleteAccountModal state={deleteModalState} setState={setDeleteModalState}/>
     <h1 className='text-white font-bold text-xl text-center my-8'>Settings</h1>
     <div className='bg-[#1E1E1E] flex flex-col items-center py-10 max-w-[400px] sm:mx-auto sm:px-6 rounded-md'>
         <Image src={DE} alt='DE' className='w-[60px] h-[60px]  my-8' />
-        <form   className='text-white px-4 bg-[#262626] rounded-md p-2 space-y-4'>
+        {/* <form   className='text-white px-4 bg-[#262626] rounded-md p-2 space-y-4'>
                 
             <label htmlFor="uname-input" className='text-sm'>Username</label>
            <EditableInput inputvalue={username} setInputChangeTrigger={setInputChangeTrigger}  input={{id:"uname-input",defaultValue:username,readOnly:true}} />
            <p id="username-error"></p>
            <button onClick={saveUname} className='gradient_elements_div px-4 py-2 rounded-md text-black my-4'  hidden={!hasAnyInputChanged} disabled={pendingUname}>{pendingUname?"Saving...":"Save"}</button>
 
-           </form>
+           </form> */}
            <form  className='text-white px-4 bg-[#262626] rounded-md p-2 space-y-4'>
            <label htmlFor="email-input" className='text-sm '>Email Address</label>
            <EditableInput inputvalue={email} input={{id:"email-input",defaultValue:email,readOnly:true}} setInputChangeTrigger={setInputChangeTriggerEmail}  />

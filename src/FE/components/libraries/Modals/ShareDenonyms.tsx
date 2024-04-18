@@ -32,7 +32,7 @@ function ShareDenonymsModal({setModal,modal,link}:{modal:boolean,setModal:React.
         target="_blank"
         href={`https://api.whatsapp.com/send?text=${
           randomSelect(anonymousMessagePrompts) + "%0A%0A"
-        }${encodeURIComponent(link)}&is_copy_url=false`}
+        }${encodeURI(link)}&is_copy_url=false`}
         className="cursor-pointer hover:text-[#f6d108]"
       >
         <FaWhatsapp />
@@ -41,7 +41,7 @@ function ShareDenonymsModal({setModal,modal,link}:{modal:boolean,setModal:React.
       <Link
         target="_blank"
         href={`https://twitter.com/intent/tweet?url=${
-          encodeURIComponent(link) + "%0A%0A"
+          encodeURI(link) + "%0A%0A"
         }&text=${
           randomSelect(anonymousMessagePrompts) + "%0A%0A"
         }&hashtags=${randomSelect(platformHashtags)}`.replaceAll(
@@ -59,7 +59,7 @@ function ShareDenonymsModal({setModal,modal,link}:{modal:boolean,setModal:React.
       </div> */}
       <Link
         target="_blank"
-        href={`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${randomSelect(
+        href={`https://t.me/share/url?url=${encodeURI(link)}&text=${randomSelect(
           anonymousMessagePrompts
         )}`}
         className='hover:text-[#f6d108]'

@@ -68,7 +68,6 @@ const ERROR_MESSAGES = {
 
 const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ dropzoneOptions, value, className, disabled, onFilesAdded, onChange, id,generalFileStateAction, setGeneralFileStateAction },ref) => {
     const [customError, setCustomError] = React.useState<string>();
-    const [audioPlayState,setAudioPlayState]=React.useState(true)
         if (dropzoneOptions?.maxFiles && value?.length) {
       disabled = disabled ?? value.length >= dropzoneOptions.maxFiles;
     }

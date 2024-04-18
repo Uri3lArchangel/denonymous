@@ -2,14 +2,17 @@ import mongoose from "mongoose";
 
 
 export const connectMongo = async () => {
-  if (!mongoose.connections[0].db) {
+  try{if (!mongoose.connections[0].db) {
     console.log("connecting")
     const uri = process.env.mongourl;
     await mongoose.connect(uri);
     console.log("connected")
 
   }
-  return ;
+  return ;}catch(err){
+    console.log(err)
+    throw new Error("Error In Network Connection ")
+  }
 };
 
 
