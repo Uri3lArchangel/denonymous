@@ -16,7 +16,7 @@ async function page({params}:{params:{key:number}}) {
 
   return (
     
-    <section className=' bg-[#8d8d8d] backgroundVector  px-8 py-20'>
+    <section className=' bg-[#7a7a7a]  px-8 py-20'>
       <div className='max-w-[500px] mx-auto text-white bg-black shadow-hd p-6 rounded-md'>
       <Backarrow  />
         <h1 className='text-2xl sm:text-3xl my-4'>{current.category}</h1>
