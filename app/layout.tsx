@@ -45,9 +45,9 @@ export default async function RootLayout({
       </head>
       <body className={inter.className}>
         
-      {/* <div className="min-h-[80px] bg-gray-500 md:hidden pb-10">ads</div> */}
-      {/* <div className="fixed z-[3] left-10 top-20 w-[200px] hidden md:block h-[80%] bg-red-400">ads</div>
-      <div className="fixed z-[3] right-10 top-20 w-[200px] hidden md:block h-[80%] bg-red-400">ads</div> */}
+      <div className="min-h-[80px]  md:hidden pb-10 bg-gray-100"></div>
+      <div className="fixed z-[3] left-10 top-20 w-[200px] hidden md:block h-[80%] bg-gray-100 "></div>
+      <div className="fixed z-[3] right-10 top-20 w-[200px] hidden md:block h-[80%] bg-gray-100"></div>
       <EdgeStoreProvider>
         <NotificationApp >
           <SessionProvider>
