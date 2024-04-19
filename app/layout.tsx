@@ -39,6 +39,7 @@ export default async function RootLayout({
     <html lang="en">
       <head>
       <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
+      <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
       <Analytics/> 
       <GoogleAnalytics />
       </head>
