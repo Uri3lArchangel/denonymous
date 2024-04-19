@@ -1,11 +1,17 @@
 import { fetchNotficationsServer } from '@/src/BE/functions'
 import NotificationDetailLink from '@/src/FE/components/subcomponents/NotificationDetailLink'
-import {  notificationDataTraucate } from '@/src/core/lib/helpers'
-import { LucideMessageSquareText, MessageCircleXIcon } from 'lucide-react'
-import { cookies } from 'next/headers'
-import Link from 'next/link'
+import { Metadata } from 'next'
 import React from 'react'
-import { RiNotification2Line, RiNotification4Fill, RiNotificationBadgeFill } from 'react-icons/ri'
+
+
+export const metadata:Metadata = {
+  title: 'Acme',
+  robots:{
+    index:false,
+    follow:false
+  },
+ 
+}
 
 async function page() {
 

@@ -1,10 +1,19 @@
 import { fetchNotficationsServer } from '@/src/BE/functions'
 import { updateNotificationAction } from '@/src/BE/serverActions/notificationsActions'
 import Backarrow from '@/src/FE/components/subcomponents/Backarrow'
+import { Metadata } from 'next'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import Link from 'next/link'
 import React from 'react'
 
+export const metadata:Metadata = {
+  title: 'Notification Message | Denonymous',
+  robots:{
+    index:false,
+    follow:false
+  },
+ 
+}
 
 
 async function page({params}:{params:{key:number}}) {

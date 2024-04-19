@@ -1,9 +1,18 @@
 import SettingsComponent from '@/src/FE/components/SettingsComponent'
 import { verifyUserDataToken } from '@/src/core/lib/JWTFuctions'
+import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
+export const metadata:Metadata = {
+  title: 'Settings | Denonymous',
+  robots:{
+    index:false,
+    follow:false
+  },
+ 
+}
 
 const fetchUserDetails=async()=>{
 const cookie = cookies().get("denon_session_0")

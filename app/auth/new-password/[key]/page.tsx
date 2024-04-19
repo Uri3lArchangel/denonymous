@@ -1,12 +1,19 @@
 import { checkIfTokenIsValid } from '@/src/BE/DB/queries/auth/query'
 import NewPasswordForm from '@/src/FE/components/subcomponents/NewPasswordForm'
-import { headers } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import React from 'react'
 import logo from "@/public/images/logo.png";
+import { Metadata } from 'next'
 
+export const metadata:Metadata = {
+  title: 'New Password | Denonymous',
+  robots:{
+    index:false,
+    follow:false
+  },
+ 
+}
 
 
 async function page({params}:{params:{key:string}}) {

@@ -4,7 +4,13 @@ import React from 'react'
 import anon from '../public/images/anonymity.svg'
 import sec from '../public/images/secure.svg'
 import easy from '../public/images/easy.svg'
+import { Metadata } from 'next'
 
+export const metadata:Metadata = {
+  title: 'Home Page | Denonymous',
+
+ 
+}
 
 
 function page() {
