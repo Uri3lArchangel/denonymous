@@ -3,16 +3,14 @@ import React from 'react'
 
 function GoogleAnalytics() {
   return (
-<Script>
+<Script async src="https://www.googletagmanager.com/gtag/js?id=G-QS4R8JWB80" strategy='afterInteractive'>
   {`<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QS4R8JWB80"></script>
-<script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-QS4R8JWB80');
-</script>`}
+`}
 </Script>
 
 )

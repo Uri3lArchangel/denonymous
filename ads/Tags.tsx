@@ -2,23 +2,16 @@
 import React, { useEffect } from 'react'
 // import {run} from '@/ads/tags'
 import Script from 'next/script'
-import { inpagePushAd } from './inpagepush-adblock'
-import { pushNotAd } from './push-notifciation-ad'
-import { popunderAD } from './popunder'
 
 
 function Tags() {
 
   return (
-<>
-<Script id='ads-scripts-1' strategy='afterInteractive'>
-  {`${inpagePushAd}`}
+< >
+<Script data-cfasync="false"  id='ads-scripts-1' src='/assets/pushAnti-adblock.js' strategy='afterInteractive'>
 </Script>
-<Script id='ads-scripts-2' strategy='afterInteractive'>
-  {`${pushNotAd}`}
-</Script>
-<Script id='ads-scripts-3' strategy='afterInteractive'>
-  {`${popunderAD}`}
+
+<Script data-cfasync="false" id='ads-scripts-2' src='/assets/inpagePushAnti-adblock.js' strategy='afterInteractive'>
 </Script>
 </>    )
 }

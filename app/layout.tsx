@@ -38,6 +38,7 @@ export default async function RootLayout({
     <html lang="en">
       <head>
       <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
+      
       <Tags />      
       <GoogleAnalytics />
       </head>

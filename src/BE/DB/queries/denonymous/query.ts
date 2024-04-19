@@ -40,7 +40,7 @@ export const sendRelpy=async(username:string,topic:string,reply:replyModelType)=
             });
             const a =replyNotification(topic,username,updatedUser.denonymous[denonymousIndex].replys.length-1,username)
             updatedUser.notifications.push({
-              category:categories.reply,data:a.data,link:a.link
+              category:categories.reply,data:a.data,link:a.link,owner:a.owner
             })
             await updatedUser.save(); // Save the updated document
           }

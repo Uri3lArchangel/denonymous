@@ -1,6 +1,7 @@
 import { fetchNotficationsServer } from '@/src/BE/functions'
 import NotificationDetailLink from '@/src/FE/components/subcomponents/NotificationDetailLink'
 import { Metadata } from 'next'
+import { revalidatePath } from 'next/cache'
 import React from 'react'
 
 
@@ -22,7 +23,7 @@ async function page() {
     const newIndex = Array.from({length},(_,i)=>(length-(i+1)))
     return newIndex[b]
   }
-
+revalidatePath("/notifications")
   return (
 <section className='bg-black backgroundVector py-10 h-[100vh] overflow-y-scroll '>
   <h1 className='my-6 text-white text-2xl sm:text-3xl text-center'>Notifications({nots.length})</h1>
