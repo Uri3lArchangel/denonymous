@@ -40,10 +40,10 @@ export default async function RootLayout({
       <head>
       <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
       <Analytics/> 
-      <Tags />      
       <GoogleAnalytics />
       </head>
       <body className={inter.className}>
+      <Tags />      
 
       <EdgeStoreProvider>
         <NotificationApp >
