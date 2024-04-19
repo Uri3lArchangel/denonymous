@@ -14,6 +14,7 @@ import medium from '../public/images/medium.svg'
 import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
 import GoogleAnalytics from "@/analytics/Google";
 import Tags from "@/ads/Tags";
+import { Analytics } from "@vercel/analytics/react"
 
 
 const inter = Poppins({ weight:["500"],subsets:["latin-ext"] });
@@ -38,7 +39,7 @@ export default async function RootLayout({
     <html lang="en">
       <head>
       <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
-      
+      <Analytics/> 
       <Tags />      
       <GoogleAnalytics />
       </head>
