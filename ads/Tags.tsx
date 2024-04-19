@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect } from 'react'
-// import {run} from '@/ads/tags'
 import Script from 'next/script'
 
 
