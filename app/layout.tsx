@@ -13,7 +13,7 @@ import linkedin from '../public/images/linkedin.svg'
 import medium from '../public/images/medium.svg'
 import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
 import GoogleAnalytics from "@/analytics/Google";
-// import Tags from "@/ads/Tags";
+import Tags from "@/ads/Tags";
 
 
 const inter = Poppins({ weight:["500"],subsets:["latin-ext"] });
