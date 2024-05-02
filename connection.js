@@ -11,7 +11,7 @@ export const connectMongo = async () => {
   }
   return ;}catch(err){
     console.log(err)
-    throw new Error("Error In Network Connection ")
+    throw new Error("Error In Network Connection|client ")
   }
 };
 

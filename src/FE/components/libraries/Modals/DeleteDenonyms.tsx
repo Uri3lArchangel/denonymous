@@ -12,17 +12,17 @@ export interface ModalStyles {
     content?: CSSProperties;
   }
 
-function DeleteDenonymsModal({setModal,modal,topic,setLoading}:{modal:boolean,setModal:React.Dispatch<React.SetStateAction<boolean>>,topic:string,setLoading:React.Dispatch<React.SetStateAction<boolean>>}) {
+function DeleteDenonymsModal({setModal,modal,key_,setLoading}:{modal:boolean,setModal:React.Dispatch<React.SetStateAction<boolean>>,key_:string,setLoading:React.Dispatch<React.SetStateAction<boolean>>}) {
     const {edgestore}  = useEdgeStore()
 
-  useEffect(()=>{
-   setModal(false)
-  })
+  // useEffect(()=>{
+  //  setModal(false)
+  // })
     const styles = {mask:{backdropFilter:"blur(6px)"},"body":{backgroundColor:"transparent"},header:{backgroundColor:"transparent"},content:{backgroundColor:"#000",border:"1px solid #f6d108"},wrapper:{backgroundColor:"#fff3"},footer:{backgroundColor:"transparent"}} as ModalStyles
   return (
-    <ModalComponent state={modal} setState={setModal} styles={styles} onOk={async()=>{
+    <ModalComponent state={modal}  setState={setModal} styles={styles} onOk={async()=>{
       setLoading(true)
-        let a = await deleteDenonymousAction(topic!);
+        let a = await deleteDenonymousAction(key_);
         if(a){
         for(let i=0;i<a.length;i++){
             await edgestore.denonymousMedia.delete({url:a[i]})

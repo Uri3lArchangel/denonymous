@@ -1,4 +1,4 @@
-import { userModelType, userNotificationType } from "@/types"
+import { denonymousType, userModelType, userNotificationType } from "@/types"
 import crypto from 'crypto'
 export const URLRESOLVE =(a:string)=>{
 if(process.env.NODE_ENV =="production"){
@@ -7,30 +7,27 @@ if(process.env.NODE_ENV =="production"){
     return a
 }
 }
-export const filterDenonymous=(all:userModelType,topic:string)=>{
+export const filterDenonymous=(all:userModelType,key:string)=>{
     if(!all) throw new Error("This denonymous does not exist or has been deleted|client")
-
     if(!all.denonymous) throw new Error("This denonymous does not exist or has been deleted|client")
 
-    const Denonymous = all.denonymous.filter((e)=>(e.responsesViewState && e.topic==topic && !e.isDeleted)) 
+    const Denonymous = all.denonymous.filter((e)=>(e.key==key && !e.isDeleted)) 
     if(Denonymous.length == 0)  throw new Error("This denonymous does not exist or has been deleted|client")
     return Denonymous[0]
 }
 
-export const filterReplys=(all:userModelType,topic:string)=>{
+export const filterReplys=(all:userModelType,key:string)=>{
     if(!all) throw Error("Invalid parameters")
     if(!all.denonymous) return {}
-    const Denonymous = all.denonymous.filter((e)=>(e.responsesViewState && e.topic==topic && !e.isDeleted)) 
-    if(Denonymous.length == 0) return {}
+    const Denonymous = all.denonymous.filter((e)=>( e.key==key && !e.isDeleted)) 
+    if(Denonymous.length == 0) return []
+
     return Denonymous[0].replys
 }
-export const filterMediaLimitOn = (all:userModelType,topic:string)=>{
-    if(!all) throw Error("Invalid parameters")
+export const filterMediaLimitOn = (denonyms:denonymousType[],key:string)=>{
 
-    if(!all.denonymous) return false
-    const Denonymous = all.denonymous.filter((e)=>(e.responsesViewState && e.topic==topic && !e.isDeleted)) 
-    if(Denonymous.length == 0) return false;
-    const status = Denonymous[0].isAudioLimitOn && Denonymous[0].isVideoLimitOn && Denonymous[0].isImageLimitOn
+    const Denonymous = denonyms.filter((e)=>(e.key==key && !e.isDeleted)) 
+    const status = {audio:Denonymous[0].isAudioLimitOn ,video:Denonymous[0].isVideoLimitOn, image:Denonymous[0].isImageLimitOn}
     return status
 }
 
@@ -132,10 +129,11 @@ export const calculateStrength = (pass: string) => {
 }
 
 export function code_generator() {
-  if(`${Math.ceil(Math.random() * 1000000)}`.length != 6){
+  let a=`${Math.ceil(Math.random() * 1000000)}`
+  if(a.length != 6){
     code_generator()
   }
-  return Math.ceil(Math.random() * 1000000);
+  return a;
 }
 
 export const notificationDataTraucate = (a:string)=>{
@@ -170,9 +168,63 @@ export const largeNumbersTrauncate=(a:number | string )=>{
 
 export const fetchNotificationsClient = async()=>{
 
-  const res = await fetch(URLRESOLVE("/api/fetchUserNav"),{next:{tags:['notifications_fetch_tag'],revalidate:0}})
+  const res = await fetch(URLRESOLVE("/api/fetchUserNav"),{next:{tags:['notifications_fetch_tag'],revalidate:false}})
   const data = await res.json()
 
  const a = (data.data.notifications.filter((e:any)=>!e.opened)).length
  return a as number
+}
+
+export const isActiveLink= ()=>{
+  let a = document.getElementById("home_link") as HTMLAnchorElement;
+  let b = document.getElementById("dashboard_link") as HTMLAnchorElement;
+  a.classList.remove('gradient_elements_text')
+  b.classList.remove('gradient_elements_text')
+
+
+  if( window.location.pathname== "/")
+  {
+    a.classList.add("gradient_elements_text")
+  }
+  if(window.location.pathname.includes("dashboard")){
+    b.classList.add("gradient_elements_text")
+
+  }
+ }
+ export const validateUsername = (e:string)=>{
+  if(e.match(/(\W)/g)){
+    return false;
+  }else{ 
+    return true;
+  }
+ }
+
+
+ export const flipIndex = (b:number,length:number)=>{
+  const newIndex = Array.from({length},(_,i)=>(length-(i+1)))
+  return newIndex[b]
+}
+
+export const copyToClipboard = (a: string) => {
+  navigator.clipboard.writeText(a);
+};
+export function handleClick(a: React.MouseEvent<HTMLInputElement>, i: number,setKey:React.Dispatch<React.SetStateAction<string>>,setactiveStateModal: React.Dispatch<React.SetStateAction<boolean>>,denonyms:denonymousType[]) {
+  a.preventDefault();
+  setKey(denonyms[i].key);
+  setactiveStateModal(true);
+}
+export function handleClickVisiblity(
+  a: React.MouseEvent<HTMLInputElement>,
+  i: number,
+  setKeyVisibility:React.Dispatch<React.SetStateAction<string>>,setVisibilityStateModal:React.Dispatch<React.SetStateAction<boolean>>,denonyms:denonymousType[]
+) {
+  a.preventDefault();
+  setKeyVisibility(denonyms![i].key);
+  setVisibilityStateModal(true);
+}
+
+export async function fetchUser(username:string) {
+  const res = await fetch(process.env.baseURL+"/api/fetchUserByusername",{method:"POST",mode:"no-cors",body:JSON.stringify({username}),next:{revalidate:false,tags:["raieneidmie_00"]}})
+  const data =await res.json()
+  return data.user
 }

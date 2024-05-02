@@ -23,6 +23,7 @@ export type userModelType = {
     
  };
   denonymous: {
+    key:string
     owner:string;
     description:string;
     isDeleted: boolean;
@@ -35,6 +36,8 @@ export type userModelType = {
     isAudioLimitOn: boolean;
     isImageLimitOn: boolean;
     replys: {
+      key:string;
+      visible:boolean;
       text: string;
       media: {
         link: string;
@@ -47,7 +50,8 @@ export type userModelType = {
 };
 
 
-export interface denonymousType {
+export interface denonymousType  {
+  key:string
   owner:string;
   link: string;
   topic: string;
@@ -60,6 +64,8 @@ export interface denonymousType {
   isAudioLimitOn: boolean;
   isImageLimitOn: boolean;
   replys: {
+    key:string;
+    visible:boolean;
     text: string;
     media: {
       link: string;
@@ -75,7 +81,7 @@ export interface userDataJWTType {
   uuid: string;
   verified: boolean;
   premium: boolean;
-  randomKey: string;
+  expiry: string;
 }
 
 export interface baseResponseType {
@@ -91,6 +97,8 @@ export interface baseResponseType {
 // }
 
 export interface replyModelType {
+  key:string;
+  visible:boolean;
   text: string;
   media: {
     link: string;

@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import std from '../styles/standardPages.module.css'
+import std from '@/public/styles/standardPages.module.css'
  
 export default function NotFound() {
   return (

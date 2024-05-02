@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import styles from "../../styles/styles.module.css";
+import styles from "@/public/styles/styles.module.css";
 
 
 const layout = ({children}:{children:ReactNode}) => {

@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import crypto from 'crypto'
 
 const UserSchema = new Schema({
     UUID:String,
@@ -43,6 +44,7 @@ const UserSchema = new Schema({
        } 
     },
     denonymous:[{
+        key:String,
         owner:String,
         isDeleted:{type:Boolean,default:false},
         isActive: {type:Boolean,default:true},
@@ -72,6 +74,14 @@ const UserSchema = new Schema({
         replys:[
             {
                 text:{type:String,default:""},
+                visible:{
+                    type:Boolean,
+                    default:true
+                },
+                key:{
+                    type:String,
+                    default:(crypto.randomBytes(12).toString('hex')),
+                },
                 media:[{link:String,mimeType:String}],
                 bookmarked:{type:Boolean,default:false},
                 

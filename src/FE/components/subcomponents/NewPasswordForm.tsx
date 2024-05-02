@@ -6,7 +6,7 @@ import React, { useContext, useRef, useState } from 'react'
 import { NotificationContext } from '../contexts/NotificationContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import logo from "@/public/images/logo.png";
+import logo from "@/public/images/logo.avif";
 import Image from 'next/image';
 
 const NewPasswordForm = ({token}:{token:string}) => {
@@ -128,7 +128,7 @@ const router = useRouter()
    const stat = await changePasswordAction(token,passwordRef.current.value)
    setPending(false)
    if(stat != "success"){
-    router.push("/auth/signin")
+    router.push("/auth/reset-password")
     notification({
       message:"An error occured",
       type:"error",
@@ -140,12 +140,12 @@ const router = useRouter()
     type:"success",
     description:""
    })
+   router.push("/auth/signin")
+   
   }
 
   return (
-   <div>
-    <form  className=' backgroundVector bg-black text-white  transform shadow-div rounded-md px-10 w-[95%] max-w-[350px] mx-auto py-20'>
-    <Link href="/"><Image src={logo}  alt="denonymous" className="w-[60%] mx-auto"/></Link>
+    <form  className=' bg-black text-white  transform shadow-hd rounded-md px-10 w-[95%] max-w-[400px] mx-auto py-20'>
         
         <h1 className='mb-4'>Create a new password</h1>
         <hr />
@@ -205,7 +205,6 @@ const router = useRouter()
     }
     
     className='gradient_elements_div w-full sm:w-fit sm:px-6 max-w-[100px] rounded-md block text-black py-4' disabled={pending}>{pending?"Submitting...":"Submit"}</button>     </form>
-   </div>
   
   )
 }

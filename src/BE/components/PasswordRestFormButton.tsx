@@ -1,8 +1,8 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
-import { sendResetLink } from '../serverActions/authactions'
-import styles from "../../../styles/styles.module.css";
+
+import styles from "@/public/styles/styles.module.css";
 import { formatTime } from '@/src/core/lib/helpers';
 import { NotificationContext } from '@/src/FE/components/contexts/NotificationContext';
 
@@ -49,7 +49,7 @@ if(state.type == 'success'){
   >
       {state.type === "warning" || state.type === "success" ? (countdown > 0 ? formatTime(countdown * 1000) : "Send Reset Link") : (pending ? "Sending...." : "Send Reset Link")}
   </button> 
-{countdown>0 ? <p className='text-sm text-gray-300'>Wait for timout before you can send another email</p> :null
+{countdown>0 ? <p className='text-sm text-gray-300 text -center'>Wait for timer before you can send another email</p> :null
 }  </>)
 }
 

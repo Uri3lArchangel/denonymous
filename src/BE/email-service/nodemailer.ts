@@ -5,16 +5,15 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true, // Use `true` for port 465, `false` for all other ports
   auth: {
-    user: "denonymous-contact@denexus.xyz",
+    user: "contact@denonymous.xyz",
     pass: process.env.webmail_pass,
   },
 });
-// https://denonymous.denexus.xyz
+// https://denonymous.xyz
 export async function signUpConfirmation(recipientEmail: string, key: string) {
-console.log(recipientEmail)
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: "Denonymous <denonymous-contact@denexus.xyz>", // sender address
+    from: "Denonymous <contact@denonymous.xyz>", // sender address
     to: recipientEmail, // list of receivers
     subject: "Registration Email verification ✔", // Subject line
     // text: "Hello world?", // plain text body
@@ -33,27 +32,27 @@ console.log(recipientEmail)
           </div>
     <div style="background-color: black; text-align: center;padding:2em 0">
     Copyright © 2023 denonymous, All rights reserved.
-    <ul  style="display:flex; margin:2em 0;">
+    <ul  style="display:flex; margin:2em 0;;justify-content:center">
     <li style="margin:0 1em;">
-      <a href="#" style="text-decoration:none;">
-      <img src="https://denonymous.denexus.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
-      </a>
-    </li>
-    <li style="margin:0 1em;">
-    <a href="#" style="text-decoration:none;">
-    <img src="https://denonymous.denexus.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+    <a href="https://twitter.com/denonymous_" style="text-decoration:none;">
+    <img src="https://denonymous.denexus.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
     </a>
-    </li>
-    <li style="margin:0 1em;">
-    <a href="#" style="text-decoration:none;">
-    <img src="https://denonymous.denexus.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
-    </a>
-    </li>
-    <li style="margin:0 1em;">  
-    <a href="#" style="text-decoration:none;">
-    <img src="https://denonymous.denexus.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
-    </a>
-    </li>
+  </li>
+  <li style="margin:0 1em;">
+  <a href="https://www.instagram.com/denonymous_/" style="text-decoration:none;">
+  <img src="https://denonymous.denexus.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+  </a>
+  </li>
+  <li style="margin:0 1em;">
+  <a href="https://www.linkedin.com/company/denonymous" style="text-decoration:none;">
+  <img src="https://denonymous.denexus.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+  </a>
+  </li>
+  <li style="margin:0 1em;">  
+  <a href="https://denonymous.medium.com/" style="text-decoration:none;">
+  <img src="https://denonymous.denexus.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+  </a>
+  </li>
   </ul>
     </div>
     </div>
@@ -65,8 +64,10 @@ console.log(recipientEmail)
 
 export async function passwordReset(recipientEmail: string, key: string) {
   // send mail with defined transport object
+console.log(recipientEmail,key)
+
   const info = await transporter.sendMail({
-    from: "Denonymous <denonymous-contact@denexus.xyz>", // sender address
+    from: "Denonymous <contact@denonymous.xyz>", // sender address
     to: recipientEmail, // list of receivers
     subject: "Password Reset ✔", // Subject line
     html: `
@@ -88,24 +89,24 @@ export async function passwordReset(recipientEmail: string, key: string) {
 
     <div style="background-color: black; text-align: center;">
     Copyright © 2023 denonymous, All rights reserved.
-    <ul  style="display:flex; margin:2em 0;">
+    <ul  style="display:flex; margin:2em 0;justify-content:center">
     <li style="margin:0 1em;">
-      <a href="#" style="text-decoration:none;">
+      <a href="https://twitter.com/denonymous_" style="text-decoration:none; >
       <img src="https://denonymous.denexus.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
       </a>
     </li>
     <li style="margin:0 1em;">
-    <a href="#" style="text-decoration:none;">
+    <a href="https://www.instagram.com/denonymous_/" style="text-decoration:none;">
     <img src="https://denonymous.denexus.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
     </a>
     </li>
     <li style="margin:0 1em;">
-    <a href="#" style="text-decoration:none;">
+    <a href="https://www.linkedin.com/company/denonymous" style="text-decoration:none;">
     <img src="https://denonymous.denexus.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
     </a>
     </li>
     <li style="margin:0 1em;">  
-    <a href="#" style="text-decoration:none;">
+    <a href="https://denonymous.medium.com/" style="text-decoration:none;">
     <img src="https://denonymous.denexus.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
     </a>
     </li>

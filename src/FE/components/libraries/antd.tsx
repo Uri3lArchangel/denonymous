@@ -5,7 +5,7 @@ import { Carousel } from 'antd';
 import { CommentOutlined, CustomerServiceOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 import { BsReplyFill, BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
-import { Download, Share2Icon } from 'lucide-react';
+import { Download, EyeIcon, EyeOffIcon, Share2Icon } from 'lucide-react';
 
 export interface ModalStyles {
   header?: CSSProperties;
@@ -21,7 +21,7 @@ export const ModalComponent = ({children,state,setState,styles,ok,title,key,mask
   return (
     <>
    
-      <Modal key={key} styles={styles} title={title} mask={mask} maskClosable={maskC} open={state} cancelButtonProps={{className:"text-white",danger:true}} onOk={onOk} okType={'default'}  okText={ok?"ok":null} okButtonProps={ok?{className:"text-[#fff]"}:{hidden:true}} onCancel={()=>{setState(false)}}>
+      <Modal key={key}  styles={styles} title={title} mask={mask} maskClosable={maskC} open={state} cancelButtonProps={{className:"text-white",danger:true}} onOk={onOk} okType={'default'}  okText={ok?"ok":null} okButtonProps={ok?{className:"text-[#fff]"}:{hidden:true}} onCancel={()=>{setState(false)}}>
  {children}
       </Modal>
     </>
@@ -57,13 +57,14 @@ export const CarouselApp = ({children,className}:{children:React.ReactNode,class
 // icon={<BsThreeDotsVertical size className="text-black" />}
 
 
-export const FloatButtonComponent = ({className,selectedIds,replySS}:{className?:string,selectedIds?:string,replySS:any}) => (
+export const FloatButtonComponent = ({className,selected,replySS}:{className?:string,selected:number,replySS:any}) => (
   <>
     <FloatButton.Group
+    aria-label='Share Responses Menu Float Button '
       className={className}
       type="primary"
-      style={{ right: 30 }}
-      icon={<BsThreeDotsVertical />}
+      style={{ right: 50 }}
+      icon={<BsThreeDotsVertical className="text-black" />}
       trigger='click'
       
     
@@ -74,15 +75,19 @@ export const FloatButtonComponent = ({className,selectedIds,replySS}:{className?
       <Share2Icon size={20} className="translate-x-[-2px]" />
       }  />
       </TooltipApp> */}
-      <TooltipApp text='' title='reply and share responses'>
 
-      <FloatButton icon={
+   {selected <=3?  
+         <TooltipApp title='Reply and share' text="">
+
+   <FloatButton icon={
       
       <BsReplyFill size={20} 
       
       />
       } onClick={replySS}/>
       </TooltipApp>
+      :<></>}
+    
     </FloatButton.Group>
    
   </>
@@ -122,15 +127,20 @@ if(text.length >= 24){
   import { DownOutlined, SmileOutlined } from '@ant-design/icons';
   import type { MenuProps } from 'antd';
   import { Dropdown, Space } from 'antd';
+import Backarrow from '../subcomponents/Backarrow';
   
 
  
-  export const DropdownApp = ({items,trigger,triggerComponent}:{items?:MenuProps['items'],triggerComponent:ReactNode,trigger?:("contextMenu" | "click" | "hover")[]}) => {
+  export const DropdownApp = ({items,trigger,triggerComponent,className,rootClassName,placement}:{items?:MenuProps['items'],triggerComponent:ReactNode,trigger?:("contextMenu" | "click" | "hover")[],className?:any,rootClassName?:any,placement?: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight" | "top" | "bottom" }) => {
    
     
    return(
-     <Dropdown menu={{ items }} trigger={trigger} >
-      <a onClick={(e) => e.preventDefault()}>
+     <Dropdown menu={{ items }} 
+     rootClassName={rootClassName}
+     className={className}
+     placement={placement}
+     trigger={trigger} >
+      <a aria-label='Dropdown Menu' href='' onClick={(e) => e.preventDefault()}>
         <Space>
           {triggerComponent}
           {/* hover me */}

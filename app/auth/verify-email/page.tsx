@@ -1,15 +1,30 @@
 import React, { useRef } from "react";
-
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { verifyUserDataToken } from "@/src/core/lib/JWTFuctions";
 import EmailVerificationComponent from "@/src/FE/components/subcomponents/EmailVerificationComponent";
 import ResenVerificationCode from "@/src/FE/components/subcomponents/ResenVerificationCode";
-import Link from "next/link";
-import logo from "@/public/images/logo.png";
-import Image from "next/image";
+import { Metadata } from "next";
 
-async function page() {
+export const metadata:Metadata = {
+  title: 'Email Verification | Denonymous',
+ description:"Verify your email address to access Denonymous. Enter the OTP (One-Time Password) sent to your email or change the registered email address if needed. Access to the dashboard is granted upon successful email verification",
+ keywords:[
+  "Denonymous",
+  "anonymous messaging app",
+  "email verification",
+  "OTP",
+  "One-Time Password",
+  "registered email",
+  "dashboard access"
+],
+robots:{
+  index:true,
+  follow:true
+}
+}
+
+ function page() {
 
   const cookie = cookies().get("denon_session_0")
   if(!cookie || !cookie.value){
@@ -23,8 +38,7 @@ async function page() {
   
 
     return (  
-      <div className="bg-black py-12 px-6 my-4 rounded-md w-[95%] mx-auto max-w-[400px] shadow-div">
-    <Link href="/"><Image src={logo}  alt="denonymous" className="w-[60%] mx-auto"/></Link>
+      <div className="bg-black py-12 px-6 my-4 min-w-full rounded-md w-[95%] mx-auto max-w-[600px] shadow-div">
 
       <EmailVerificationComponent email={user.email} />
       <ResenVerificationCode email={user.email} />

@@ -2,7 +2,7 @@
 import { URLRESOLVE, formatTime } from '@/src/core/lib/helpers'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { NotificationContext } from '../contexts/NotificationContext'
-import styles from "../../../../styles/styles.module.css";
+import styles from "@/public/styles/styles.module.css";
 
 
 function ResenVerificationCode({email}:{email:string}) {

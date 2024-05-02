@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes loading {
+  0% {
+      opacity: 0.5;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0.5;
+  }
+}
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #f6d108 black;
+}
+*::-webkit-scrollbar {
+  width: 2px;
+}
+
+*::-webkit-scrollbar-track {
+  background: black;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #f6d108;
+  border-radius: 20px;
+}
+
 /* Root and tag styles */
 :root{
 --de-bg-grad:linear-gradient(270deg,#f2d204 0%,#f6d108 27.6%,#edc211 54.17%,#e3b419 77.6%,#daa521 100%);
@@ -51,7 +79,7 @@ canvas {
   height: 55px !important;
   
 }
-.ant-dropdown-menu{
+.navDropdown > .ant-dropdown-menu{
   background-color: #000a !important;
   /* min-height:130px; */
   backdrop-filter: blur(10px);
@@ -69,6 +97,22 @@ canvas {
 
   }
 
+  .DenonymousMediaDropdown > .ant-dropdown-menu{
+    background-color: #fff !important;
+    /* min-height:130px; */
+    backdrop-filter: blur(10px);
+    justify-content: space-between;
+    display: flex;
+    border-radius: 0 !important;
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    flex-direction: column;
+    border: 1px solid #f6d108 ;
+    padding:1em 0.4em !important;
+    margin: 0 !important;
+  
+  }
 
 /* swiper js style modifications */
   
@@ -109,7 +153,7 @@ background-color: #ffdf00 !important;
 
   /* Generally used utils styles */
   .backgroundVector{
-    background-image:url(../public/images/BACKG.jpg);
+    background-image:url(../images/BACKG.avif);
     background-size: 150% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -184,7 +228,7 @@ background-color: #ffdf00 !important;
 }
 
 .replyBG{
-  background-image: url(../public/images/replybg.jpeg);
+  background-image: url(../images/replybg.jpeg);
   background-size: 100% 100%;
   background-position: center;
   filter: brightness(0.7);
@@ -199,23 +243,32 @@ background-color: #ffdf00 !important;
   .shadow-gold-2{
     box-shadow: rgba(255, 221, 0, 0.11) 0.592779px 0.592779px 3.1856px -0.75px, rgba(255, 221, 0, 0.106) 1.61429px 1.61429px 8.67523px -1.5px, rgba(255, 221, 0, 0.098) 3.5444px 3.5444px 19.0477px -2.25px, rgba(255, 221, 0, 0.082) 7.86777px 7.86777px 42.2815px -3px, rgba(255, 221, 0, 0.04) 20px 20px 107.48px -3.75px, rgba(255, 221, 0, 0.11) -0.592779px -0.592779px 0.838316px -0.75px, rgba(255, 221, 0, 0.106) -1.61429px -1.61429px 2.28296px -1.5px, rgba(255, 221, 0, 0.098) -3.5444px -3.5444px 5.01254px -2.25px, rgba(255, 221, 0, 0.082) -7.86777px -7.86777px 11.1267px -3px, rgba(255, 221, 0, 0.04) -20px -20px 28.2843px -3.75px;
   }
-/* Loading  page styles */
-.loading-container-nav{
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  z-index: 10000;
-  backdrop-filter: blur(7px);
-  background-color: #0003;
-  background-image: url(../public/images/spinner.gif);
-  background-size: 70px 70px;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: calc(50% - 40px);
 
-}
+
+  .loading_container_nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 10000;
+    backdrop-filter: blur(7px);
+    background-color: #0003;
+    background-image: url(../images/spinner.gif);
+    background-size: 70px 70px;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: calc(50% - 40px);
+  
+  }
+  .loading_skeleton {
+    background-color: #909090; /* Default background color */
+    animation: loading 1.5s infinite ease-in-out;
+  }
+  
+
+/* Loading  page styles */
+
 .filterImage{
     /* backdrop-filter: brightness(0.2); */
     opacity: 0.4;
@@ -223,13 +276,20 @@ background-color: #ffdf00 !important;
 
 
 
+#note_btn_first{
+border-top-right-radius: 8px;
+border-top-left-radius: 8px;
+
+}
 
 
 
-
-
-
-
+#note_btn_last{
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  
+  }
+  
 
 
 
@@ -400,7 +460,7 @@ background-color: #ffdf00 !important;
 
 @media screen and (min-width:640px) {
   .backgroundVector{
-    background-image:url(../public/images/BACKG.jpg);
+    background-image:url(../images/BACKG.avif);
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -454,3 +514,4 @@ background-color: #ffdf00 !important;
   font-size: 1.11rem !important;
   /* text-overflow:ellipsis; */
 }
+

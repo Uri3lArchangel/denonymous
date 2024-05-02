@@ -10,7 +10,7 @@ const SixDigitInputField = () => {
 // states
   const [inputs, setInputs] = useState<string[]>(Array(6).fill(''));
   const [pending,setPending]=useState(false)
-  const [state,set]=useState({message:"",type:""})
+  // const [state,set]=useState({message:"",type:""})
 
 // router
   const router = useRouter()
@@ -60,26 +60,15 @@ const SixDigitInputField = () => {
 
   // useEffect
 
-  useEffect(()=>{
-    if(state.type){
-      console.log(state)
-    notification({type:state.type as any,message:state.message,description:""})
-    if(state.type == "success"){
-      router.push("/")
-    }
-    }
-    
-    return()=>{
-      set({message:"",type:""})
-    }
-  },[])
+
 
   const handleSubmit = async(e:React.MouseEvent<HTMLButtonElement>) => {
     setPending(true)
     const fullNumber = inputs.join('');
-    set(await verifyEmailAction(fullNumber))
+    const res = await verifyEmailAction(fullNumber)
     setPending(false)  
-    window.location.href="/dashboard"
+    notification({type:res.type as any,message:res.message,description:''})
+    if(res.type == "success"){router.push("/")}
   };
 
   return (

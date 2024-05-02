@@ -1,24 +1,14 @@
 "use client";
-import { getCsrfToken, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState, useEffect, useContext } from "react";
-import logo from "@/public/images/logo.png";
-import Image from "next/image";
-import styles from "../../../styles/styles.module.css";
+import { signIn } from "next-auth/react";
+import { useState, useContext } from "react";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
-import signin from '../../../styles/styles.module.css'
-import Loading from "@/app/loading";
+import signin from '@/public/styles/styles.module.css'
 import { NotificationContext } from "./contexts/NotificationContext";
-import { FaEyeSlash } from "react-icons/fa";
-import loader from '../../../public/images/spinner.gif'
 import { EyeIcon, EyeOffIcon, ScanEyeIcon } from "lucide-react";
-import { SessionContext } from "./contexts/SessionContext";
 import { useSession } from "./hooks/SessionHook";
 
 const SignInForm = () => {
   const [loading,setLoading]=useState(false)
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const {setSession}=useSession()
   const notification = useContext(NotificationContext)!
@@ -26,10 +16,10 @@ const SignInForm = () => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
-  const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await signIn("google", { redirect: false });
-  };
+  // const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   await signIn("google", { redirect: false });
+  // };
 
   const credentialSignIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -87,9 +77,8 @@ const SignInForm = () => {
     <>
     <form
     id="signinform"
-      className={` shadow-div backgroundVector my-8 rounded-[15px] max-w-[400px] w-[95%] px-8 py-12 bg-[#020106] text-white ${styles.all}`}
+      className={` shadow-div my-8 rounded-[15px] max-w-[400px] w-[95%] px-8 py-12 bg-[#020106] text-white ${signin.all}`}
     >
-        <Link href="/"><Image src={logo}  alt="denonymous" className="w-[60%] mx-auto"/></Link>
      
       <div className="text-center mb-14">
         <h2 className="font-bold text-[19px] my-3">Log in to your account</h2>
@@ -134,7 +123,7 @@ const SignInForm = () => {
    disabled={loading}
         className={"border-2  text-base text-black font-bold p-2 my-4 border-[#EDC211] rounded mb-3 block w-[100%] mx-auto sm:w-[200px] "+signin.signInBtn}
       >
-        {loading?<div className="flex justify-center"><Image src={loader} className="w-6 h-full filter brightness-[1]" alt="loader" /> <span>Signing in...</span></div>: <span>Sign In</span>}
+        {loading?<div className="flex justify-center"><span>Signing in...</span></div>: <span>Sign In</span>}
       </button>
       {/* <button
         type="button"

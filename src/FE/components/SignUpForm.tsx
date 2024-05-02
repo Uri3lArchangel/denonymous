@@ -1,15 +1,13 @@
 "use client";
-import { URLRESOLVE, validateEmail } from "@/src/core/lib/helpers";
+import { URLRESOLVE, validateEmail, validateUsername } from "@/src/core/lib/helpers";
 import { baseResponseType } from "@/types";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import logo from "../../../public/images/logo.png";
 import Image from "next/image";
-import styles from "../../../styles/styles.module.css";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
-import signin from "../../../styles/styles.module.css";
+import signin from "@/public/styles/styles.module.css";
 import Loading from "@/app/loading";
 import { NotificationContext } from "./contexts/NotificationContext";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
@@ -182,12 +180,18 @@ const SignUpForm = () => {
     d.innerText=""
     terms.innerText=""
     pass.innerText=""
-
+    
     if(unameRef.current.value.length == 0){
       uname_display.innerText="Provide a username";
      uname_display.style.color="red"
 
       return
+    }
+    if(!validateUsername(unameRef.current.value)){
+      uname_display.innerText="Invalid character in username";
+      uname_display.style.color="red"
+ 
+       return
     }
     if(emailRef.current.value.length == 0){
       email_display.innerText="Provide an email address";
@@ -274,13 +278,13 @@ const SignUpForm = () => {
       <form
         action=""
         id="form_signup"
-        className={`border shadow-div w-[95%] rounded-[15px] max-w-[450px]  border-none my-8 py-12 px-10 bg-[#020106] text-white backgroundVector ${styles.all}`}
+        className={`border shadow-div w-[95%] rounded-[15px] max-w-[450px]  border-none my-8 py-12 px-10 bg-[#020106] text-white ${signin.all}`}
       >
-        <Link href="/"><Image src={logo}  alt="denonymous" className="w-[60%] mx-auto"/></Link>
         <div className="text-center mb-8">
           <h2 className="font-bold text-[19px] my-3">Create a new account</h2>
           <p className="text-sm italic text-[#c9c1c1c9] ">&quot;share and receive anonymous messages&quot;</p>
         </div>
+        <fieldset>
         <div>
           <label htmlFor="uname" className="mb-2 block" >Username *</label>
           <input
@@ -377,7 +381,9 @@ const SignUpForm = () => {
           </label>
         </div>
         <p id="terms_display"></p>
+        </fieldset>
         <div>
+          
           <button
             type="submit"
             className={

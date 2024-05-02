@@ -219,7 +219,7 @@ React.useEffect(()=>{
               key={i}
               className="flex h-[100px] flex-col justify-center rounded border  border-gray-600 my-4 px-4 py-2 w-full"
             >
-              <div className="flex items-center gap-2 h-full text-gray-500 dark:text-white">
+              <div className="flex items-center gap-2 h-full text-gray-500 dark:text-white text-ellipsis max-w-fit ">
 {media == 'image'?<Image src={URL.createObjectURL(file)} alt={file.name} width={90} height={90} className="h-full" />:media == 'video'?<video width={90} height={90} className="h-full" loop autoPlay muted>
   <source src={URL.createObjectURL(file)}    />
 </video>
@@ -251,7 +251,7 @@ React.useEffect(()=>{
 
 }                {/* <FileIcon size="30" className="shrink-0" /> */}
                 <div className="min-w-0 text-sm">
-                  <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">
+                  <div className="overflow-hidden overflow-ellipsis max-w-[200px] whitespace-nowrap">
                     {file.name}
                   </div>
                   <div className="text-xs text-gray-400 dark:text-gray-400">

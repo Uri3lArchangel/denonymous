@@ -1,7 +1,6 @@
 'use client'
-import React, { Context, createContext } from 'react';
+import React, {  createContext } from 'react';
 import { Button, notification, Space } from 'antd';
-import { XCircleIcon, XIcon } from 'lucide-react';
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
 

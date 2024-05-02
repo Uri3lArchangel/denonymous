@@ -144,11 +144,9 @@ return {message:"Email changed",type:"success"}
         }
 export const verifyEmailAction=async(code:string)=>{
     try {
-        console.log(11)
        const r=  await updateUserEmailStatusByToken(code)
        const user = r.data
-
-       if(!user)return { message:"Invalid Code",type:"warning" }
+       if(!user)return { message:"Invalid Code",type:"error" }
         const token  = userDataTokenSign(user.username,user.email,user.UUID,user.isEmailVerified,user.isPremium)
 
         setSessionCookie(token)

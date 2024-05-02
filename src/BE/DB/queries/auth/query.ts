@@ -5,6 +5,7 @@ import crypto from 'crypto'
 import { code_generator } from "@/src/core/lib/helpers"
 import { connectMongo } from "@/connection"
 import { categories, signupwelocme } from "@/src/core/data/notficationCore"
+import { passwordReset } from "@/src/BE/email-service/nodemailer"
 
 connectMongo()
 
@@ -39,10 +40,11 @@ export const findUserByEmailAndPassword = async(email:string,password:string)=>{
 
 
 export const createUser=async(username:string,email:string,password?:string)=>{
+  const uuid = crypto.randomBytes(4).toString('hex')
 
     if(password){
-     const token = crypto.randomBytes(102).toString('hex')
-const user =await User.create({UUID:crypto.randomUUID(),email,password,username,token:{
+
+const user =await User.create({uuid,email,password,username,token:{
   value:code_generator(),
   expires:Date.now()+(30*60*1000),
   nextRequestable:0
@@ -53,7 +55,8 @@ return user
     }else{
         let user = User.findOne({email})
         if(user) return user
- user =await User.create({UUID:crypto.randomUUID(),email,isEmailVerified:true,username})
+ user =await User.create({uuid,email,isEmailVerified:true,username,notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username}]
+ })
 return user 
 
     }
@@ -102,11 +105,12 @@ export const changeEmailQuery=async(email:string,newEmail:string)=>{
 }
 
 export const updateTokenData=async(email:string)=>{
+const code = code_generator()
+  let updated = await User.updateOne({email},{"token.value":code,"token.expires":Date.now()+(30 * 60 * 1000),"token.nextRequestable":Date.now()+(120*1000)})
+  await passwordReset(email,String(code))
 
-  let updated = await User.updateOne({email},{"token.value":code_generator(),"token.expires":Date.now()+(30 * 60 * 1000),"token.nextRequestable":Date.now()+(120*1000)})
-
-return await findUserByEmail(email)
-
+return (await findUserByEmail(email)
+)
 }
 
 export const changePasswordQuery = async(token:string,password:string)=>{

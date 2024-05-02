@@ -3,7 +3,7 @@ import { createUser } from "@/src/BE/DB/queries/auth/query";
 import { signUpConfirmation } from "@/src/BE/email-service/nodemailer";
 import { Email_Signup_Verification } from "@/src/BE/email-service/resend-config";
 import { passwordHasher } from "@/src/core/lib/hashers";
-import { validateEmail } from "@/src/core/lib/helpers";
+import { validateEmail, validateUsername } from "@/src/core/lib/helpers";
 import { userModelType } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -15,7 +15,10 @@ export async function POST(req: NextRequest) {
     if(st.status == "error" ){
       return NextResponse.json({message:"Invalid email address"},{status:400})
     }
+    if(!validateUsername(username)){
+      return NextResponse.json({message:"Invalid username"},{status:400})
 
+    }
 
 
 

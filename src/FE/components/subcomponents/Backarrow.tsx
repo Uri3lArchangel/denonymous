@@ -8,7 +8,7 @@ function Backarrow() {
   return (
     <ChevronsLeftIcon className="text-black gradient_elements_div p-1 rounded-full cursor-pointer" onClick={
         ()=>{
-            router.back()
+           router.push("/notifications")
         }
     } size={32}/>
     )

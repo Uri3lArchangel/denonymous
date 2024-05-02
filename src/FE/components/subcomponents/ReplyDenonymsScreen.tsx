@@ -3,7 +3,7 @@ import { CrossIcon, DownloadIcon, PlusIcon, Trash2, XIcon } from 'lucide-react'
 import React, { SetStateAction, useEffect, useState } from 'react'
 import * as htmlImages from "html-to-image";
 import Image from 'next/image';
-import logo from '@/public/images/logo.png'
+import logo from '@/public/images/logo.avif'
 import Loading from '@/app/loading';
 
 function ReplyDenonymsScreen({ids,setState}:{ids:string[],setState:React.Dispatch<SetStateAction<boolean>>}) {

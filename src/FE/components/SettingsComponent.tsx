@@ -4,13 +4,11 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import DE from '../../../public/images/DP.png'
 import EditableInput from './subcomponents/EditableInput'
 import { NotificationContext } from './contexts/NotificationContext'
-import { validateEmail } from '@/src/core/lib/helpers'
-import VerifyEmailModal from './libraries/Modals/VerifyEmailModal'
-import { changeEmailAction, changePasswordAction, changeUsernameAction } from '@/src/BE/serverActions/settingsactions'
+import { changeEmailAction, changePasswordAction } from '@/src/BE/serverActions/settingsactions'
 import PasswordInput from './subcomponents/PasswordInput'
 import PasswordAndConfirm from './subcomponents/PasswordAndConfirm'
-import DeleteAccountModal from './libraries/Modals/DeleteAccountModal'
-
+import dynamic from 'next/dynamic'
+let DeleteAccountModal:any=null;
 
 
 const SettingsComponent = ({username,email,verified}:{username:string,email:string,verified:boolean}) => {
@@ -32,11 +30,7 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
         setEmailValue(element.value)
         return element.value
     }
-    const getUsernameInputElement = ()=>{
-        const element = document.getElementById("uname-input") as HTMLInputElement
-        return element.value
-    }
-
+ 
  
 
     const saveEmail = async(e:React.MouseEvent<HTMLButtonElement>)=>{
@@ -115,10 +109,12 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
     },[emailState.type,passwordState.type,emailState.message,notification,passwordState.message])
   return (
 <section className='bg-black py-8 pt-6 backgroundVector'>
-    <DeleteAccountModal state={deleteModalState} setState={setDeleteModalState}/>
+   {DeleteAccountModal && <DeleteAccountModal state={deleteModalState} setState={setDeleteModalState}/>}
     <h1 className='text-white font-bold text-xl text-center my-8'>Settings</h1>
-    <div className='bg-[#1E1E1E] flex flex-col items-center py-10 max-w-[400px] sm:mx-auto sm:px-6 rounded-md'>
-        <Image src={DE} alt='DE' className='w-[60px] h-[60px]  my-8' />
+    <div className='bg-[#1E1E1E] flex flex-col items-center space-y-4  py-10 max-w-[400px] mx-auto sm:mx-auto sm:px-6 rounded-md'>
+        <figure className="w-[60px] h-[60px] mx-auto my-8">
+        <Image loading='lazy' fetchPriority='low' src={DE} alt='DE' className="w-full h-full object-cover rounded-full" />
+        </figure>
         {/* <form   className='text-white px-4 bg-[#262626] rounded-md p-2 space-y-4'>
                 
             <label htmlFor="uname-input" className='text-sm'>Username</label>
@@ -131,7 +127,7 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
            <label htmlFor="email-input" className='text-sm '>Email Address</label>
            <EditableInput inputvalue={email} input={{id:"email-input",defaultValue:email,readOnly:true}} setInputChangeTrigger={setInputChangeTriggerEmail}  />
            <small className='block text-right my-1 gradient_elements_text'>{(emailValue == email && verified)?"verified":"unverified"}</small>
-           <p id="email-error"></p>
+           <p aria-live="assertive" id="email-error"></p>
            <button onClick={saveEmail} className='gradient_elements_div px-4 py-2 rounded-md text-black my-4'  hidden={!hasAnyInputChangedEmail} disabled={pendingEmail}>{pendingEmail?"Saving...":"Save"}</button>
            </form>
         <form className='text-white px-4 bg-[#262626] rounded-md p-2'>
@@ -146,6 +142,7 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
             <div className='border border-red-500 bg-[#262626] p-2 rounded-md  w-full'>
             <h2 className='text-xl font-extrabold text-center'>Danger zone!</h2>
             <button className='mx-auto block  bg-red-500 px-4 py-2 rounded-md text-black my-4' onClick={()=>{
+                DeleteAccountModal = dynamic(()=>import('./libraries/Modals/DeleteAccountModal'))
                 setDeleteModalState(true)
             }}>Delete Your Account</button>
             </div>

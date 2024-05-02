@@ -1,7 +1,7 @@
 .notFound{
     background-color: black;
     color: white;
-    background-image: url(../public/images/Ooops.png);
+    background-image: url(../images/Ooops.png);
     height: calc(100vh - 80px);
     background-size: 350px 50%;
     background-position-x: center;

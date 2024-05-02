@@ -1,4 +1,3 @@
-import { useSession } from "@/src/FE/components/hooks/SessionHook";
 import { TooltipApp } from "@/src/FE/components/libraries/antd";
 import Signout from "@/src/FE/components/subcomponents/Signout";
 import { MenuProps } from "antd";
@@ -89,7 +88,7 @@ export const AuthDropdown: MenuProps["items"] = [
         <TooltipApp text="" title="Premium feature coming soon!">
           <Link
             aria-disabled
-            href="/#"
+            href=""
             className="mx-2 lg:mx-4 cursor-not-allowed opacity-[0.8] gradient_elements_text"
           >
             Premium
@@ -151,7 +150,7 @@ export const navPages: MenuProps["items"] = [
       <TooltipApp text='' title='Premium feature coming soon!'>
 
       <Link
-        href="/#"
+        href=""
         className="text-md gradient_elements_text px-6 py-2 rounded-md block underline sm:text-lg text-center cursor-not-allowed opacity-[0.7]"
       >
         Premium

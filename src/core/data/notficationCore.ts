@@ -3,10 +3,10 @@ export const signupwelocme ="Welcome you have created an account 🎉, you can n
 export const categories = {auth:"Authenication", reply:"Someone sent a response " , subscription:"subscription",denonym:"A new denonymous was created 🌟",deleteDenonym:"A denonymous was just deleted 👋"}
 
 
-export const replyNotification=(box:string,uname:string,id:number,owner:string)=>{
+export const replyNotification=(box:string,key:string,uname:string,id:number,owner:string)=>{
     
     return { data:`Someone just replied your ${box} denonymous 😄, check it out now  `
-    ,link:process.env.baseURL+`/r/${uname}/${box}/${id}`,
+    ,link:process.env.baseURL+`/r/${uname}/${key}/${id}`,
     owner
  }
  }
