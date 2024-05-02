@@ -1,11 +1,11 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  host: "mail.privateemail.com",
-  port: 465,
+  host: "live.smtp.mailtrap.io",
+  port: 587,
   secure: true, // Use `true` for port 465, `false` for all other ports
   auth: {
-    user: "contact@denonymous.xyz",
+    user: "api",
     pass: process.env.webmail_pass,
   },
 });
