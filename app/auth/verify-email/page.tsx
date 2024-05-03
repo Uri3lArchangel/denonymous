@@ -38,7 +38,7 @@ robots:{
   
 
     return (  
-      <div className="bg-black py-12 px-6 my-4 min-w-full rounded-md w-[95%] mx-auto max-w-[600px] shadow-div">
+      <div className="bg-black py-12 px-6 my-4  rounded-md w-[95%] mx-auto max-w-[600px] shadow-div">
 
       <EmailVerificationComponent email={user.email} />
       <ResenVerificationCode email={user.email} />
