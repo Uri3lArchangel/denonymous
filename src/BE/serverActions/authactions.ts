@@ -19,8 +19,6 @@ try{
         return {type:"warning",message:'Please wait for the cooldown period ',time:user.token.nextRequestable}
     }
     const u= await updateTokenData(email) as userModelType
-
-    await passwordReset(email,u.token.value)
     return {type:"success",message:"Password reset link sent to "+email,time:u.token.nextRequestable}
 
 

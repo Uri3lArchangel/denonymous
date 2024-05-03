@@ -19,8 +19,7 @@ import styles from "@/public/styles/styles.module.css";
 import { TiCancel } from "react-icons/ti";
 
 
-export default function Responses({ replys,owner }: { replys: replyModelType[],owner:string }) {
-
+export default function Responses({ box,replys,owner }: { box:string,replys: replyModelType[],owner:string }) {
     const {user,session,fetchUser} = useSession()
     // All states
       const [viewer,setViewerState]= useState<{img: {
@@ -89,7 +88,7 @@ export default function Responses({ replys,owner }: { replys: replyModelType[],o
       return (
         // style={{filter:viewer.display == true?"brightness(0.4) blur(10px)":"brightness(1) blur(0px)" }}
         <>
-        {reply?<ReplyDenonymsScreen setState={setReplyState} ids={selectedResponses} />:null}
+        {reply?<ReplyDenonymsScreen box={box} setState={setReplyState} ids={selectedResponses} />:null}
         <FloatButtonComponent  replySS={replySS} selected={selectedResponses.length}  className={`${selectedResponses.length ==0?"bottom-[-10%] opacity-0 transition-[bottom] duration-[0.4s]":"bottom-[10%] opacity-[1] transition-[bottom] duration-[0.4s]"}`} />
     {viewer.display?<XIcon className={"fixed  text-[#ffdf00] bg-black p-[2px] cursor-pointer  rounded-full right-[2%] top-[10%] z-[8] " } size={40} onClick={
       ()=>{
