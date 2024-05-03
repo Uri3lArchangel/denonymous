@@ -68,7 +68,7 @@ function page() {
             <ul className="md:flex flex-wrap w-full justify-center">
               <li className="border-2 border-[#19182519] rounded-md my-8 py-10 px-8 md:w-[250px] mx-2">
                 <article>
-                  <Image loading="lazy" className="block mx-auto" src={anon} alt="anonymity" />
+                  <Image loading="lazy" fetchPriority="low" className="block mx-auto" src={anon} alt="anonymity" />
                   <h2 className=" font-semibold my-4">Anonymity</h2>
                   <p className="text-[#00000099] font-extralight">
                     We prioritize your privacy. Our platform enables you to
@@ -80,7 +80,7 @@ function page() {
               </li>
               <li className="border-2 border-[#19182519] rounded-md my-8 py-10 px-8 md:w-[250px] mx-2">
                 <article>
-                  <Image loading="lazy" className="block mx-auto" src={sec} alt="security" />
+                  <Image loading="lazy" fetchPriority="low" className="block mx-auto" src={sec} alt="security" />
                   <h2 className=" font-semibold my-4">Safe & Secure</h2>
                   <p className="text-[#00000099] font-extralight">
                     Your safety and security, we prioritizes with encryption, a
@@ -92,7 +92,7 @@ function page() {
               </li>
               <li className="border-2 border-[#19182519] rounded-md my-8 py-10 px-8 md:w-[250px]">
                 <article>
-                  <Image loading="lazy" className="block mx-auto" src={easy} alt="security" />
+                  <Image loading="lazy" fetchPriority="low" className="block mx-auto" src={easy} alt="security" />
                   <h2 className=" font-semibold my-4">Easy 2 Use</h2>
                   <p className="text-[#00000099] font-extralight">
                     Join today and let your Unseen Voice echo loud and clear.
