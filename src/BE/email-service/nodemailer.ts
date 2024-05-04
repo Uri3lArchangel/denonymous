@@ -1,16 +1,16 @@
 import nodemailer from "nodemailer";
-
+// live.smtp.mailtrap.io
 const transporter = nodemailer.createTransport({
-  host: "live.smtp.mailtrap.io",
-  port: 587,
-  secure: true, // Use `true` for port 465, `false` for all other ports
+  host: "mail.privateemail.com",
+  port: 465,
   auth: {
-    user: "api",
+    user: "contact@denonymous.xyz",
     pass: process.env.webmail_pass,
   },
 });
 // https://denonymous.xyz
 export async function signUpConfirmation(recipientEmail: string, key: string) {
+  try{
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: "Denonymous <contact@denonymous.xyz>", // sender address
@@ -35,22 +35,22 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
     <ul  style="display:flex; margin:2em 0;;justify-content:center">
     <li style="margin:0 1em;">
     <a href="https://twitter.com/denonymous_" style="text-decoration:none;">
-    <img src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
+    <img loading="eager" src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
     </a>
   </li>
   <li style="margin:0 1em;">
   <a href="https://www.instagram.com/denonymous_/" style="text-decoration:none;">
-  <img src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+  <img loading="eager" src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
   </a>
   </li>
   <li style="margin:0 1em;">
   <a href="https://www.linkedin.com/company/denonymous" style="text-decoration:none;">
-  <img src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+  <img loading="eager" src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
   </a>
   </li>
   <li style="margin:0 1em;">  
   <a href="https://denonymous.medium.com/" style="text-decoration:none;">
-  <img src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+  <img loading="eager" src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
   </a>
   </li>
   </ul>
@@ -59,10 +59,15 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
 `, // html body
   });
 
-  console.log("Message sent: %s", info);
+  console.log("Message sent: %s", info);}
+  catch(err:any){
+    console.log(err)
+  }
 }
 
 export async function passwordReset(recipientEmail: string, key: string) {
+
+  try{
   // send mail with defined transport object
 console.log({recipientEmail,key})
 
@@ -116,4 +121,7 @@ console.log({recipientEmail,key})
   });
 
   console.log("Message sent: %s", info);
+}catch(err:any){
+  console.log(err)
+}
 }

@@ -128,10 +128,13 @@ export const calculateStrength = (pass: string) => {
     return str.trim();
 }
 
+const generate = ()=>{
+  return `${Math.ceil(Math.random() * 1000000)}`
+}
 export function code_generator() {
-  let a=`${Math.ceil(Math.random() * 1000000)}`
-  if(a.length != 6){
-    code_generator()
+let a= generate()
+  while(a.length < 6){
+    a = generate()
   }
   return a;
 }
