@@ -6,8 +6,8 @@ import React from 'react'
 import style from '@/public/styles/styles.module.css'
 import { Metadata } from 'next';
 import { EdgeStoreProvider } from '@/src/core/lib/edgestore';
-import Responses from '@/src/FE/components/subcomponents/Responses';
-
+import dynamic from 'next/dynamic';
+let Responses:any
 export const metadata: Metadata = {
   title: "Send A Response | Denonymous",
   description:
@@ -41,7 +41,6 @@ async function page({params}:{params:{response:string[]}}) {
   let userdata
   let isSession = false
   const cookie = cookies().get("denon_session_0")
-  console.log(1)
   if(cookie){
    const verifyUserDataToken=((await import('@/src/core/lib/JWTFuctions')).verifyUserDataToken)
 
@@ -51,11 +50,9 @@ async function page({params}:{params:{response:string[]}}) {
     isSession=true
     }
 }
-console.log(2)
 
 
 let all = await fetchUser(username) as userModelType
-console.log(3)
 
 if(!all){
   throw new Error("The owner of this denonymous was not found|client")
@@ -63,19 +60,16 @@ if(!all){
       }
 
   const filterDenonymous = (await import('@/src/core/lib/helpers')).filterDenonymous
-  console.log(4)
 
   let d = filterDenonymous(all,key) as denonymousType
   if(!d.owner){
 
     throw new Error("This denonymous does not exist or has been deleted|client")
   }
-  console.log(5)
 
   if((!d.isActive && userdata?.email != d.owner) || (!isSession && !d.isActive)){
     throw new Error("This denonmous is not active|client")
   }
-  console.log(6)
 
 
  let replys = d.replys
@@ -83,7 +77,7 @@ if(!all){
  
 
 if(isSession && d.owner == userdata?.email){
-
+Responses = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'))
 
   return (
    <>
@@ -91,12 +85,13 @@ if(isSession && d.owner == userdata?.email){
         <h1 className='text-3xl sm:text-4xl text-center text-ellipsis '>{d.topic}</h1>
         <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?d.description:''}</h2>
         <div  className='bg-[#1E1E1E]'>
-    {!replys || replys.length == 0?<></>:<Responses box={d.topic}  owner={d.owner} replys={replys.reverse()} />}  
+    {Responses && <Responses box={d.topic}  owner={d.owner} replys={replys.reverse()} />}  
     </div> 
     </div>
     
     </> )
 }else{
+  Responses = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'))
 
   let mediaLimit = filterMediaLimitOn(all.denonymous,key)
   return (
@@ -135,7 +130,7 @@ if(isSession && d.owner == userdata?.email){
 
      
     </div>
-{!replys || replys.length == 0?<></>:<Responses owner={d.owner} replys={replys.reverse()} />}   
+{Responses && <Responses owner={d.owner} replys={replys.reverse()} />}   
     </div>
   )}
         
