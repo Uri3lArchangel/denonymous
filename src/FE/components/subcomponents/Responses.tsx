@@ -141,7 +141,7 @@ export default function Responses({ box,replys,owner }: { box?:string,replys: re
         
     </div>
     
-        <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
+        <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden rounded-md bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
     
      <h3 className="text-center text-xl font-extrabold gradient_elements_text">
             All Responses({replys.length})
@@ -185,7 +185,7 @@ export default function Responses({ box,replys,owner }: { box?:string,replys: re
                     }
                   }
                 }
-                className={`mt-10 mb-4 py-16 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] ${user?"cursor-pointer":"cursor-default"}`}
+                className={`mt-10 mb-4 py-4 px-4 w-[95%] shadow-hd  mx-auto  ${user?"cursor-pointer":"cursor-default"}`}
               >
                 
                 <div className={
@@ -307,7 +307,7 @@ export default function Responses({ box,replys,owner }: { box?:string,replys: re
                     setShareState(true);
                   }}
                 />
-              </div>:
+              </div>
     {user?<small  className=" italic text-white/70 text-center block">click on response to select </small>:<></>}          
     </li>
             )

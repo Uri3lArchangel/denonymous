@@ -73,12 +73,12 @@ const SixDigitInputField = () => {
 
   return (
     <>
-    <div className='flex flex-wrap sm:flex-nowrap space-x-2 justify-center w-full'>
+    <div className='flex space-x-2 justify-center w-full'>
       {inputs.map((value, index) => (
         <input
           key={index}
           type="text"
-          className=' border my-2 text-white border-[#A9A9A9] outline-none bg-transparent rounded-md block'
+          className=' border my-2 text-white border-[#A9A9A9] w-[20px] h-[20px] mx-[2px] text-[20px] text-center outline-none bg-transparent rounded-md block'
           maxLength={1}
           value={value}
           onChange={(e) => handleInputChange(index, e.target.value)}
@@ -87,13 +87,13 @@ const SixDigitInputField = () => {
           ref={(input) => {
             inputRefs.current[index] = input;
           }}
-          style={{
-            width: '40px',
-            height: '40px',
-            marginRight: '5px',
-            textAlign: 'center',
-            fontSize: '20px',
-          }}
+          // style={{
+          //   width: '40px',
+          //   height: '40px',
+          //   marginRight: '5px',
+          //   textAlign: 'center',
+          //   fontSize: '20px',
+          // }}
         />
       ))}
     </div>

@@ -38,7 +38,7 @@ function page() {
   return (
     <>    <main>
     <section>
-        <header className=" backgroundVector bg-black min-h-[80vh] md:min-h-[60vh] pt-14  px-8">
+        <header className=" backgroundVector bg-black min-h-[80vh] md:min-h-[65vh] pt-14  px-8">
           <div className=" flex flex-col items-center  max-w-[1024px] mx-auto">
           <div className="bg-[#FFFAE1]  w-fit max-w-[300px] rounded-md px-6 py-2 flex text-[13px] mb-6">
             <p className="gradient_elements_text mx-1  w-fit">
@@ -104,9 +104,9 @@ function page() {
               </li>
             </ul>
           </section>
-          <section className="mt-[8em]  text-center py-24 sm:w-[60%] mx-auto">
+          <section className="mt-[8em] aboutUsBG text-center py-24 w-full  mx-auto">
             <h2 className="mb-[5em] text-xl md:text-3xl">About Us!</h2>
-            <p className="text-[#00000099] font-extralight">
+            <p className="text-[#00000099] font-extralight w-full sm:w-[70%] mx-auto" >
               Denonymous: The No 1 platform for Sharing video, image, audio and
               text responses anonymously. Register with us, create a Denonymous,
               and share with others to receive responses on any topic today.
