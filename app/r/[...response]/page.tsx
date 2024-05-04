@@ -1,6 +1,6 @@
 import { MultiFileDropzoneUsage } from '@/src/FE/components/subcomponents/MultiFileComponent';
-import {  fetchUser} from '@/src/core/lib/helpers';
-import { denonymousType, replyModelType, userModelType } from '@/types';
+import {  fetchUser, filterMediaLimitOn} from '@/src/core/lib/helpers';
+import { denonymousType, userModelType } from '@/types';
 import { cookies } from 'next/headers';
 import React from 'react'
 import style from '@/public/styles/styles.module.css'
@@ -79,7 +79,6 @@ if(!all){
 
 
  let replys = d.replys
- let filterMediaLimitOn:any
  console.log({username,key,cookie,replys})
  
 
@@ -98,9 +97,7 @@ if(isSession && d.owner == userdata?.email){
     
     </> )
 }else{
-  if(d.replys.length >0){
-  filterMediaLimitOn = ((await import('@/src/core/lib/helpers')).filterMediaLimitOn)
-  }
+
   let mediaLimit = filterMediaLimitOn(all.denonymous,key)
   return (
     <div className={style.denonymousResponsePage}>
