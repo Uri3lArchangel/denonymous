@@ -22,7 +22,7 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
     <div style="max-width:400px;width:100%;margin:auto;background-color:black;padding:2em 0.1em;border-radius:10px;box-shadow: 2px 2px 20px #000b;">
         <div style="background-color: black; text-align: left;padding:1em; ">
         <h1 style="font-size:1.2rem;font-weight:bold;color:white;">WELCOME!</h1>
-        <img style="display:block;" src="https://denonymous.xyz/images/logo.png" width="180px" height="40px" />
+        <img style="display:block;" src="https://denonymous.xyz/images/logo.avif" width="180px" height="40px" />
         </div>
         <div style="text-align:left;padding:1em;border-radius:10px;background-color:white;width:80%;margin:auto;">
         <h2 style="font-size:1.1rem;color:black;">You Are Almost There!</h2>
@@ -35,22 +35,22 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
     <ul  style="display:flex; margin:2em 0;;justify-content:center">
     <li style="margin:0 1em;">
     <a href="https://twitter.com/denonymous_" style="text-decoration:none;">
-    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/twitter.avif" alt="twitter" width="40px" height="40px" />
     </a>
   </li>
   <li style="margin:0 1em;">
   <a href="https://www.instagram.com/denonymous_/" style="text-decoration:none;">
-  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/insta.avif" alt="instagram" width="40px" height="40px" />
   </a>
   </li>
   <li style="margin:0 1em;">
   <a href="https://www.linkedin.com/company/denonymous" style="text-decoration:none;">
-  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/linkedin.avif" alt="linkedin" width="40px" height="40px" />
   </a>
   </li>
   <li style="margin:0 1em;">  
   <a href="https://denonymous.medium.com/" style="text-decoration:none;">
-  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/medium.avif" alt="medium" width="40px" height="40px" />
   </a>
   </li>
   </ul>
@@ -82,7 +82,7 @@ export async function passwordReset(recipientEmail: string, key: string) {
 
     <div style="background-color: black; text-align: left;padding:1em; ">
     <h1 style="font-size:1.2rem;font-weight:bold;color:white;">RESET!</h1>
-    <img style="display:block;" src="https://denonymous.xyz/images/logo.png" width="180px" height="40px" />
+    <img style="display:block;" src="https://denonymous.xyz/images/logo.avif" width="180px" height="40px" />
     </div>
     <div style="text-align:left;padding:1em;border-radius:10px;background-color:white;width:80%;margin:auto;">
 
@@ -98,22 +98,22 @@ export async function passwordReset(recipientEmail: string, key: string) {
     <ul  style="display:flex; margin:2em 0;justify-content:center">
     <li style="margin:0 1em;">
       <a href="https://twitter.com/denonymous_" style="text-decoration:none; >
-      <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
+      <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/twitter.avif" alt="twitter" width="40px" height="40px" />
       </a>
     </li>
     <li style="margin:0 1em;">
     <a href="https://www.instagram.com/denonymous_/" style="text-decoration:none;">
-    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/insta.avif" alt="instagram" width="40px" height="40px" />
     </a>
     </li>
     <li style="margin:0 1em;">
     <a href="https://www.linkedin.com/company/denonymous" style="text-decoration:none;">
-    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/linkedin.avif" alt="linkedin" width="40px" height="40px" />
     </a>
     </li>
     <li style="margin:0 1em;">  
     <a href="https://denonymous.medium.com/" style="text-decoration:none;">
-    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/medium.avif" alt="medium" width="40px" height="40px" />
     </a>
     </li>
   </ul>    

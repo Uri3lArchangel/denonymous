@@ -40,10 +40,9 @@ async function page({params}:{params:{response:string[]}}) {
   let key = decodeURI(key_)
   let username = decodeURI(username_)
   let userdata
-
   let isSession = false
   const cookie = cookies().get("denon_session_0")
-  
+  console.log(1)
   if(cookie){
    const verifyUserDataToken=((await import('@/src/core/lib/JWTFuctions')).verifyUserDataToken)
 
@@ -53,23 +52,36 @@ async function page({params}:{params:{response:string[]}}) {
     isSession=true
     }
 }
+console.log(2)
+
+
 let all = await fetchUser(username) as userModelType
+console.log(3)
+
 if(!all){
   throw new Error("The owner of this denonymous was not found|client")
 
       }
+
   const filterDenonymous = (await import('@/src/core/lib/helpers')).filterDenonymous
+  console.log(4)
+
   let d = filterDenonymous(all,key) as denonymousType
   if(!d.owner){
 
     throw new Error("This denonymous does not exist or has been deleted|client")
   }
+  console.log(5)
+
   if((!d.isActive && userdata?.email != d.owner) || (!isSession && !d.isActive)){
     throw new Error("This denonmous is not active|client")
   }
+  console.log(6)
+
 
  let replys = d.replys
  let filterMediaLimitOn:any
+ console.log({username,key,cookie,replys})
  
 
 if(isSession && d.owner == userdata?.email){

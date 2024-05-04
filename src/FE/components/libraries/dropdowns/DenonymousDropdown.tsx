@@ -5,7 +5,7 @@ import { DenonymousMediaSettingDropdownItems } from '@/src/core/data/DenonymousD
 
 function DenonymousDropdown({key_,owner,status}:{status:{video:boolean,image:boolean,audio:boolean},key_:string,owner:string}) {
   return (
-<DropdownApp  items={DenonymousMediaSettingDropdownItems(status,key_,owner)} placement="bottomRight" rootClassName="DenonymousMediaDropdown"  className={'absolute top-5 left-4 cursor-pointer '} triggerComponent={<BsThreeDotsVertical
+<DropdownApp  items={DenonymousMediaSettingDropdownItems(status,key_,owner)} placement="bottomRight" rootClassName="DenonymousMediaDropdown"  className={'absolute top-5 left-5 cursor-pointer '} triggerComponent={<BsThreeDotsVertical
  size={20} />}/>
     )
 }

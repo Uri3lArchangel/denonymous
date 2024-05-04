@@ -41,7 +41,7 @@ export default function page() {
   return (
     <main className={`${styles.all} `}>
       <section
-        className={"bg-[#000000] min-h-[100vh] pt-24 " + styles.background}
+        className={"bg-[#000000] backgroundVector min-h-[100vh] pt-24 " + styles.background}
       >
         <div className=" mb-20">
       

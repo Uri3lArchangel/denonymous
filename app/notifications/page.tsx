@@ -8,7 +8,7 @@ const NotificationDetailLink = dynamic(
 );
 import { flipIndex } from "@/src/core/lib/helpers";
 import { Metadata } from "next";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import dynamic from "next/dynamic";
 import React from "react";
 
@@ -43,7 +43,7 @@ async function page() {
   const newNots = nots.reverse();
   let length = newNots.length;
 
-  revalidatePath("/notifications");
+  revalidateTag("notifications_fetch_tag")
   return (
     <section className='backgroundVector bg-black py-10 h-screen "'>
       <header>

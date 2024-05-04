@@ -3,10 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import logo from '@/public/images/logo.avif'
-import twitter from '@/public/images/twitter.svg'
-import insta from'@/public/images/insta.svg'
-import linkedin from  '@/public/images/linkedin.svg'
-import medium from'@/public/images/medium.svg'
+import twitter from '@/public/images/twitter.avif'
+import insta from'@/public/images/insta.avif'
+import linkedin from  '@/public/images/linkedin.avif'
+import medium from'@/public/images/medium.avif'
 function FooterSub() {
   return (
     <footer className="min-h-[30vh] bg-black text-white pt-10 px-4">

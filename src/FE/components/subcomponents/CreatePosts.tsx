@@ -55,7 +55,28 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                 id={i.toString()}
                 className={`border h-fit border-[#EDC211] relative w-[90%] px-8 text-white max-w-[500px] rounded-lg  py-8 bg-[#242222] mx-auto `}
                 key={i}
-              >
+              >  <Trash2Icon
+              className="absolute top-5 right-5 cursor-pointer hover:text-[#f6d108] "
+              onClick={() => {
+                setKey(e.key);
+                DeleteDenonymsModal = dynamic(
+                  () => import("../libraries/Modals/DeleteDenonyms")
+                );
+                setDeleteDenonymousModal(true);
+              }}
+            />
+                              {
+                    DenonymousDropdown &&
+                    <DenonymousDropdown
+                      owner={e.owner}
+                      status={{
+                        video: e.isVideoLimitOn,
+                        audio: e.isAudioLimitOn,
+                        image: e.isImageLimitOn,
+                      }}
+                      key_={e.key}
+                    />
+                  }
                 <article>
                   <h2 className="text-3xl font-bold text-center uppercase">
                     <TooltipApp title={e.topic} text={e.topic} />
@@ -215,28 +236,8 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                       </button>
                     </div>
                   </div>
-                  <Trash2Icon
-                    className="absolute top-5 right-10 cursor-pointer hover:text-[#f6d108] "
-                    onClick={() => {
-                      setKey(e.key);
-                      DeleteDenonymsModal = dynamic(
-                        () => import("../libraries/Modals/DeleteDenonyms")
-                      );
-                      setDeleteDenonymousModal(true);
-                    }}
-                  />
-                  {
-                    DenonymousDropdown &&
-                    <DenonymousDropdown
-                      owner={e.owner}
-                      status={{
-                        video: e.isVideoLimitOn,
-                        audio: e.isAudioLimitOn,
-                        image: e.isImageLimitOn,
-                      }}
-                      key_={e.key}
-                    />
-                  }
+                
+
                 {ActivateDenonyms &&  <ActivateDenonyms
                     setmodal={setactiveStateModal}
                     modal={activeStateModal}
