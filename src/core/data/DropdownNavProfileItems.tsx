@@ -65,7 +65,7 @@ export const AuthDropdown: MenuProps["items"] = [
     key: "1",
     label: (
       <div className="navlinks">
-        <Link href="/" className="mx-2 lg:mx-4 text-[#fffb] gradient_elements_text">
+        <Link href="/" className="mx-2 text-[1.05em] lg:mx-4 text-[#fffb] gradient_elements_text">
           Home
         </Link>
       </div>
@@ -75,7 +75,7 @@ export const AuthDropdown: MenuProps["items"] = [
     key: "2",
     label: (
       <div className="navlinks">
-        <Link href="/dashboard" className="mx-2 lg:mx-4 text-[#fffb]  gradient_elements_text">
+        <Link href="/dashboard" className="mx-2 text-[1.05em] lg:mx-4 text-[#fffb]  gradient_elements_text">
           Dashboard
         </Link>
       </div>
@@ -89,7 +89,7 @@ export const AuthDropdown: MenuProps["items"] = [
           <Link
             aria-disabled
             href=""
-            className="mx-2 lg:mx-4 cursor-not-allowed opacity-[0.8] gradient_elements_text"
+            className="mx-2 text-[1.05em] lg:mx-4 cursor-not-allowed opacity-[0.8] gradient_elements_text"
           >
             Premium
           </Link>
@@ -102,7 +102,7 @@ export const AuthDropdown: MenuProps["items"] = [
     label: (
       <Link
         href="/auth/signin"
-        className="text-xl gradient_elements_text border border-[#ffdf00] px-6 py-2 rounded block "
+        className="text-[1.05em] gradient_elements_text border border-[#ffdf00] px-6 py-2 rounded block "
       >
         Sign in
       </Link>
@@ -113,7 +113,7 @@ export const AuthDropdown: MenuProps["items"] = [
     label: (
       <Link
         href="/auth/signup"
-        className="text-xl gradient_elements_div px-6 py-2 rounded-md block "
+        className="text-[1.05em] gradient_elements_div px-6 py-2 rounded-md block "
       >
         Sign up
       </Link>
@@ -127,7 +127,7 @@ export const navPages: MenuProps["items"] = [
     label: (
       <Link
         href="/"
-        className="text-md gradient_elements_text underline sm:text-lg px-6 py-2 text-center rounded block "
+        className="text-[1.05em] gradient_elements_text underline sm:text-lg px-6 py-2 text-center rounded block "
       >
         Home
       </Link>
@@ -138,7 +138,7 @@ export const navPages: MenuProps["items"] = [
     label: (
       <Link
         href="/dashboard"
-        className="text-md gradient_elements_text px-6 py-2 underline sm:text-lg text-center rounded-md block "
+        className="text-[1.05em] gradient_elements_text px-6 py-2 underline sm:text-lg text-center rounded-md block "
       >
         Dashboard
       </Link>
@@ -151,7 +151,7 @@ export const navPages: MenuProps["items"] = [
 
       <Link
         href=""
-        className="text-md gradient_elements_text px-6 py-2 rounded-md block underline sm:text-lg text-center cursor-not-allowed opacity-[0.7]"
+        className="text-[1.05em] gradient_elements_text px-6 py-2 rounded-md block underline sm:text-lg text-center cursor-not-allowed opacity-[0.7]"
       >
         Premium
       </Link>

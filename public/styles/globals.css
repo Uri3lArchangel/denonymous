@@ -241,7 +241,13 @@ background-color: #ffdf00 !important;
     box-shadow: rgba(255, 221, 0, 0.11) 0.592779px 0.592779px 3.1856px -0.75px, rgba(255, 221, 0, 0.106) 1.61429px 1.61429px 8.67523px -1.5px, rgba(255, 221, 0, 0.098) 3.5444px 3.5444px 19.0477px -2.25px, rgba(255, 221, 0, 0.082) 7.86777px 7.86777px 42.2815px -3px, rgba(255, 221, 0, 0.04) 20px 20px 107.48px -3.75px, rgba(255, 221, 0, 0.11) -0.592779px -0.592779px 0.838316px -0.75px, rgba(255, 221, 0, 0.106) -1.61429px -1.61429px 2.28296px -1.5px, rgba(255, 221, 0, 0.098) -3.5444px -3.5444px 5.01254px -2.25px, rgba(255, 221, 0, 0.082) -7.86777px -7.86777px 11.1267px -3px, rgba(255, 221, 0, 0.04) -20px -20px 28.2843px -3.75px;
   }
 
+.aboutUsBG{
+  background-image: url(../images/bg.avif);
+  background-size: 800px 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 
+}
   .loading_container_nav{
     position: fixed;
     top: 0;

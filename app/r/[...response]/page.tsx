@@ -7,6 +7,7 @@ import style from '@/public/styles/styles.module.css'
 import { Metadata } from 'next';
 import { EdgeStoreProvider } from '@/src/core/lib/edgestore';
 import dynamic from 'next/dynamic';
+import LoadingSkeleton from '@/src/FE/components/assets/LoadingSkeleton';
 let Responses:any
 export const metadata: Metadata = {
   title: "Send A Response | Denonymous",
@@ -77,7 +78,11 @@ if(!all){
  
 
 if(isSession && d.owner == userdata?.email){
-Responses = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'))
+Responses = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'),{
+  loading(loadingProps) {
+    return(<LoadingSkeleton />)
+  },
+})
 
   return (
    <>
@@ -91,7 +96,11 @@ Responses = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'))
     
     </> )
 }else{
-  Responses = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'))
+  Responses = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'),{
+    loading(loadingProps) {
+      return(<LoadingSkeleton />)
+    }
+  })
 
   let mediaLimit = filterMediaLimitOn(all.denonymous,key)
   return (

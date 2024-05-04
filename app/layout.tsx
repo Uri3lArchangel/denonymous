@@ -29,7 +29,8 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <link rel="preload" as="image" href="/images/logo.avif" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preload" as="image" href="/images/spinner.gif" />
         <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
         <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
         <Analytics />
