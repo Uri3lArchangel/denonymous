@@ -2,15 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes loading {
+@keyframes shimmer {
   0% {
-      opacity: 0.5;
-  }
-  50% {
-      opacity: 1;
+    transform: translateX(-100%);
   }
   100% {
-      opacity: 0.5;
+    transform: translateX(100%);
   }
 }
 * {
@@ -261,10 +258,25 @@ background-color: #ffdf00 !important;
     background-position-y: calc(50% - 40px);
   
   }
+ 
   .loading_skeleton {
-    background-color: #909090; /* Default background color */
-    animation: loading 1.5s infinite ease-in-out;
+    background: #eee;
+    border-radius: 4px;
   }
+  
+  .loading_skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, #f9f9f9 0%, #ececec 50%, #f9f9f9 100%);
+    transform: translateX(-100%);
+    animation: shimmer 1.5s infinite ease-in-out;
+  }
+  
+
   
 
 /* Loading  page styles */
