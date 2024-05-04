@@ -19,7 +19,7 @@ import styles from "@/public/styles/styles.module.css";
 import { TiCancel } from "react-icons/ti";
 
 
-export default function Responses({ box,replys,owner }: { box:string,replys: replyModelType[],owner:string }) {
+export default function Responses({ box,replys,owner }: { box?:string,replys: replyModelType[],owner:string }) {
     const {user,session,fetchUser} = useSession()
     // All states
       const [viewer,setViewerState]= useState<{img: {

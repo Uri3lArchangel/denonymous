@@ -6,9 +6,8 @@ import React from 'react'
 import style from '@/public/styles/styles.module.css'
 import { Metadata } from 'next';
 import { EdgeStoreProvider } from '@/src/core/lib/edgestore';
-import dynamic from 'next/dynamic';
-import LoadingSkeleton from '@/src/FE/components/assets/LoadingSkeleton';
-let Replys:any=null;
+import Responses from '@/src/FE/components/subcomponents/Responses';
+
 export const metadata: Metadata = {
   title: "Send A Response | Denonymous",
   description:
@@ -36,7 +35,6 @@ export const metadata: Metadata = {
 
 
 async function page({params}:{params:{response:string[]}}) {
-  console.log(22)
   const [username_,key_]= params.response
   let key = decodeURI(key_)
   let username = decodeURI(username_)
@@ -82,24 +80,19 @@ if(!all){
 
  let replys = d.replys
  let filterMediaLimitOn:any
+ console.log({username,key,cookie,replys})
  
 
 if(isSession && d.owner == userdata?.email){
 
-  if(d.replys.length >0){
-    Replys = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'),{
-      loading:()=> {
-       return( <LoadingSkeleton className='max-w-[400px] w-full h-[500px]' />)
-      },
-    })
-  }
+
   return (
    <>
     <div className={style.denonymousResponsePage+' py-4'}>
         <h1 className='text-3xl sm:text-4xl text-center text-ellipsis '>{d.topic}</h1>
         <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?d.description:''}</h2>
         <div  className='bg-[#1E1E1E]'>
-    {Replys && <Replys box={d.topic}  owner={d.owner} replys={replys.reverse()} />}  
+    {!replys || replys.length == 0?<></>:<Responses box={d.topic}  owner={d.owner} replys={replys.reverse()} />}  
     </div> 
     </div>
     
@@ -107,7 +100,6 @@ if(isSession && d.owner == userdata?.email){
 }else{
   if(d.replys.length >0){
   filterMediaLimitOn = ((await import('@/src/core/lib/helpers')).filterMediaLimitOn)
-    Replys = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'))
   }
   let mediaLimit = filterMediaLimitOn(all.denonymous,key)
   return (
@@ -146,7 +138,7 @@ if(isSession && d.owner == userdata?.email){
 
      
     </div>
-{Replys && <Replys owner={d.owner} replys={replys.reverse()} />}   
+{!replys || replys.length == 0?<></>:<Responses owner={d.owner} replys={replys.reverse()} />}   
     </div>
   )}
         
