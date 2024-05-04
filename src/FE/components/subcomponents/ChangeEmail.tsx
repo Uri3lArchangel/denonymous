@@ -53,7 +53,7 @@ useEffect(()=>{
   return (
     <form  className='text-white'>
  <div>
-        <label htmlFor="email" className="block text-sm mb-5 ">
+        <label htmlFor="email" className="block text-md sm:text-xl mb-5  text-center ">
           Change Email
         </label>
         <input
@@ -62,7 +62,7 @@ useEffect(()=>{
           id="email"
           ref={emailRef}
           placeholder="Enter New Email Address"
-          className=" border-b-2 border-[#B58419] w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none text-white/80" 
+          className=" border-b-2 border-[#B58419] max-w-[300px] mx-auto block w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none text-white/80" 
         />
 
       </div>

@@ -73,12 +73,12 @@ function ResenVerificationCode({email}:{email:string}) {
       }
         }
   return (
-    <form
+   <form
     className={` `}
   >
      <button
     disabled={pending || countdown >0}
-      className={`border-2 text-base text-black font-bold p-2 my-4 border-[#EDC211] rounded mb-3 block w-[100%] mx-auto sm:w-[200px] ${styles.signInBtn}`}
+      className={`border-2 text-base text-black font-bold p-2 px-4 my-4 border-[#EDC211] rounded mb-3 block w-[100%] mx-auto sm:w-[200px] ${styles.signInBtn}`}
       onClick={
     resend
       }

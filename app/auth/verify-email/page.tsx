@@ -2,9 +2,8 @@ import React, { useRef } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { verifyUserDataToken } from "@/src/core/lib/JWTFuctions";
-import EmailVerificationComponent from "@/src/FE/components/subcomponents/EmailVerificationComponent";
-import ResenVerificationCode from "@/src/FE/components/subcomponents/ResenVerificationCode";
 import { Metadata } from "next";
+import Tabs from "./Tabs";
 
 export const metadata:Metadata = {
   title: 'Email Verification | Denonymous',
@@ -40,8 +39,7 @@ robots:{
     return (  
       <div className="bg-black py-12 px-6 my-4  rounded-md w-[95%] mx-auto max-w-[600px] shadow-div">
 
-      <EmailVerificationComponent email={user.email} />
-      <ResenVerificationCode email={user.email} />
+   <Tabs  user={user} />
       </div>
     )
     

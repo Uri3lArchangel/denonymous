@@ -3,10 +3,11 @@ import { verifyEmailAction } from '@/src/BE/serverActions/settingsactions';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { NotificationContext } from '../contexts/NotificationContext';
+import ResenVerificationCode from './ResenVerificationCode';
 
 
 
-const SixDigitInputField = () => {
+const SixDigitInputField = ({email}:{email:string}) => {
 // states
   const [inputs, setInputs] = useState<string[]>(Array(6).fill(''));
   const [pending,setPending]=useState(false)
@@ -78,7 +79,7 @@ const SixDigitInputField = () => {
         <input
           key={index}
           type="text"
-          className=' border my-2 text-white border-[#A9A9A9] w-[20px] h-[20px] mx-[2px] text-[20px] text-center outline-none bg-transparent rounded-md block'
+          className=' border my-2 text-white border-[#A9A9A9] w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] sm:mx-[4px] mx-[2px] text-[20px] text-center outline-none bg-transparent rounded-md block'
           maxLength={1}
           value={value}
           onChange={(e) => handleInputChange(index, e.target.value)}
@@ -97,7 +98,12 @@ const SixDigitInputField = () => {
         />
       ))}
     </div>
-    <button  className='gradient_elements_div px-6 py-2 block rounded-md' onClick={handleSubmit} disabled={pending}>{pending?"Submitting...":"Submit"}</button>
+
+    <div className='flex flex-col-reverse md:flex-row justify-between w-full items-center'>
+    <ResenVerificationCode  email={email} /> 
+    <button  className='gradient_elements_div px-6 h-[40px] block rounded-md' onClick={handleSubmit} disabled={pending}>{pending?"Submitting...":"Submit"}</button>
+  </div>
+
     </>
   );
 };
