@@ -1,10 +1,10 @@
 import nodemailer from "nodemailer";
-// live.smtp.mailtrap.io
+// mail.privateemail.com
 const transporter = nodemailer.createTransport({
-  host: "mail.privateemail.com",
-  port: 465,
+  host: "live.smtp.mailtrap.io",
+  port: 587,
   auth: {
-    user: "contact@denonymous.xyz",
+    user: "api",
     pass: process.env.webmail_pass,
   },
 });
@@ -35,22 +35,22 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
     <ul  style="display:flex; margin:2em 0;;justify-content:center">
     <li style="margin:0 1em;">
     <a href="https://twitter.com/denonymous_" style="text-decoration:none;">
-    <img loading="eager" src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
     </a>
   </li>
   <li style="margin:0 1em;">
   <a href="https://www.instagram.com/denonymous_/" style="text-decoration:none;">
-  <img loading="eager" src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
   </a>
   </li>
   <li style="margin:0 1em;">
   <a href="https://www.linkedin.com/company/denonymous" style="text-decoration:none;">
-  <img loading="eager" src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
   </a>
   </li>
   <li style="margin:0 1em;">  
   <a href="https://denonymous.medium.com/" style="text-decoration:none;">
-  <img loading="eager" src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+  <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
   </a>
   </li>
   </ul>
@@ -62,6 +62,8 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
   console.log("Message sent: %s", info);}
   catch(err:any){
     console.log(err)
+  throw new Error(err)
+
   }
 }
 
@@ -69,7 +71,6 @@ export async function passwordReset(recipientEmail: string, key: string) {
 
   try{
   // send mail with defined transport object
-console.log({recipientEmail,key})
 
   const info = await transporter.sendMail({
     from: "Denonymous <contact@denonymous.xyz>", // sender address
@@ -97,22 +98,22 @@ console.log({recipientEmail,key})
     <ul  style="display:flex; margin:2em 0;justify-content:center">
     <li style="margin:0 1em;">
       <a href="https://twitter.com/denonymous_" style="text-decoration:none; >
-      <img src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
+      <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/twitter.png" alt="twitter" width="40px" height="40px" />
       </a>
     </li>
     <li style="margin:0 1em;">
     <a href="https://www.instagram.com/denonymous_/" style="text-decoration:none;">
-    <img src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/insta.png" alt="instagram" width="40px" height="40px" />
     </a>
     </li>
     <li style="margin:0 1em;">
     <a href="https://www.linkedin.com/company/denonymous" style="text-decoration:none;">
-    <img src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/linkedin.png" alt="linkedin" width="40px" height="40px" />
     </a>
     </li>
     <li style="margin:0 1em;">  
     <a href="https://denonymous.medium.com/" style="text-decoration:none;">
-    <img src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
+    <img loading="eager" fetchpriority="high" src="https://denonymous.xyz/images/medium.png" alt="medium" width="40px" height="40px" />
     </a>
     </li>
   </ul>    
@@ -120,8 +121,10 @@ console.log({recipientEmail,key})
 </div>`, // html body
   });
 
-  console.log("Message sent: %s", info);
+  console.log("Message sent: %s", info)
 }catch(err:any){
+
   console.log(err)
+  throw new Error(err)
 }
 }
