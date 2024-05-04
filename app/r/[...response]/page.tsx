@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 import { EdgeStoreProvider } from '@/src/core/lib/edgestore';
 import dynamic from 'next/dynamic';
 import LoadingSkeleton from '@/src/FE/components/assets/LoadingSkeleton';
-let Replys:any='div';
+let Replys:any=null;
 export const metadata: Metadata = {
   title: "Send A Response | Denonymous",
   description:
@@ -36,6 +36,7 @@ export const metadata: Metadata = {
 
 
 async function page({params}:{params:{response:string[]}}) {
+  console.log(22)
   const [username_,key_]= params.response
   let key = decodeURI(key_)
   let username = decodeURI(username_)
@@ -81,14 +82,13 @@ if(!all){
 
  let replys = d.replys
  let filterMediaLimitOn:any
- console.log({username,key,cookie,replys})
  
 
 if(isSession && d.owner == userdata?.email){
 
   if(d.replys.length >0){
     Replys = dynamic(()=>import('@/src/FE/components/subcomponents/Responses'),{
-      loading:(loadingProps)=> {
+      loading:()=> {
        return( <LoadingSkeleton className='max-w-[400px] w-full h-[500px]' />)
       },
     })
@@ -99,7 +99,7 @@ if(isSession && d.owner == userdata?.email){
         <h1 className='text-3xl sm:text-4xl text-center text-ellipsis '>{d.topic}</h1>
         <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?d.description:''}</h2>
         <div  className='bg-[#1E1E1E]'>
-    {!replys || replys.length == 0?<></>:<Replys box={d.topic}  owner={d.owner} replys={replys.reverse()} />}  
+    {Replys && <Replys box={d.topic}  owner={d.owner} replys={replys.reverse()} />}  
     </div> 
     </div>
     
@@ -146,7 +146,7 @@ if(isSession && d.owner == userdata?.email){
 
      
     </div>
-{!replys || replys.length == 0?<></>:<Replys owner={d.owner} replys={replys.reverse()} />}   
+{Replys && <Replys owner={d.owner} replys={replys.reverse()} />}   
     </div>
   )}
         

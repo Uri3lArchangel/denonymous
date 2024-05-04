@@ -28,7 +28,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="image" href="/_next/static/media/BACKG.7fdc6a86.avif" />
         <link rel="preload" as="image" href="/images/logo.avif" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
         <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
