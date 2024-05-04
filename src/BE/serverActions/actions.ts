@@ -1,35 +1,144 @@
 "use server"
 
 import { verifyUserDataToken } from "@/src/core/lib/JWTFuctions"
-import { connectMongoClient, disConnectMongoClient } from "../DB/conection"
 import { cookies } from "next/headers"
-import { createDenonymous, sendRelpy } from "../DB/queries/auth/query"
 import { revalidatePath, revalidateTag } from "next/cache"
+import { redirect } from "next/navigation"
+import { changeMediaSettingsQuery, changeResponsesVisibilityQuery, createDenonymous, deleteDenonymousDB, denonymousViewStateChange, sendRelpy } from "../DB/queries/denonymous/query"
+import { flipIndex } from "@/src/core/lib/helpers"
 
-export const createDenonyous = async(e:FormData)=>{
+
+export const createDenonyous = async(topic:string,desc:string)=>{
+
+try{
 let cookie = cookies().get("denon_session_0")
-if(!cookie || !cookie.value) return null
+if(!cookie || !cookie.value){
+  redirect("/auth/signin")
+}
 const sessionToken = verifyUserDataToken(cookie.value)
-if(!sessionToken) return
-const topic = e.get("topic") as string | undefined
-if(!topic) throw new Error("denonymous topic cannot be empty")
-await connectMongoClient()
-console.log(sessionToken.email)
-await createDenonymous(sessionToken.email,topic,sessionToken.uuid)
-await disConnectMongoClient()
-
-revalidatePath("/")
+if(!sessionToken){
+  redirect("/auth/signin")
 }
 
-export const sendRelpyAction = async(uuid:string,topic:string,reply:any)=>{
-    // throw new Error('Failed to Delete Invoice');
 
-try{    await connectMongoClient()
-    await sendRelpy(uuid,topic,reply);
-    await disConnectMongoClient()
+
+const res =await createDenonymous(sessionToken.email,String(topic),sessionToken.uuid,String(desc))
+if(res.type=="error"){
+  return res
+}
+revalidatePath("/")
+revalidateTag("denonymous_box_0102")
+revalidateTag("raieneidmie_00")
+return res
+}
+
+catch(err:any){
+  return {message:err.message,type:"error"}
+}
+
+
+}
+
+export const sendRelpyAction = async(username:string,key:string,reply:any)=>{
+
+try{    
+  
+    await sendRelpy(username,key,reply);
+    revalidateTag("denonymous_box_0102")
     revalidateTag("raieneidmie_00")
 }catch(err:any){
         console.log(err)
         return "an error occured"
     }
+}
+
+export const changeResponseViweViewState=async(topic:string)=>{
+
+  let cookie = cookies().get("denon_session_0")
+  if(!cookie || !cookie.value) redirect("/auth/signin")
+  const sessionToken = verifyUserDataToken(cookie.value)
+  if(!sessionToken) redirect("/auth/signin")
+  try{    
+      
+      await denonymousViewStateChange(sessionToken.uuid,topic)
+      revalidateTag("denonymous_box_0102")
+      revalidateTag("raieneidmie_00")
+  }catch(err:any){
+          throw new Error("something went wrong!")
+      }
+}
+
+export const changeDenonymousViewState=async(key:string)=>{
+
+    let cookie = cookies().get("denon_session_0")
+    if(!cookie || !cookie.value) redirect("/auth/signin")
+    const sessionToken = verifyUserDataToken(cookie.value)
+    if(!sessionToken) redirect("/auth/signin")
+    try{    
+        
+        await denonymousViewStateChange(sessionToken.uuid,key)
+        revalidateTag("denonymous_box_0102")
+        revalidateTag("raieneidmie_00")
+    }catch(err:any){
+            throw new Error("something went wrong!")
+        }
+}
+
+export const deleteDenonymousAction=async(key_:string)=>{
+
+    let cookie = cookies().get("denon_session_0")
+    if(!cookie || !cookie.value) redirect("/auth/signin")
+    const sessionToken = verifyUserDataToken(cookie.value)
+    if(!sessionToken) redirect("/auth/signin")
+    try{    
+    
+      let r=   await deleteDenonymousDB(sessionToken.uuid,key_)
+    const urls=[]
+                if(!r) return
+                for(let i=0;i<r.length;i++){
+                  for(let j=0;j<r[i].media.length;j++){
+                urls.push(r[i].media[j].link)
+                  }
+                  }
+              revalidateTag("notifications_fetch_tag")
+        revalidateTag("denonymous_box_0102")
+        revalidateTag("raieneidmie_00")
+        return urls
+    }catch(err:any){
+            console.log(err)
+            throw new Error("something went wrong!")
+        }
+}
+
+
+
+export const changeResponsesVisibilityActiion = async (denonymousKey:string)=>{
+  try{
+  let cookie = cookies().get("denon_session_0")
+  if(!cookie || !cookie.value) redirect("/auth/signin")
+  const sessionToken = verifyUserDataToken(cookie.value)
+  if(!sessionToken) redirect("/auth/signin")
+  await changeResponsesVisibilityQuery(sessionToken.email,denonymousKey)
+  revalidateTag("denonymous_box_0102")
+  revalidateTag("raieneidmie_00")
+
+}catch(err:any){
+    console.log(err)
+  }
+
+}
+export const changeMediaSettingsAction  = async(type:"image"|"video"|"audio",key:string,owner:string)=>{
+try{
+  console.log({media:key})
+  let cookie = cookies().get("denon_session_0")
+  if(!cookie || !cookie.value) redirect("/auth/signin")
+  const sessionToken = verifyUserDataToken(cookie.value)
+  if(!sessionToken) redirect("/auth/signin")
+  await changeMediaSettingsQuery(type,owner,key)
+  revalidateTag("denonymous_box_0102")
+  revalidateTag("raieneidmie_00")
+}catch(err:any){
+  console.log(err)
+
+}
 }

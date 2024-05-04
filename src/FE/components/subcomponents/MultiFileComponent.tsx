@@ -2,44 +2,90 @@
 
 import { MultiFileDropzone, type FileState } from "./MultiFileDropzone";
 import { useEdgeStore } from "../../../core/lib/edgestore";
-import { useEffect, useState } from "react";
-import { URLRESOLVE } from "@/src/core/lib/helpers";
+import { useContext, useEffect, useState } from "react";
 import { replyModelType } from "@/types";
-import { revalidateTag } from "next/cache";
-import { sendRelpyAction } from "@/src/BE/serverActions/actions";
-import { useFormStatus } from "react-dom";
+import { AiFillPicture } from "react-icons/ai";
+import { BsCameraVideoFill } from "react-icons/bs";
+import { MdOutlineAudioFile } from "react-icons/md";
+import imageExtensions from '../../../core/data/imageValidExtensions.json'
+import videoExtensions from '../../../core/data/videoValidExtensions.json'
+import audioExtensions from '../../../core/data/audioValidExtensions.json'
+import { NotificationContext } from "../contexts/NotificationContext";
+
+
 
 export function MultiFileDropzoneUsage({
-  UUID,
-  topic,
+  username,
+  key_,
+  mediaLimit
 }: {
-  UUID: string;
-  topic: string;
+  username: string;
+  key_: string;
+  mediaLimit: {
+    audio: boolean;
+    video: boolean;
+    image: boolean;
+  }
 }) {
+  const notification = useContext(NotificationContext)!
   const [sending,setSending]=useState(false)
+  const [fileStates1, setFileStates1] = useState<FileState[]>([]);
+  const [fileStates2, setFileStates2] = useState<FileState[]>([]);
+  const [fileStates3, setFileStates3] = useState<FileState[]>([]);
   const [fileStates, setFileStates] = useState<FileState[]>([]);
+  const [canUpload,setCanUpload]=useState(false)
+  const [isTextAreaEmpty,setIsTextAreaEmpty] = useState(true)
+  const [uploadedKeys,setUploadedKeys]=useState<string[]>([])
+  // const [mediaEmpty,setMediaEmpty] = useState(true)
   const [media, setMedia] = useState<{ link: string; mimeType: string }[]>([]);
   const { edgestore } = useEdgeStore();
 
-  // const replySendFunction = async()=>{
-  //   const text  = (document.getElementById("response") as HTMLTextAreaElement).value;
-  //   const reply = {
-  //     text,media
-  //   } as replyModelType
+  useEffect(()=>{
+    const text = (
+      document.getElementById("response") as HTMLTextAreaElement
+    )
+    text.addEventListener("keyup",()=>{
+      if(text.value != "" && fileStates.length== 0){
+        setCanUpload(true)
+      }
+      if(text.value != "" || fileStates.length > 0){
+            setIsTextAreaEmpty(false)
+           
+      }else{
+        setIsTextAreaEmpty(true)
 
-  //   let res =await fetch(URLRESOLVE("/api/sendReply"),{method:"POST",mode:"no-cors",body:JSON.stringify({UUID,topic,reply})})
-  //   console.log(res.status)
-  //   if(res.status == 201){
-  //     console.log(11)
-  //   }
-  //   else{
-  //     // handle error
-  //   }
+      }
 
-  // }
-
+    })
+    if(fileStates.length > 0 || text.value != ""){
+      setIsTextAreaEmpty(false)
+    }else{
+      setIsTextAreaEmpty(true)
+    }
+  },[fileStates,fileStates1,fileStates2,fileStates3])
+ 
   function updateFileProgress(key: string, progress: FileState["progress"]) {
-    setFileStates((fileStates) => {
+    setFileStates1((fileStates) => {
+      const newFileStates = structuredClone(fileStates);
+      const fileState = newFileStates.find(
+        (fileState) => fileState.key === key
+      );
+      if (fileState) {
+        fileState.progress = progress;
+      }
+      return newFileStates;
+    });
+    setFileStates2((fileStates) => {
+      const newFileStates = structuredClone(fileStates);
+      const fileState = newFileStates.find(
+        (fileState) => fileState.key === key
+      );
+      if (fileState) {
+        fileState.progress = progress;
+      }
+      return newFileStates;
+    });
+    setFileStates3((fileStates) => {
       const newFileStates = structuredClone(fileStates);
       const fileState = newFileStates.find(
         (fileState) => fileState.key === key
@@ -52,34 +98,136 @@ export function MultiFileDropzoneUsage({
   }
 
   return (
-    <div>
+    <div className="full_response_container_textarea ">
+     <div className='flex w-[60%] max-w-[300px]  md:h-fit justify-between mx-auto my-2 md:my-0 md:w-fit ' id="uploadMediaIcons">
+{  mediaLimit.image? <></> : <label aria-disabled={sending}  htmlFor={`${sending?"":"chick_a"}`}><AiFillPicture disabled={sending}  size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2"/></label>}
+    {mediaLimit.video?<></>: <label aria-disabled={sending} htmlFor={`${sending?"":"chick_b"}`}><BsCameraVideoFill  disabled={sending} size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>}
+    {mediaLimit.audio?<></>: <label aria-disabled={sending} htmlFor={`${sending?"":"chick_c"}`}><MdOutlineAudioFile disabled={sending} size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>}
+</div>
+<div id="previewMediaContainer"
+>
       <MultiFileDropzone
-        value={fileStates}
+      id="chick_a"
+      
+      className="w-[90%] mx-auto hidden"
+        value={fileStates1}
+      disabled={sending || mediaLimit.image}
+      
+        generalFileStateAction={fileStates}
+        setGeneralFileStateAction={setFileStates}
         onChange={(files) => {
-          setFileStates(files);
+          if(mediaLimit.image)return
+          setFileStates1(files);
+          setCanUpload(false)
+
+        }}
+        dropzoneOptions={{accept:{"image/*":imageExtensions}}}
+
+        onFilesAdded={async (addedFiles) => {
+          if(mediaLimit.image)return
+          setCanUpload(false)
+          setFileStates((prev) => [...prev, ...addedFiles]);
+
+        }}
+      
+        
+      />
+        <MultiFileDropzone
+        id="chick_b"
+      disabled={sending || mediaLimit.video}
+
+      className="w-[90%] mx-auto hidden"
+      dropzoneOptions={{accept:{"video/*":videoExtensions}}}
+
+        value={fileStates2}
+        
+        generalFileStateAction={fileStates}
+        setGeneralFileStateAction={setFileStates}
+         onChange={(files) => {
+          if(mediaLimit.video)return
+          setFileStates2(files);
+          setCanUpload(false)
+
         }}
         onFilesAdded={async (addedFiles) => {
+          if(mediaLimit.video)return
+
+          setCanUpload(false)
           setFileStates((prev) => [...prev, ...addedFiles]);
         }}
+      /> 
+       <MultiFileDropzone
+       id="chick_c"
+      disabled={sending || mediaLimit.audio}
+
+      className="w-[90%] mx-auto hidden "
+        value={fileStates3}
+    
+        generalFileStateAction={fileStates}
+        setGeneralFileStateAction={setFileStates}
+        dropzoneOptions={{accept:{"audio/*":audioExtensions}}}
+
+        onChange={(files) => {
+
+          if(mediaLimit.audio)return
+          setFileStates3(files);
+          setCanUpload(false)
+
+        }}
+        onFilesAdded={async (addedFiles) => {
+
+          if(mediaLimit.audio)return
+
+          setCanUpload(false)
+          setFileStates((prev) => [...prev, ...addedFiles]);
+
+        }}
       />
-      <button
+      </div>
+    <div id="sendResponseContainer"
+    className="flex flex-col justify-center items-center"
+>
+    <button
+    disabled={ sending || isTextAreaEmpty}
         onClick={async (e) => {
           e.preventDefault();
+          setMedia([])
+
           await Promise.all(
             fileStates.map(async (addedFileState) => {
               try {
-                const res = await edgestore.denonymousMedia.upload({
+
+                if(addedFileState.progress!="COMPLETE" && !uploadedKeys.includes(addedFileState.key))
+                {
+                  for(let i =0;i<media.length;i++){
+                    let mime =media[i].mimeType
+                    if(mediaLimit.image && mime.includes("image") ){
+                      return
+                    }
+                    if(mediaLimit.video && mime.includes("video") ){
+                      return
+              
+                    }
+                    if(mediaLimit.audio && mime.includes("audio") ){
+                      return
+                    }
+                   }
+                  setSending(true)
+
+                  const res = await edgestore.denonymousMedia.upload({
                   file: addedFileState.file,
                   options: {
                     temporary: true,
+                    
                   },
                   onProgressChange: async (progress) => {
                     updateFileProgress(addedFileState.key, progress);
                     if (progress === 100) {
-                      // wait 1 second to set it to complete
-                      // so that the user can see the progress bar at 100%
                       await new Promise((resolve) => setTimeout(resolve, 1000));
                       updateFileProgress(addedFileState.key, "COMPLETE");
+                      setUploadedKeys((prev)=>[...prev,addedFileState.key])
+                setSending(false)
+
                     }
                   },
                 });
@@ -87,29 +235,29 @@ export function MultiFileDropzoneUsage({
                   ...prev,
                   { link: res.url, mimeType: addedFileState.file.type },
                 ]);
-              } catch (err) {
+                setCanUpload(true)
+
+              }} catch (err) {
                 updateFileProgress(addedFileState.key, "ERROR");
+                setSending(false)
+
               }
             })
           );
         }}
-        className="bg-green-500"
-      >
+        
+        className={fileStates.length<1?"hidden ":`bg-green-500 block mx-auto w-[70%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2`}
+      > 
         upload media
       </button>
 
       <button
-      disabled={sending}
-        className="border-2 mx-2"
+      disabled={(sending || isTextAreaEmpty || !canUpload) }
+        className=" block mx-auto w-[70%] text-black h-[50px] mt-4 mb-10 md:my-2 gradient_elements_div rounded-[10px] md:w-[180px]"
         onClick={async (e) => {
-          e.preventDefault();
+          try{e.preventDefault();
+
           setSending(true)
-          for (let i = 0; i < media.length; i++) {
-            await edgestore.denonymousMedia.confirmUpload({
-              url: media[i].link,
-            });
-          }
-          // (document.getElementById("reply_form") as HTMLFormElement).submit()
           const text = (
             document.getElementById("response") as HTMLTextAreaElement
           ).value;
@@ -117,15 +265,40 @@ export function MultiFileDropzoneUsage({
             text,
             media,
           } as replyModelType;
-          await sendRelpyAction(UUID, topic, reply);
+          const sendRelpyAction =  ((await import("@/src/BE/serverActions/actions")).sendRelpyAction);
+
+          await sendRelpyAction(username, key_, reply);
+
+          for (let i = 0; i < media.length; i++) {
+            await edgestore.denonymousMedia.confirmUpload({
+              url: media[i].link,
+            });
+          }
+          // (document.getElementById("reply_form") as HTMLFormElement).submit()
+         
           (document.getElementById("response") as HTMLTextAreaElement).value = "";
           setFileStates([])
+          setFileStates1([])
+          setFileStates2([])
+          setFileStates3([])
           setMedia([])
-          setSending(true)
+          setSending(false)
+          notification({type:"success",message:"response sent",description:""})
+        }catch(err:any){
+          setFileStates([])
+          setFileStates1([])
+          setFileStates2([])
+          setFileStates3([])
+                setMedia([])
+            setSending(false)
+          notification({type:"success",message:err.message,description:""})
+
+          }
         }}
       >
         Send response
       </button>
+      </div>
     </div>
   );
 }

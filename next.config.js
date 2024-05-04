@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{domains:["files.edgestore.dev"]}
+    images:{remotePatterns:[{hostname:"files.edgestore.dev"},{hostname:"denonymous.xyz"}]}
 }
 
 module.exports = nextConfig

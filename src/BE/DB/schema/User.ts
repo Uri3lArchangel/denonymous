@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import crypto from 'crypto'
 
 const UserSchema = new Schema({
     UUID:String,
@@ -7,7 +8,12 @@ const UserSchema = new Schema({
         default:new Date(Date.now())
     },
     
-    username:String,
+    username:{
+        type:String,
+        required:true,
+        unique:true,
+        lowercase:true
+    },
 
     email:{
         type:String,
@@ -30,13 +36,21 @@ const UserSchema = new Schema({
         type:Boolean,
         default:false
     },
-    passworResetToken:String,
+    token:{
+       type:{
+        value:String,
+        expires:Number,
+        nextRequestable:Number
+       } 
+    },
     denonymous:[{
+        key:String,
         owner:String,
         isDeleted:{type:Boolean,default:false},
-        isActive: {type:Boolean,default:false},
+        isActive: {type:Boolean,default:true},
         link:String,
         topic:String,
+        description:String,
         dateCreated:{
             type:Number,
             default:Date.now()
@@ -60,11 +74,30 @@ const UserSchema = new Schema({
         replys:[
             {
                 text:{type:String,default:""},
+                visible:{
+                    type:Boolean,
+                    default:true
+                },
+                key:{
+                    type:String,
+                    default:(crypto.randomBytes(12).toString('hex')),
+                },
                 media:[{link:String,mimeType:String}],
                 bookmarked:{type:Boolean,default:false},
                 
             }
             ]
+    }],
+    notifications:[{
+     
+        owner:String,
+        category:{type:String,required:true},
+        data:String,
+        link:String,
+        opened:{type:Boolean,default:false},
+        date:{
+            type:Number,
+            default:Date.now()}
     }]
 })
 

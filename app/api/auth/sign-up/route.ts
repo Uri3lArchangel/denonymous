@@ -1,36 +1,43 @@
-import {
-  connectMongoClient,
-  disConnectMongoClient,
-} from "@/src/BE/DB/conection";
+
 import { createUser } from "@/src/BE/DB/queries/auth/query";
+import { signUpConfirmation } from "@/src/BE/email-service/nodemailer";
 import { Email_Signup_Verification } from "@/src/BE/email-service/resend-config";
 import { passwordHasher } from "@/src/core/lib/hashers";
+import { validateEmail, validateUsername } from "@/src/core/lib/helpers";
 import { userModelType } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password, confirmPassword } = await req.json();
+    const { email, password, username, confirmPassword } = await req.json();
 
-    // let the same email password and confirm password checks be done servers side too incase of sneaky users
+    let st = validateEmail(email)
+    if(st.status == "error" ){
+      return NextResponse.json({message:"Invalid email address"},{status:400})
+    }
+    if(!validateUsername(username)){
+      return NextResponse.json({message:"Invalid username"},{status:400})
 
-    // for any checks error on the email, password, confirmPassword, return the following line of code and place your error message in the message field
+    }
 
-    //   NextResponse.json({message:"",data:null},{status:400})
+
+
+    if(password !=  confirmPassword){
+      return   NextResponse.json({message:"Password and confirm password do not match",data:null},{status:400})
+    }
+
+    
     const hash = passwordHasher(password);
-    await connectMongoClient();
-    const user = (await createUser(email, hash)) as userModelType;
-    await disConnectMongoClient();
-    const status = await Email_Signup_Verification(user.UUID, user.email);
-    console.log(status, "email");
+    const user = (await createUser(username,email, hash)) as userModelType;
+  await signUpConfirmation( user.email,user.token.value);
+    
     return NextResponse.json(
       { status: "success", message: "" },
       { status: 201 }
     );
   } catch (err: any) {
-    console.log(err);
-    // this return would be modified with if else to check for several possible errors and return the appropraite messages and the respective status codes
-    // e g the check logic is to see if an email is already on the db and return a fitting response to users
+
+console.log(err)
     const errorMessage = err.message as string;
     if (
       errorMessage.includes("duplicate key error") &&
@@ -44,9 +51,23 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    if (
+      errorMessage.includes("duplicate key error") &&
+      errorMessage.includes("username")
+    ) {
+      return NextResponse.json(
+        {
+          message: "This username is already used, try something else",
+          data: null,
+        },
+        { status: 400 }
+      );
+    }
     return NextResponse.json(
-      { message: "internal error", data: null },
+      {
+        message: "An error occured",
+        data: null,
+      },
       { status: 500 }
-    );
-  }
+    );  }
 }

@@ -1,0 +1,9 @@
+{
+  "faqs": [
+    {
+      "question": "Can anyone figure out who sends each message?",
+      "answer1": "No, it is not feasible for any entity to ascertain the identity of the sender behind each response. This is due to our strict policy of not collecting data pertaining to the originator of each response.",
+      "answer2": ""
+    }
+  ]
+}

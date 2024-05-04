@@ -1,6 +1,8 @@
 'use client';
+
+import { MdOutlineRunningWithErrors, MdWarningAmber, MdWifiTetheringErrorRounded } from "react-icons/md";
+
  
-import { useEffect } from 'react';
  
 export default function Error({
   error,
@@ -9,23 +11,27 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    // Optionally log the error to an error reporting service
-    console.error(error);
-  }, [error]);
+
+  console.log(error.name)
  
   return (
-    <main className="flex h-full flex-col items-center justify-center">
-      <h2 className="text-center">Something went wrong!</h2>
+    <main className="flex  flex-col items-center pt-20 bg-black h-[100vh] text-white">
+      <MdWarningAmber size={70} className="text-red-500" />
+      <h2 className="text-center text-2xl sm:text-4xl ">{error.message}</h2>
+      <div className="flex flex-col items-center w-full max-w-[400px] sm:flex-row justify-between">
       <button
-        className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
+        className="my-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
         onClick={
           // Attempt to recover by trying to re-render the invoices route
-          () => reset()
+          () => {window.location.reload()}
         }
       >
         Try again
       </button>
+      <button onClick={()=>{
+        window.history.back()
+      }}>Go back</button>
+      </div>
     </main>
   );
 }

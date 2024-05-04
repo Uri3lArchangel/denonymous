@@ -1,0 +1,51 @@
+.notFound{
+    background-color: black;
+    color: white;
+    background-image: url(../images/Ooops.png);
+    height: calc(100vh - 80px);
+    background-size: 350px 50%;
+    background-position-x: center;
+    background-position-y: calc(50% - 80px);
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;  
+  flex-direction: column;
+  padding: 1em 0;
+  
+}
+.prevBtn{
+display: flex;
+height: 60px;
+padding: 10px 16px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 8px;
+color: #FFDF00;
+cursor: pointer;
+border: 2px solid var(--main-gradient, #FFDF00);
+max-width: 300px;
+width: 100%;
+margin:0 0.6em ;
+}
+
+
+.homeBtn{
+ display: flex;
+height: 60px;
+padding: 0px 16px;
+justify-content: center;
+align-items: center;
+border-radius: 8px;
+color: black;
+max-width: 300px;
+width: 100%;
+margin:0 0.6em ;
+background: var(--main-gradient, linear-gradient(270deg, #FFDF00 0%, #F6D108 27.6%, #EDC211 54.17%, #E3B419 77.6%, #DAA521 100%));
+}
+
+@media screen and (min-width:768px) {
+  .notFound{
+    height: 100vh ;
+  }
+}
