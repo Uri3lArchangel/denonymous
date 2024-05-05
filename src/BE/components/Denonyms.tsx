@@ -1,12 +1,11 @@
-import dynamic from "next/dynamic";
-let MyDenonyms:any;
 
 import { userModelType } from "@/types";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
-import LoadingSkeleton from "@/src/FE/components/assets/LoadingSkeleton";
 import { EdgeStoreProvider } from "@/src/core/lib/edgestore";
+import MyDenonyms from "@/src/FE/components/subcomponents/CreatePosts";
+import { resolve } from "path";
 
 export const fetchDenonymousOnLoad = async () => {
   const cookie = cookies().get("denon_session_0");
@@ -32,21 +31,7 @@ export const fetchDenonymousOnLoad = async () => {
 export async function Denonyms() {
   const user = await fetchDenonymousOnLoad();
   let denonyms = user.denonymous;
-  MyDenonyms = dynamic(
-    () => import("@/src/FE/components/subcomponents/CreatePosts"),
-    {
-      ssr: true,
-      loading(loadingProps) {
-        return (
-          <div>
-            {denonyms.map((_, i) => (
-              <LoadingSkeleton key={i} className="h-[300px] my-4 w-full mx-auto max-w-[565px]" />
-            ))}
-          </div>
-        );
-      },
-    }
-  )
+
   
   return (
     <EdgeStoreProvider>
@@ -61,7 +46,7 @@ export async function UsernameDisplay() {
 
   return (
     <>
-      <h1 className="text-[#FEFEFE] md:text-[45px] sm:text-[30px] max-[599px]:text-[25px] text-center">
+      <h1 className="text-[#FEFEFE] md:text-[45px] sm:text-[30px] text-[25px] text-center">
         {username}&apos;s Profile
       </h1>
       <p className="text-[#959595] text-sm text-center">

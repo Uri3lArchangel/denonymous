@@ -69,7 +69,7 @@ const SixDigitInputField = ({email}:{email:string}) => {
     const res = await verifyEmailAction(fullNumber)
     setPending(false)  
     notification({type:res.type as any,message:res.message,description:''})
-    if(res.type == "success"){router.push("/")}
+    if(res.type == "success"){router.push("/dashboard")}
   };
 
   return (

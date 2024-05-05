@@ -1,14 +1,10 @@
 import dynamic from "next/dynamic";
 import styles from "@/public/styles/styles.module.css";
 import { Metadata } from "next";
-const Denonyms = dynamic(()=>import("@/src/BE/components/Denonyms").then(a=>a.Denonyms),{loading(loadingProps) {
-  return(<LoadingSkeleton className="h-[400px] w-full mx-auto max-w-[400px]"  />)
-},})
-const UsernameDisplay = dynamic(()=>import("@/src/BE/components/Denonyms").then(a=>a.UsernameDisplay),{loading(loadingProps) {
-  return(<LoadingSkeleton className="h-[60px] w-[300px] mx-auto" />)
-},})
 import { CreateDenonymousClient } from "@/src/FE/components/subcomponents/d";
 import LoadingSkeleton from "@/src/FE/components/assets/LoadingSkeleton";
+import { Suspense } from "react";
+import { Denonyms, UsernameDisplay } from "@/src/BE/components/Denonyms";
 
 export const metadata: Metadata = {
   title: "Dashboard | Denonymous",
@@ -44,17 +40,20 @@ export default function page() {
         className={"bg-[#000000] backgroundVector min-h-[100vh] pt-24 " + styles.background}
       >
         <div className=" mb-20">
+        <Suspense fallback={<LoadingSkeleton  className="w-full my-10 max-w-[200px] h-[30px] mx-auto" />}>
       
             <UsernameDisplay />
 
- 
+ </Suspense>
         </div>
         <CreateDenonymousClient />
         <h1>My Denonyms</h1>
 
         <div className="pb-10 w-[90%] max-w-[1024px] mx-auto ">
-       
+       <Suspense fallback={[1,2,3].map((e)=>(<LoadingSkeleton key={e} className="w-full my-10 max-w-[545px] h-[300px] mx-auto" />))}>
             <Denonyms />
+            
+            </Suspense>
         </div>
       </section>{" "}
     </main>

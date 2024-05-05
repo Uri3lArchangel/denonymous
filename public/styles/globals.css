@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes shimmer {
+@keyframes skeleton-loading {
   0% {
-    transform: translateX(-100%);
+    background-color: hsl(0, 0%, 67%);
   }
   100% {
-    transform: translateX(100%);
+    background-color: hsl(0, 0%, 74%);
   }
 }
 * {
@@ -266,22 +266,12 @@ background-color: #ffdf00 !important;
   }
  
   .loading_skeleton {
-    background: #eee;
-    border-radius: 4px;
+    animation: skeleton-loading 1s linear infinite alternate;
+    border: 1px solid rgb(249, 249, 249);
+
   }
   
-  .loading_skeleton::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to right, #f9f9f9 0%, #ececec 50%, #f9f9f9 100%);
-    transform: translateX(-100%);
-    animation: shimmer 1.5s infinite ease-in-out;
-  }
-  
+
 
   
 

@@ -177,12 +177,13 @@ export const deleteAccountAction=async()=>{
    let user = verifyUserDataToken(cookie.value)
 if(!user)redirect("/auth/signin")
     const denonyms = await fetchAllDenonyms(user.email)
+console.log({denonyms})
+let urls:string[]|undefined=[]
     for(let i=0;i<denonyms.length;i++){
-   await deleteDenonymousAction(denonyms[i].topic)
+ urls= await deleteDenonymousAction(denonyms[i].key)
+        
     }
     await deleteAccountQuery(user.email)
     deleteSessionCookie()
-    setTimeout(()=>{
-        redirect("/")
-    },2000)
+   return urls
 }

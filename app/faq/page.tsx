@@ -8,6 +8,7 @@ const page = () => {
       {FaqData.faqs.map((faqItem, index) => {
         return (
           <FaqAccordion
+          key={index}
             id={index}
             question={faqItem.question}
             answer1={faqItem.answer1}

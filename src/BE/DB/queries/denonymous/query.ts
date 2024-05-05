@@ -11,13 +11,14 @@ import {
 } from "@/src/core/data/notficationCore";
 import {  revalidateTag } from "next/cache";
 import crypto from "crypto";
-connectMongo();
 export const createDenonymous = async (
   email: string,
   topic: string,
   uuid: string,
   desc?: string
 ) => {
+await connectMongo();
+
   const user = (await User.findOne({ email })) as userModelType;
   let a = user.denonymous.filter(
     (e) => e.topic == removeWhitespace(topic) && !e.isDeleted
@@ -64,6 +65,8 @@ export const sendRelpy = async (
   key: string,
   reply: replyModelType
 ) => {
+await connectMongo();
+
   const updatedUser = await User.findOne({ username });
   if (updatedUser) {
     const denonymousIndex = updatedUser.denonymous.findIndex(
@@ -120,6 +123,8 @@ export const denonymousViewStateChange = async (
   UUID: string,
   key: string
 ) => {
+await connectMongo();
+
   const updatedUser = await User.findOne({ UUID });
   if (updatedUser) {
     const denonymousIndex = updatedUser.denonymous.findIndex(
@@ -137,34 +142,40 @@ export const denonymousViewStateChange = async (
 };
 
 export const deleteDenonymousDB = async (UUID: string, key_: string) => {
+await connectMongo();
+
   const updatedUser = await User.findOne({ UUID });
   if (updatedUser) {
     const denonymousIndex = updatedUser.denonymous.findIndex(
       (d: any) => d.key === key_
     );
 
-    if (denonymousIndex !== -1) {
+    if (denonymousIndex != -1) {
       let r = updatedUser.denonymous[denonymousIndex]
         .replys as replyModelType[];
-
+        const a = denonymousDeleteNotification(
+          updatedUser.denonymous[denonymousIndex].topic
+        );
       updatedUser.denonymous.splice(denonymousIndex, 1);
-      const a = denonymousDeleteNotification(
-        updatedUser.denonymous[denonymousIndex].topic
-      );
+      
+console.log({updatedUser})
+     
       updatedUser.notifications.push({
         category: categories.deleteDenonym,
         data: a.data,
-        owner: updatedUser.username,
+        owner: updatedUser.email,
       });
       await updatedUser.save(); // Save the updated document
       return r;
     } else {
-      throw new Error("Something went wrong!");
+      return
     }
   }
 };
 
 export const fetchAllDenonyms = async (email: string) => {
+await connectMongo();
+
   const user = (await User.findOne({ email })) as userModelType | null;
   if (!user) redirect("/auth/signup");
   const denonyms = user.denonymous;
@@ -172,11 +183,15 @@ export const fetchAllDenonyms = async (email: string) => {
 };
 
 export const deleteAccountQuery = async (email: string) => {
+await connectMongo();
+
   await User.deleteOne({ email });
 };
 
 
 export const changeResponsesVisibilityQuery = async(email:string,denonymousKey:string)=>{
+await connectMongo();
+
   const user = await User.findOne({email}) 
 
   if(user){
@@ -197,6 +212,8 @@ export const changeResponsesVisibilityQuery = async(email:string,denonymousKey:s
 }
 
 export const changeMediaSettingsQuery  = async(type:"image"|"video"|"audio",email:string,key:string)=>{
+await connectMongo();
+
 const user = await User.findOne({email})
 if(user){
 const index = user.denonymous.findIndex((e:any)=>e.key == key)

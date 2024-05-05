@@ -1,4 +1,5 @@
-import React, { SetStateAction } from 'react'
+
+import React from 'react'
 import SixDigitInputField from '../subcomponents/SixDigitInputField'
 import emailImg from '../../../../public/images/email.svg'
 import Image from 'next/image'

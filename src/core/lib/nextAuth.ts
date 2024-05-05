@@ -56,11 +56,8 @@ async authorize(credentials) {
             }
         },
       
-    },
-    secret:process.env.userDataTokenKey
-    ,session:{
-        strategy:"jwt",
-        maxAge:2592000,
+    }, session:{
+        strategy:undefined,
         
     }
 }

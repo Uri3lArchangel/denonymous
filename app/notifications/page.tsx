@@ -8,7 +8,7 @@ const NotificationDetailLink = dynamic(
 );
 import { flipIndex } from "@/src/core/lib/helpers";
 import { Metadata } from "next";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import dynamic from "next/dynamic";
 import React from "react";
 

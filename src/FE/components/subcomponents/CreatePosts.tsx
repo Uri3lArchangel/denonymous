@@ -78,7 +78,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                     />
                   }
                 <article>
-                  <h2 className="text-3xl font-bold text-center uppercase">
+                  <h2 className="text-3xl font-bold text-center mt-6 uppercase">
                     <TooltipApp title={e.topic} text={e.topic} />
                   </h2>
                   {/* <br /> date created:

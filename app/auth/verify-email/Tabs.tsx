@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import EmailVerificationComponent from "@/src/FE/components/subcomponents/EmailVerificationComponent";
-import ResenVerificationCode from "@/src/FE/components/subcomponents/ResenVerificationCode";
 import { userDataJWTType } from '@/types';
 
 function Tabs({ user }: { user: userDataJWTType }) {

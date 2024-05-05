@@ -286,7 +286,7 @@ const SignUpForm = () => {
         </div>
         <fieldset>
         <div>
-          <label htmlFor="uname" className="mb-2 block" >Username *</label>
+          <label htmlFor="uname" className=" block" >Username *</label>
           <input
           ref={unameRef}
             type="text"
@@ -294,13 +294,13 @@ const SignUpForm = () => {
             required
             id="uname"
             placeholder="Enter username"
-            className="border-b-2 border-[#B58419] w-full mb-5 bg-transparent placeholder:text-[#c9c1c1c9] pb-2 focus:outline-none"
+            className="border-b-2 border-[#B58419] w-full mb-2 bg-transparent placeholder:text-[#c9c1c1c9] pb-2 focus:outline-none"
           />
         </div>
-        <p id="uname_display"></p>
+        <p id="uname_display" className="mb-4"></p>
 
         <div>
-          <label htmlFor="email" className="block text-sm mb-3">
+          <label htmlFor="email" className="block text-sm">
             Email *
           </label>
           <input
@@ -310,16 +310,16 @@ const SignUpForm = () => {
             required
             id="email"
             placeholder="Enter email"
-            className="border-b-2 border-[#B58419] w-full mb-5 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none pb-2"
+            className="border-b-2 border-[#B58419] w-full mb-1 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none pb-2"
           />
         </div>
-        <p id="email_display"></p>
+        <p id="email_display" className="mb-4"></p>
         <div>
-          <label htmlFor="password" className="block text-sm mb-3">
+          <label htmlFor="password" className="block text-sm ">
             Password *
           </label>
           <div>
-            <div className="flex border-b-2 border-[#B58419] mb-6">  
+            <div className="flex border-b-2 border-[#B58419] mb-2">  
           <input
             ref={passwordRef}
             type={showPassword ? 'text' : 'password'}
@@ -329,7 +329,7 @@ const SignUpForm = () => {
             value={password}
             onChange={handleChange}
             placeholder="Enter password"
-            className=" w-full mb-2  bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none"
+            className=" w-full bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none"
           />
         {showPassword ?  <EyeOffIcon className="cursor-pointer" onClick={togglePasswordVisibility} /> :  <EyeIcon className="cursor-pointer" onClick={togglePasswordVisibility} />}
 </div>
@@ -340,15 +340,15 @@ const SignUpForm = () => {
         {strength === 4 && 'Strong'}
         {strength === 5 && 'Very Strong'}
       </div>
-      <p id="pass_display"></p>
     </div>
+      <p id="pass_display" className="mb-4"></p>
           
         </div>
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm mb-3">
+          <label htmlFor="confirmPassword" className="block text-sm mb-2">
             Confirm Password *
           </label>
-          <div className="flex border-b-2 border-[#B58419] mb-6">  
+          <div className="flex border-b-2 border-[#B58419] mb-1">  
 
           <input
             ref={confirmPasswordRef}
@@ -364,7 +364,7 @@ const SignUpForm = () => {
 
           </div>
         </div>
-        <p id="password_display"></p>
+        <p id="password_display" className="mb-6"></p>
         <div className="mb-3 flex items-center">
           <input
             type="checkbox"
