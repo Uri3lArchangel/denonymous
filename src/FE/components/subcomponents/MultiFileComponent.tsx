@@ -185,7 +185,7 @@ export function MultiFileDropzoneUsage({
       />
       </div>
     <div id="sendResponseContainer"
-    className="flex flex-col justify-center items-center"
+    className="flex flex-col justify-center items-center "
 >
     <button
     disabled={ sending || isTextAreaEmpty}
@@ -246,14 +246,14 @@ export function MultiFileDropzoneUsage({
           );
         }}
         
-        className={fileStates.length<1?"hidden ":`bg-green-500 block mx-auto w-[70%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2`}
+        className={fileStates.length<1?"hidden ":`bg-green-500 block mx-auto w-[90%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2`}
       > 
         upload media
       </button>
 
       <button
       disabled={(sending || isTextAreaEmpty || !canUpload) }
-        className=" block mx-auto w-[70%] text-black h-[50px] mt-4 mb-10 md:my-2 gradient_elements_div rounded-[10px] md:w-[180px]"
+        className=" block mx-auto w-[90%] text-black h-[50px] mt-4 mb-10 md:my-2 gradient_elements_div rounded-[10px] md:w-[180px]"
         onClick={async (e) => {
           try{e.preventDefault();
 

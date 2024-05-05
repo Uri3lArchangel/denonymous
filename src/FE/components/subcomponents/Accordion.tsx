@@ -1,4 +1,5 @@
 'use client'
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 
 interface FaqAccordionProps {
@@ -15,65 +16,35 @@ export const FaqAccordion = (props: FaqAccordionProps) => {
     setIsOpen(!isOpen);
   };
   return (
-    <>
-      <div className="px-3 py-2 bg-transparent text-[#D4D4D4] mb-5">
-        <div className="flex justify-between">
-          <p className="font-bold">{question}</p>
-          <button onClick={handleOpenAccordion}>
+    <section >
+      <h5 className="text-2xl text-center mb-6">Frequently Asked Questions?</h5>
+      <div className="px-3 py-2 bg-transparent text-[#D4D4D4] ">
+      <button onClick={handleOpenAccordion}>
+
+        <div className="flex justify-between ">
+          <p className="font-bold border-b border-black/80 pb-2">{question}</p>
             {isOpen ? <Close /> : <Open />}
-          </button>
         </div>
+        </button>
+
         <div className={`${isOpen ? null : "hidden"} font-semi-bold`}>
-          <p className={`text-sm mt-4 text-[white]`}>{answer1}</p>
-          <p className={`text-sm mt-4 text-[white]`}>{answer2}</p>
+          <p className={`text-sm mt-4 text-black`}>{answer1}</p>
+          <p className={`text-sm mt-4 text-black`}>{answer2}</p>
         </div>
       </div>
-    </>
-  );
+</section>  );
 };
 
 export const Open = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M7 12H17"
-        stroke="#D4D4D4"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M12 17V7"
-        stroke="#D4D4D4"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+  <ChevronDown />
+
   );
 };
 export const Close = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M7 12H17"
-        stroke="#D4D4D4"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    
+    <ChevronUp />
+
   );
 };

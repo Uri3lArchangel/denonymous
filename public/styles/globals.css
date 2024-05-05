@@ -4,10 +4,10 @@
 
 @keyframes skeleton-loading {
   0% {
-    background-color: hsl(0, 0%, 35%);
+    background-color: hsl(0, 0%, 13%);
   }
   100% {
-    background-color: hsl(0, 0%, 54%);
+    background-color: hsl(0, 0%, 28%);
   }
 }
 * {
@@ -243,8 +243,9 @@ background-color: #ffdf00 !important;
 
 .aboutUsBG{
   background-image: url(../images/bg.avif);
-  background-size: 800px 100%;
-  background-position: center;
+  background-size: 800px 70%;
+  background-position-x: center;
+  background-position-y: top;
   background-repeat: no-repeat;
 
 }

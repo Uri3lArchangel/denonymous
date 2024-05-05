@@ -124,14 +124,14 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
            <button onClick={saveUname} className='gradient_elements_div px-4 py-2 rounded-md text-black my-4'  hidden={!hasAnyInputChanged} disabled={pendingUname}>{pendingUname?"Saving...":"Save"}</button>
 
            </form> */}
-           <form  className='text-white px-4 bg-[#262626] rounded-md py-16 space-y-4 w-full'>
+           <form  className='text-white px-4 bg-[#262626] rounded-md py-10 space-y-4 w-full'>
            <label htmlFor="email-input" className='text-md block text-center'>Email Address</label>
            <EditableInput inputvalue={email} input={{id:"email-input",defaultValue:email,readOnly:true}} setInputChangeTrigger={setInputChangeTriggerEmail}  />
            <small className='block text-right my-1 gradient_elements_text'>{(emailValue == email && verified)?"verified":"unverified"}</small>
            <p aria-live="assertive" id="email-error"></p>
            <button onClick={saveEmail} className='gradient_elements_div px-4 py-2 rounded-md text-black my-4'  hidden={!hasAnyInputChangedEmail} disabled={pendingEmail}>{pendingEmail?"Saving...":"Save"}</button>
            </form>
-        <form className='text-white px-4 bg-[#262626] rounded-md py-16 w-full'>
+        <form className='text-white px-4 bg-[#262626] rounded-md py-10 w-full'>
             <h2 className='text-center text-md'>Change Password</h2>
             <hr className='my-4 opacity-[0.8] mb-2'/>
                 <label htmlFor="password-current">Current password *</label>

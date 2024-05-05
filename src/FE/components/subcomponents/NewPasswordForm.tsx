@@ -147,13 +147,13 @@ const router = useRouter()
   return (
     <form  className=' bg-black text-white  transform shadow-hd rounded-md px-10 w-[95%] max-w-[400px] mx-auto py-20'>
         
-        <h1 className='mb-4'>Create a new password</h1>
+        <h1 className='mb-4 text-center'>Create a new password</h1>
         <hr />
         <div className='mt-8'>
         <label htmlFor="confirmPassword" className="block text-sm mb-3">
          Password *
           </label>
-            <div className="flex border-b-2 border-[#B58419] mb-6">  
+            <div className="flex border-b-2 border-[#B58419] mb-2">  
           <input
             ref={passwordRef}
             type={showPassword ? 'text' : 'password'}
@@ -174,13 +174,14 @@ const router = useRouter()
         {strength === 4 && 'Strong'}
         {strength === 5 && 'Very Strong'}
       </div>
-      <p id="pass_display"></p>
     </div>
+    <p id="pass_display" className='mb-4'></p>
+
     <div>
           <label htmlFor="confirmPassword" className="block text-sm mb-3">
             Confirm Password *
           </label>
-          <div className="flex border-b-2 border-[#B58419] mb-6">  
+          <div className="flex border-b-2 border-[#B58419] mb-2">  
 
           <input
             ref={confirmPasswordRef}
@@ -196,7 +197,7 @@ const router = useRouter()
 
           </div>
         </div>
-        <p id="password_display"></p>
+        <p id="password_display" className='mb-4'></p>
 
         <button 
     onClick={
@@ -204,7 +205,7 @@ const router = useRouter()
       
     }
     
-    className='gradient_elements_div w-full sm:w-fit sm:px-6 max-w-[100px] rounded-md block text-black py-4' disabled={pending}>{pending?"Submitting...":"Submit"}</button>     </form>
+    className='gradient_elements_div w-full px-6 rounded-md block text-black py-4' disabled={pending}>{pending?"Submitting...":"Submit"}</button>     </form>
   
   )
 }

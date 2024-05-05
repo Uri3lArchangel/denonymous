@@ -216,11 +216,7 @@ export const isActiveLink= ()=>{
 export const copyToClipboard = (a: string) => {
   navigator.clipboard.writeText(a);
 };
-export function handleClick(a: React.MouseEvent<HTMLInputElement>, i: number,setKey:React.Dispatch<React.SetStateAction<string>>,setactiveStateModal: React.Dispatch<React.SetStateAction<boolean>>,denonyms:denonymousType[]) {
-  a.preventDefault();
-  setKey(denonyms[i].key);
-  setactiveStateModal(true);
-}
+
 export function handleClickVisiblity(
   a: React.MouseEvent<HTMLInputElement>,
   i: number,

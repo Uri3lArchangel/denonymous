@@ -35,11 +35,11 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <main className={`${styles.all} `}>
+    <main>
       <section
-        className={"bg-[#000000] backgroundVector min-h-[100vh] pt-24 " + styles.background}
+        className={"  min-h-[100vh] pt-24 backgroundVector" }
       >
-        <div className=" mb-20">
+        <div className=" mb-10">
         <Suspense fallback={<LoadingSkeleton  className="w-full my-10 max-w-[200px] h-[30px] mx-auto" />}>
       
             <UsernameDisplay />
@@ -47,7 +47,7 @@ export default function page() {
  </Suspense>
         </div>
         <CreateDenonymousClient />
-        <h1>My Denonyms</h1>
+        <h1 className="mx-auto w-fit text-white text-lg my-8 gradient_elements_text border-b border-b-[#f6d108]">My Denonyms</h1>
 
         <div className="pb-10 w-[90%] max-w-[1024px] mx-auto ">
        <Suspense fallback={[1,2,3].map((e)=>(<LoadingSkeleton key={e} className="w-full my-10 max-w-[545px] h-[300px] mx-auto" />))}>

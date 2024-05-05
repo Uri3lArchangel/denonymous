@@ -5,7 +5,7 @@ import { Carousel } from "antd";
 import { CommentOutlined, CustomerServiceOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 import { BsReplyFill, BsThreeDots, BsThreeDotsVertical } from "react-icons/bs";
-import { Download, EyeIcon, EyeOffIcon, Share2Icon } from "lucide-react";
+import { Download, EyeIcon, EyeOffIcon, Share2Icon, XIcon } from "lucide-react";
 
 export interface ModalStyles {
   header?: CSSProperties;
@@ -105,9 +105,10 @@ export const FloatButtonComponent = ({
   <>
     <FloatButton.Group
       aria-label="Share Responses Menu Float Button "
-      className={className}
+      className={className+ ' text-black'}
       type="primary"
       style={{ right: 50 }}
+      closeIcon={<XIcon className="text-black transform translate-x-[-3px]" />}
       icon={<BsThreeDotsVertical className="text-black" />}
       trigger="click"
     >
@@ -120,7 +121,7 @@ export const FloatButtonComponent = ({
 
       {selected <= 3 ? (
         <TooltipApp title="Reply and share" text="">
-          <FloatButton icon={<BsReplyFill size={20} />} onClick={replySS} />
+          <FloatButton icon={<BsReplyFill className="text-black" size={20} />} onClick={replySS} />
         </TooltipApp>
       ) : (
         <></>

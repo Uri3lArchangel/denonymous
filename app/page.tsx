@@ -5,7 +5,8 @@ import anon from "../public/images/anonymity.svg";
 import sec from "../public/images/secure.svg";
 import easy from "../public/images/easy.svg";
 import { Metadata } from "next";
-
+import { FaqAccordion } from "@/src/FE/components/subcomponents/Accordion";
+import FaqData from "@/src/data/faq.json";
 
 export const metadata: Metadata = {
   title: "Home Page | Denonymous",
@@ -58,7 +59,7 @@ function page() {
           </Link>
           </div>
         </header>
-          <section className="text-center py-12 px-4 w-full  mx-auto">
+          <section className="text-center py-6 px-4 w-full  mx-auto">
             <h2 className="text-xl md:text-3xl my-4 font-bold">Why use Denonymous?</h2>
             <article>
               <p className="text-sm text-[#00000099] font-extralight">
@@ -104,7 +105,7 @@ function page() {
               </li>
             </ul>
           </section>
-          <section className="mt-[8em] aboutUsBG text-center py-24 w-full  mx-auto">
+          <section className="pt-[12em] sm:pt-[8em] aboutUsBG text-center py-24 w-full  mx-auto">
             <h2 className="mb-[5em] text-xl md:text-3xl">About Us!</h2>
             <p className="text-[#00000099] font-extralight w-full sm:w-[70%] mx-auto" >
               Denonymous: The No 1 platform for Sharing video, image, audio and
@@ -133,6 +134,19 @@ function page() {
               </Link>
             </div>
           </section>
+          <div className="p-3 rounded-2xl  mx-auto w-fit mb-20">
+      {FaqData.faqs.map((faqItem, index) => {
+        return (
+          <FaqAccordion
+          key={index}
+            id={index}
+            question={faqItem.question}
+            answer1={faqItem.answer1}
+            answer2={faqItem.answer2}
+          />
+        );
+      })}
+    </div>
       </section>
       </main>
       </>

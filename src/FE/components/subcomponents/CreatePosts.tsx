@@ -33,7 +33,11 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
     await changeResponsesVisibilityActiion(keyVisibility);
     setPending(false);
   };
-
+   function handleClick(a: React.MouseEvent<HTMLInputElement>, i: number) {
+    a.preventDefault();
+    setKey(denonyms[i].key);
+    setactiveStateModal(true);
+  }
   return (
     <>
       {loading || pending ? <Loading /> : null}{" "}
@@ -100,7 +104,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                         <div className="flex items-center">
                           <input
                             className="cursor-pointer mx-3"
-                            id="show_responses"
+                            id={`show_responses_${i}`}
                             type="checkbox"
                             checked={!e.isActive}
                             readOnly
@@ -109,22 +113,12 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                                 () =>
                                   import("../libraries/Modals/ActivateDenonyms")
                               );
-                              const handleClick = (
-                                await import("@/src/core/lib/helpers")
-                              ).handleClick;
-
-                              handleClick(
-                                a,
-                                i,
-                                setKey,
-                                setactiveStateModal,
-                                denonyms
-                              );
+                             handleClick(a,i);
                             }}
                           />
                           <label
                             className="cursor-pointer select-none"
-                            htmlFor="show_responses"
+                            htmlFor={`show_responses_${i}`}
                           >
                             Disable Denonymous
                           </label>{" "}
@@ -137,7 +131,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                         <div className="flex items-center">
                           <input
                             className="cursor-pointer mx-3"
-                            id="show_responses_visible"
+                            id={`show_responses_visible_${i}`}
                             type="checkbox"
                             checked={!e.responsesViewState}
                             readOnly
@@ -162,7 +156,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                           />
                           <label
                             className="cursor-pointer select-none"
-                            htmlFor="show_responses_visible"
+                            htmlFor={`show_responses_visible_${i}`}
                           >
                             Hide all responses
                           </label>{" "}

@@ -8,7 +8,12 @@ const styles = {mask:{backdropFilter:"blur(6px)"},"body":{backgroundColor:"trans
 function ChangeDenonymousResponseVisibility({modal,setmodal,changeVisibility,e}:{modal:boolean,setmodal:React.Dispatch<React.SetStateAction<boolean>>,changeVisibility:any,e:denonymousType}) {
    
   return (
-<ModalComponent styles={styles} title={e.responsesViewState?<h1 className='text-white'>Hide all responses</h1>:<h1 className='text-white'>Show all responses</h1> } ok={true} onOk={changeVisibility} state={modal} setState={setmodal}>
+<ModalComponent styles={styles} title={e.responsesViewState?<h1 className='text-white'>Hide all responses</h1>:<h1 className='text-white'>Show all responses</h1> } ok={true} onOk={()=>{
+  
+  changeVisibility();
+  setmodal(false)
+  
+  }} state={modal} setState={setmodal}>
 <div>Are you sure you want to {e.responsesViewState?"Hide your responses, others won't see any of your responses":"Unhide your responses, everyone would be able to see all your responses"} {e.topic}</div>
 </ModalComponent>  )
 }

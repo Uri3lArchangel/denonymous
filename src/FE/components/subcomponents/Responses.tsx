@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSession } from "../hooks/SessionHook";
 import dynamic from "next/dynamic";
 import React, {  Fragment,  useEffect, useState } from "react";
-import { DownloadIcon, PlayCircle, Share2Icon, XIcon } from "lucide-react";
+import { DownloadIcon, Link2Icon, PlayCircle, Share2Icon, XIcon } from "lucide-react";
 import {FloatButtonComponent, ModalComponent} from "@/src/FE/components/libraries/antd";
 import { CiLink } from "react-icons/ci";
 import Swiper from 'swiper';
@@ -61,8 +61,9 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
 }, [scrolledToBottom, responses, initialLoadCount, loading]);
     
       // internal functions
-      const copyReplyLinkToClipBoard = (a: string) => {
-        navigator.clipboard.writeText(a);
+      const copyReplyLinkToClipBoard = () => {
+        alert(window.location.href+'#'+index)
+        navigator.clipboard.writeText(window.location.href+'#'+index);
       };
     
     const replySS=()=>{
@@ -102,7 +103,7 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
         swiper.destroy()
       }
     }
-       }, [initialSlide,viewer])
+       }, [initialSlide,viewer,index])
     
     
     
@@ -180,13 +181,13 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
               let a =e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "audio" ) 
               if(!e.visible && user?.email != owner){
                 return(
-                    <li key={n} className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
+                    <li key={n} id={`${index}`} className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
                     ><TiCancel size={45}  />
                     This response was hidden by @{uname}</li>
                 )
              }else{
               return(
-          <li key={n} >
+          <li key={n} id={`${index}`}>
               <div
                 id={`reply_${n}`}
                 onClick={
@@ -196,7 +197,7 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
                     } 
                     const id = `${(b.currentTarget.id)}`
                     let index=selectedResponses.findIndex((n)=>n==id);
-                    if(selectedResponses.length >3 )return
+                    if(selectedResponses.length >=3 )return
                     if(index < 0){
             
                       setSelectedResponses(prev=>[...prev,id])
@@ -306,34 +307,17 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
                   })}
                 </div>
                 <p id="text-response" className="  p-4 rounded-md my-2">{e.text}</p>
-                <ModalComponent
-                  setState={setShareState}
-                  state={shareState}
-                  title="share response"
-                >
-                  <div
-                    className="flex cursor-pointer"
-                    onClick={() => {
-                      copyReplyLinkToClipBoard(
-                        window.location.origin +
-                          window.location.pathname +
-                          `#${index}`
-                      );
-                      setShareState(false);
-                    }}
-                  >
-                    <CiLink size={30} />
-                  </div>
-                </ModalComponent>
-                <Share2Icon
-                  className="cursor-pointer"
+              
+                <Link2Icon
+                  className="cursor-pointer gradient_elements_div rounded-full w-[35px] h-[35px] text-black p-[0.3em] mx-auto"
                   onClick={() => {
                     setIndex(n);
-                    setShareState(true);
+                   copyReplyLinkToClipBoard()
+
                   }}
                 />
               </div>
-    {user?<small  className=" italic text-white/70 text-center block">click on response to select </small>:<></>}          
+    {user?<small  className=" italic text-white/70 text-center block"> ⌃⌃ click on response to select ⌃⌃</small>:<></>}          
     </li>
             )
             }

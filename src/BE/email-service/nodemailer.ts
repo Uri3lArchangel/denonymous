@@ -17,7 +17,7 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
     to: recipientEmail, // list of receivers
     subject: "Registration Email verification ✔", // Subject line
     text: `Welcome to Denonymous!
-    Danonymous is an anonymous message platform where users can create Denonymous boxes. These boxes allow anonymous users to send text, images, audio, and video responses.
+    Denonymous is an anonymous message platform where users can create Denonymous boxes. These boxes allow anonymous users to send text, images, audio, and video responses.
     To complete your registration, please verify your email address by using the following code:
     
     Verification Code: ${key}
@@ -50,13 +50,13 @@ export async function signUpConfirmation(recipientEmail: string, key: string) {
     <table align="center" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
         <tr>
             <td align="center" bgcolor="#000" style="padding: 40px 0;">
-                <img src="https://denonymous.xyz/images/logo.avif" alt="Danonymous Logo" width="180" height="40" style="display: block;">
+                <img src="https://denonymous.xyz/images/logo.avif" alt="Denonymous Logo" width="180" height="40" style="display: block;">
             </td>
         </tr>
         <tr>
             <td bgcolor="#000" style="padding: 20px 30px;">
                 <h2 style="font-size: 18px; margin: 0;color:#fff;">Welcome to Denonymous!</h2>
-                <p style="font-size: 16px; margin-top: 20px;color:#fff;">Danonymous is an anonymous message platform where users can create Denonymous boxes. These boxes allow anonymous users to send text, images, audio, and video responses.</p>
+                <p style="font-size: 16px; margin-top: 20px;color:#fff;">Denonymous is an anonymous message platform where users can create Denonymous boxes. These boxes allow anonymous users to send text, images, audio, and video responses.</p>
                 <p style="font-size: 16px;margin-top: 20px;color:#fff;">To complete your registration, please verify your email address by using the following code:</p>
                 <hr style="border: none; border-top: 1px solid #dddddd; margin: 20px 0;">
                 <p style="font-size: 30px;color:#fff;"><strong style="font-size:20px;">Verification Code:</strong> ${key}</p>
@@ -98,8 +98,19 @@ export async function passwordReset(recipientEmail: string, key: string) {
     from: "Denonymous <contact@denonymous.xyz>", // sender address
     to: recipientEmail, // list of receivers
     subject: "Password Reset ✔", // Subject line
-    html: `
-    <!DOCTYPE html>
+    text:`RESET!
+
+    Reset your password
+    
+    Denonymous is an anonymous message platform where users can create Denonymous boxes. These boxes allow anonymous users to send text, images, audio, and video responses.
+    
+    A password reset was initiated for your account. Please follow the link below to continue and create a new password:
+    
+    Link: https://denonymous.xyz/auth/new-password/${key}
+    
+    Copyright © 2023 Denonymous, All rights reserved.
+    `,
+    html: `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -111,25 +122,22 @@ export async function passwordReset(recipientEmail: string, key: string) {
         <link rel="preload" as="image" href="https://denonymous.xyz/images/logo.avif">
         <title>Password Reset Email</title>
     </head>
-    <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-image: linear-gradient(270deg, #f2d204 0%, #f6d108 27.6%, #edc211 54.17%, #e3b419 77.6%, #daa521 100%);">
-        <div style="max-width: 400px; width: 100%; margin: auto; background-color: black; padding: 2em 0.1em; border-radius: 10px; box-shadow: 2px 2px 20px #000b;">
+    <body style="margin: 0; padding: 2em 0; font-family: Arial, sans-serif; background-color: #f8f8f8;">
+        <div style="max-width: 400px; width: 100%; margin: auto; background-color: black; padding: 2em 0.1em; ">
     
             <div style="background-color: black; text-align: left; padding: 1em;">
-                <h1 style="font-size: 1.2rem; font-weight: bold; color: white;">RESET!</h1>
-                <img src="https://denonymous.xyz/images/logo.avif" alt="Danonymous Logo" width="180px" height="40px" style="display: block;">
-            </div>
-    
-            <div style="text-align: left; padding: 1em; border-radius: 10px; background-color: white; width: 80%; margin: auto;">
-            
-                <h2 style="font-size: 1.1rem; color: black;">Reset your password</h2>
-                <p style="font-size: 16px; margin-top: 20px;color:#fff;">Danonymous is an anonymous message platform where users can create Denonymous boxes. These boxes allow anonymous users to send text, images, audio, and video responses.</p>
-
-                <p style="font-size: 0.9rem; color: black;">A password reset was initiated for your account. Please follow the link below to continue and create a new password:</p>
-                <hr>
-                <p style="font-size: 0.9rem; color: black;">Link: <a href="https://denonymous.xyz/auth/new-password/${key}" style="text-decoration: none; color: #007bff;">https://denonymous.xyz/auth/new-password/${key}</a></p>
+                <h1 style="font-size: 1.2rem; font-weight: bold; color: white;">RESET!</h1> box-shadow: 2px 2px 20px  box-shadow: 2px 2px 20px #000b;#000b;
+                    If you did not initiate this password reset, please ignore this email.
+                </p>
             </div>
     
             <div style="background-color: black; text-align: center; padding: 2em 0;">
+                <p style="font-size: 14px; color: #ffffff;">
+                    If you have any questions or need assistance, please contact us at support@denonymous.xyz.
+                </p>
+                <p style="font-size: 14px; color: #ffffff;">
+                    We appreciate your use of Denonymous!
+                </p>
     
                 <p style="font-size: 14px; color: #ffffff;">Copyright © 2023 Denonymous, All rights reserved.</p>
     

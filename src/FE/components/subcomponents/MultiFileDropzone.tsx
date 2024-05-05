@@ -250,8 +250,8 @@ React.useEffect(()=>{
 }<audio className={`prev_audio`} id={`audio_prev_${i}_au`} ><source  src={URL.createObjectURL(file)} type={file.type}/></audio></label>
 
 }                {/* <FileIcon size="30" className="shrink-0" /> */}
-                <div className="min-w-0 text-sm">
-                  <div className="overflow-hidden overflow-ellipsis max-w-[200px] whitespace-nowrap">
+                <div className="text-sm w-[200px] " >
+                  <div className="overflow-hidden overflow-ellipsis  whitespace-nowrap">
                     {file.name}
                   </div>
                   <div className="text-xs text-gray-400 dark:text-gray-400">
