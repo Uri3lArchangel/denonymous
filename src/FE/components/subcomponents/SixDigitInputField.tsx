@@ -99,9 +99,9 @@ const SixDigitInputField = ({email}:{email:string}) => {
       ))}
     </div>
 
-    <div className='flex flex-col-reverse md:flex-row justify-between w-full items-center'>
+    <div className='flex flex-col mx-auto justify-between md:w-fit w-full items-center'>
+    <button  className='gradient_elements_div  px-6 h-[40px] block rounded-md' onClick={handleSubmit} disabled={pending}>{pending?"PLease Wait...":"Verify"}</button>
     <ResenVerificationCode  email={email} /> 
-    <button  className='gradient_elements_div px-6 h-[40px] block rounded-md' onClick={handleSubmit} disabled={pending}>{pending?"Submitting...":"Submit"}</button>
   </div>
 
     </>
