@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { EdgeStoreProvider } from "@/src/core/lib/edgestore";
 import MyDenonyms from "@/src/FE/components/subcomponents/CreatePosts";
-import { resolve } from "path";
 
 export const fetchDenonymousOnLoad = async () => {
   const cookie = cookies().get("denon_session_0");

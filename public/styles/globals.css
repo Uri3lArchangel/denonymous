@@ -4,10 +4,10 @@
 
 @keyframes skeleton-loading {
   0% {
-    background-color: hsl(0, 0%, 67%);
+    background-color: hsl(0, 0%, 35%);
   }
   100% {
-    background-color: hsl(0, 0%, 74%);
+    background-color: hsl(0, 0%, 54%);
   }
 }
 * {
@@ -267,7 +267,7 @@ background-color: #ffdf00 !important;
  
   .loading_skeleton {
     animation: skeleton-loading 1s linear infinite alternate;
-    border: 1px solid rgb(249, 249, 249);
+    border: 1px solid rgb(227, 227, 227);
 
   }
   

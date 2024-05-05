@@ -14,7 +14,6 @@ import crypto from "crypto";
 export const createDenonymous = async (
   email: string,
   topic: string,
-  uuid: string,
   desc?: string
 ) => {
 await connectMongo();
@@ -123,12 +122,12 @@ await connectMongo();
   revalidateTag("notifications_fetch_tag");
 };
 export const denonymousViewStateChange = async (
-  UUID: string,
+  email: string,
   key: string
 ) => {
 await connectMongo();
 
-  const updatedUser = await User.findOne({ UUID });
+  const updatedUser = await User.findOne({ email });
   if (updatedUser) {
     const denonymousIndex = updatedUser.denonymous.findIndex(
       (d: any) => d.key === key
@@ -144,10 +143,12 @@ await connectMongo();
   }
 };
 
-export const deleteDenonymousDB = async (UUID: string, key_: string) => {
+export const deleteDenonymousDB = async (email: string, key_: string) => {
 await connectMongo();
 
-  const updatedUser = await User.findOne({ UUID });
+  const updatedUser = await User.findOne({ email });
+console.log({updatedUser})
+
   if (updatedUser) {
     const denonymousIndex = updatedUser.denonymous.findIndex(
       (d: any) => d.key === key_
@@ -161,7 +162,6 @@ await connectMongo();
         );
       updatedUser.denonymous.splice(denonymousIndex, 1);
       
-console.log({updatedUser})
      
       updatedUser.notifications.push({
         category: categories.deleteDenonym,

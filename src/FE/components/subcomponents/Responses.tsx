@@ -166,7 +166,7 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
         
     </div>
     
-        <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden rounded-md bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
+        <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden rounded-md max-w-[500px] bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
     
      <h3 className="text-center text-xl font-extrabold gradient_elements_text">
             All Responses({responses.length})
@@ -210,7 +210,7 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
                     }
                   }
                 }
-                className={`mt-10 bg-[#000] mb-4 py-4 px-4 w-[95%] shadow-hd  mx-auto  ${user?"cursor-pointer":"cursor-default"}`}
+                className={`mt-10 bg-[#000] mb-4 py-4 px-4 w-[95%] shadow-hd  mx-auto rounded-[10px] ${user?"cursor-pointer":"cursor-default"}`}
               >
                 
                 <div className={

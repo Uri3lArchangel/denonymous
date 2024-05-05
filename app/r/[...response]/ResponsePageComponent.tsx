@@ -25,12 +25,7 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
       if(!d.owner){
     
         throw new Error("This denonymous does not exist or has been deleted|client")
-      }
-    
-      if((!d.isActive && userdata?.email != d.owner) || (!isSession && !d.isActive)){
-        throw new Error("This denonmous is not active|client")
-      }
-    
+      }    
     
      let replys = d.replys
      
@@ -61,7 +56,7 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
             <h1 className='text-4xl sm:text-4xl text-center text-ellipsis'>{d.topic}</h1>
             <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?String(d.description):''}</h2>
     
-            <form id='reply_form' className='bg-[#1E1E1E] rounded-md  max-w-[578px] px-4 py-12 md:px-12 mx-auto md:h-fit'>
+           {d.isActive? <form id='reply_form' className='bg-[#1E1E1E] rounded-md  max-w-[578px] px-4 py-12 md:px-12 mx-auto md:h-fit'>
               <h3 className='text-center text-xl font-semibold gradient_elements_text'>Send Response</h3>
               <p className='text-center text-[#7F7F7F] py-4'>send text, photos, audios and even videos to {username}</p>
               <div className={style.formInputsContainer+' shadow-div'}>
@@ -82,7 +77,9 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
           </div>
               </div>
          
-        </form>
+        </form>:<section className='text-center sm:text-xl'>
+            This denonymous is currently not active
+                </section>}
     
         
         </main>}     

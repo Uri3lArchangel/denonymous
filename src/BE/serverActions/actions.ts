@@ -22,7 +22,7 @@ if(!sessionToken){
 
 
 
-const res =await createDenonymous(sessionToken.email,String(topic),sessionToken.uuid,String(desc))
+const res =await createDenonymous(sessionToken.email,String(topic),String(desc))
 if(res.type=="error"){
   return res
 }
@@ -60,7 +60,7 @@ export const changeResponseViweViewState=async(topic:string)=>{
   if(!sessionToken) redirect("/auth/signin")
   try{    
       
-      await denonymousViewStateChange(sessionToken.uuid,topic)
+      await denonymousViewStateChange(sessionToken.email,topic)
       revalidateTag("denonymous_box_0102")
       revalidateTag("raieneidmie_00")
   }catch(err:any){
@@ -70,13 +70,13 @@ export const changeResponseViweViewState=async(topic:string)=>{
 
 export const changeDenonymousViewState=async(key:string)=>{
 
-    let cookie = cookies().get("denon_session_0")
+  
+    try{    
+      let cookie = cookies().get("denon_session_0")
     if(!cookie || !cookie.value) redirect("/auth/signin")
     const sessionToken = verifyUserDataToken(cookie.value)
     if(!sessionToken) redirect("/auth/signin")
-    try{    
-        
-        await denonymousViewStateChange(sessionToken.uuid,key)
+        await denonymousViewStateChange(sessionToken.email,key)
         revalidateTag("denonymous_box_0102")
         revalidateTag("raieneidmie_00")
     }catch(err:any){
@@ -92,7 +92,7 @@ export const deleteDenonymousAction=async(key_:string)=>{
     if(!sessionToken) redirect("/auth/signin")
     try{    
     
-      let r=   await deleteDenonymousDB(sessionToken.uuid,key_)
+      let r=   await deleteDenonymousDB(sessionToken.email,key_)
     const urls=[]
                 if(!r) return
                 for(let i=0;i<r.length;i++){
