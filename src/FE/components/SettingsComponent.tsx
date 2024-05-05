@@ -124,20 +124,20 @@ const SettingsComponent = ({username,email,verified}:{username:string,email:stri
            <button onClick={saveUname} className='gradient_elements_div px-4 py-2 rounded-md text-black my-4'  hidden={!hasAnyInputChanged} disabled={pendingUname}>{pendingUname?"Saving...":"Save"}</button>
 
            </form> */}
-           <form  className='text-white px-4 bg-[#262626] rounded-md py-6 space-y-4 w-full'>
-           <label htmlFor="email-input" className='text-sm block text-center'>Email Address</label>
+           <form  className='text-white px-4 bg-[#262626] rounded-md py-16 space-y-4 w-full'>
+           <label htmlFor="email-input" className='text-md block text-center'>Email Address</label>
            <EditableInput inputvalue={email} input={{id:"email-input",defaultValue:email,readOnly:true}} setInputChangeTrigger={setInputChangeTriggerEmail}  />
            <small className='block text-right my-1 gradient_elements_text'>{(emailValue == email && verified)?"verified":"unverified"}</small>
            <p aria-live="assertive" id="email-error"></p>
            <button onClick={saveEmail} className='gradient_elements_div px-4 py-2 rounded-md text-black my-4'  hidden={!hasAnyInputChangedEmail} disabled={pendingEmail}>{pendingEmail?"Saving...":"Save"}</button>
            </form>
-        <form className='text-white px-4 bg-[#262626] rounded-md py-6 w-full'>
-            <h2 className='text-center'>Change Password</h2>
-            <hr className='my-2 opacity-[0.8]'/>
+        <form className='text-white px-4 bg-[#262626] rounded-md py-16 w-full'>
+            <h2 className='text-center text-md'>Change Password</h2>
+            <hr className='my-4 opacity-[0.8] mb-2'/>
                 <label htmlFor="password-current">Current password *</label>
                 <PasswordInput passwordRef={currentPasswordRef} />
                 <PasswordAndConfirm  strength={strength} setStrength={setStrength} passwordRef={newPasswordRef} confirmPasswordRef={confirmNewPasswordRef} />
-            <button onClick={changePassword} disabled={pendingPass} className='gradient_elements_div px-4 py-2 rounded-md text-black my-4 block mx-auto'>{pendingPass?"Changing....":"Change Password"}</button>
+            <button onClick={changePassword} disabled={pendingPass} className='gradient_elements_div px-4 py-4 rounded-md text-black my-4 block mx-auto'>{pendingPass?"Changing....":"Change Password"}</button>
         </form>
         <div className='text-white  w-full py-2'>
             <div className='border border-red-500 bg-[#262626] py-6 rounded-md  w-full'>
