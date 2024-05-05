@@ -1,5 +1,10 @@
 import { denonymousType, userModelType, userNotificationType } from "@/types"
 import crypto from 'crypto'
+
+export const keygen = ()=>{
+  return crypto.randomBytes(10).toString('hex')
+}
+
 export const URLRESOLVE =(a:string)=>{
 if(process.env.NODE_ENV =="production"){
     return window.location.origin+a

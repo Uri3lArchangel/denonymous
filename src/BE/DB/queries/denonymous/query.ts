@@ -1,6 +1,6 @@
 import { denonymousType, replyModelType, userModelType } from "@/types";
 import User from "../../schema/User";
-import { removeWhitespace } from "@/src/core/lib/helpers";
+import { keygen, removeWhitespace } from "@/src/core/lib/helpers";
 import { connectMongo } from "@/connection";
 import { redirect } from "next/navigation";
 import {
@@ -78,7 +78,6 @@ await connectMongo();
      let valid =true
      for(let i =0;i<reply.media.length;i++){
       let mime =reply.media[i].mimeType
-      console.log(mime)
       if(d.isImageLimitOn && mime.includes("image") ){
         valid=false 
       }
@@ -93,10 +92,14 @@ await connectMongo();
       }
      }
    if(valid){   
-    updatedUser.denonymous[denonymousIndex].replys.push({
+    const d = updatedUser.denonymous[denonymousIndex] as denonymousType;
+    d.replys.push({
+        key:keygen(),
         text: reply.text,
         media:  reply.media,
         bookmarked: false,
+        visible:d.responsesViewState
+        
       });
       const a = replyNotification(
         updatedUser.denonymous[denonymousIndex].key,

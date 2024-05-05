@@ -17,9 +17,10 @@ let WaveformComponent :any
 import { downloadMedia } from "@/src/core/lib/helpers";
 import styles from "@/public/styles/styles.module.css";
 import { TiCancel } from "react-icons/ti";
+import LoadingSkeleton from "../assets/LoadingSkeleton";
 
 
-export default function Responses({ box,replys,owner }: { box?:string,replys: replyModelType[],owner:string }) {
+export default function Responses({ box,responses,owner }: { box?:string,responses: replyModelType[],owner:string }) {
     const {user,session,fetchUser} = useSession()
     // All states
       const [viewer,setViewerState]= useState<{img: {
@@ -32,8 +33,32 @@ export default function Responses({ box,replys,owner }: { box?:string,replys: re
       const [selectedResponses,setSelectedResponses]=useState<string[]>([])
       const [reply,setReplyState]=useState(false)
       const [uname,setUname]=useState("")
-      // const [pending,setPending]=useState(false)
-      // const [visiblitySection,setVisiblitySelection]=useState({set:true,visibility:""})
+      const [initialLoadCount, setInitialLoadCount] = useState(5); // Number of responses to load initially
+      const subsequentLoadCount=5; // Number of responses to load subsequently
+      const [loading, setLoading] = useState(false); // State to track loading state
+      const [scrolledToBottom, setScrolledToBottom] = useState(false); // State to track if user scrolled to bottom
+      const handleScroll = () => {
+        const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+        const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+        const clientHeight = window.innerHeight;
+        const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 200;
+        setScrolledToBottom(scrolledToBottom);
+    };
+    useEffect(() => {
+      window.addEventListener('scroll', handleScroll); // Listen for scroll events
+      return () => window.removeEventListener('scroll', handleScroll); // Cleanup on unmount
+  }, []);
+  useEffect(() => {
+    if (scrolledToBottom && responses.length > initialLoadCount && !loading) {
+        // Load more responses when scrolled to bottom
+        setLoading(true); // Set loading state to true
+        // Simulate loading delay (replace with actual API call)
+        setTimeout(() => {
+            setInitialLoadCount(initialLoadCount + subsequentLoadCount); // Increase initial load count
+            setLoading(false); // Set loading state to false
+        }, 1000); // Adjust loading time as needed
+    }
+}, [scrolledToBottom, responses, initialLoadCount, loading]);
     
       // internal functions
       const copyReplyLinkToClipBoard = (a: string) => {
@@ -144,24 +169,24 @@ export default function Responses({ box,replys,owner }: { box?:string,replys: re
         <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden rounded-md bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
     
      <h3 className="text-center text-xl font-extrabold gradient_elements_text">
-            All Responses({replys.length})
+            All Responses({responses.length})
           </h3>
           <ul  className={viewer.display?"overflow-y-hidden":""}>
        
-            {replys.map((e, n) => 
-            { 
+          {responses.slice(0, initialLoadCount).map((e, n) => {
+
            
               let l = e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "video" || f.mimeType.split("/")[0].toLowerCase() == "image")
               let a =e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "audio" ) 
               if(!e.visible && user?.email != owner){
                 return(
-                    <li key={n} className={`flex text-gray-400 items-center mt-10 mb-4 py-16 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
+                    <li key={n} className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
                     ><TiCancel size={45}  />
                     This response was hidden by @{uname}</li>
                 )
              }else{
               return(
-          <li key={n}>
+          <li key={n} >
               <div
                 id={`reply_${n}`}
                 onClick={
@@ -185,7 +210,7 @@ export default function Responses({ box,replys,owner }: { box?:string,replys: re
                     }
                   }
                 }
-                className={`mt-10 mb-4 py-4 px-4 w-[95%] shadow-hd  mx-auto  ${user?"cursor-pointer":"cursor-default"}`}
+                className={`mt-10 bg-[#000] mb-4 py-4 px-4 w-[95%] shadow-hd  mx-auto  ${user?"cursor-pointer":"cursor-default"}`}
               >
                 
                 <div className={
@@ -318,6 +343,12 @@ export default function Responses({ box,replys,owner }: { box?:string,replys: re
             
             )}
           </ul>
+          {loading && (
+[1,2,3,4,5].map((e)=>(
+  <LoadingSkeleton key={e} className="w-[95%] h-[130px] opacity-[0.7] my-10 mx-auto" />
+))
+
+)}
         </section>
         </>
       );

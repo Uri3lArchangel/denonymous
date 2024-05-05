@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import { ModalComponent, ModalStyles } from '../antd';
-import { changeDenonymousViewState, changeResponsesVisibilityActiion } from '@/src/BE/serverActions/actions';
 import { denonymousType } from '@/types';
 
 const styles = {mask:{backdropFilter:"blur(6px)"},"body":{backgroundColor:"transparent"},header:{backgroundColor:"transparent"},content:{backgroundColor:"#000",border:"1px solid #f6d108",color:"#fff"},wrapper:{backgroundColor:"#fff3"},footer:{backgroundColor:"transparent"}} as ModalStyles
