@@ -100,9 +100,9 @@ export function MultiFileDropzoneUsage({
   return (
     <div className="full_response_container_textarea ">
      <div className='flex w-[60%] max-w-[300px]  md:h-fit justify-between mx-auto my-2 md:my-0 md:w-fit ' id="uploadMediaIcons">
-{  mediaLimit.image? <></> : <label aria-disabled={sending}  htmlFor={`${sending?"":"chick_a"}`}><AiFillPicture disabled={sending}  size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2"/></label>}
-    {mediaLimit.video?<></>: <label aria-disabled={sending} htmlFor={`${sending?"":"chick_b"}`}><BsCameraVideoFill  disabled={sending} size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>}
-    {mediaLimit.audio?<></>: <label aria-disabled={sending} htmlFor={`${sending?"":"chick_c"}`}><MdOutlineAudioFile disabled={sending} size={45} className="text-[#404040] cursor-pointer hover:text-[#ffdf00] md:mx-2" /></label>}
+ <label  aria-disabled={sending || mediaLimit.image} htmlFor={`${sending || mediaLimit.image?"":"chick_a"}`} ><AiFillPicture disabled={sending || mediaLimit.image}   size={45} className={`text-[#404040]  hover:text-[#ffdf00] md:mx-2 ${mediaLimit.image?'cursor-not-allowed opacity-[0.6]':'cursor-pointer'}`}/></label>
+   <label aria-disabled={sending || mediaLimit.video} htmlFor={`${sending ||mediaLimit.video ?"":"chick_b"}`}><BsCameraVideoFill  disabled={sending || mediaLimit.video} size={45} className={`text-[#404040]  hover:text-[#ffdf00] md:mx-2 ${mediaLimit.video?'cursor-not-allowed opacity-[0.6]':'cursor-pointer '}`} /></label>
+    <label aria-disabled={sending || mediaLimit.audio} htmlFor={`${sending || mediaLimit.audio?"":"chick_c"}`}><MdOutlineAudioFile disabled={sending || mediaLimit.audio} size={45} className={`text-[#404040] hover:text-[#ffdf00] md:mx-2 ${mediaLimit.audio?'cursor-not-allowed opacity-[0.6]':'cursor-pointer'}`} /></label>
 </div>
 <div id="previewMediaContainer"
 >

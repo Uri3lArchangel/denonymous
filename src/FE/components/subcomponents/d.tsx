@@ -33,6 +33,7 @@ export const CreateDenonymousClient = () => {
   return (
     <section>
       <button
+      id="createDenonymousBox"
         type="button"
         aria-label="Create a Denonymous"
         onClick={handleModalOpen}
@@ -69,9 +70,9 @@ export const CreateDenonymousClient = () => {
         </svg>
       </button>
 
-      <h1 className={styles.gradientHeader + " mt-7 text-xl text-center"}>
+      <label htmlFor="createDenonymousBox" className={styles.gradientHeader + " mt-7 text-xl text-center cursor-pointer block"}>
         Create a Denonymous
-      </h1>
+      </label>
       {isOpen && (
         <>
           <dialog open={isOpen} className={`${styles.modal} h-full w-full`}>

@@ -36,9 +36,9 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
       return (
        <>
         <div >
-            <h1 className='text-3xl sm:text-4xl text-center text-ellipsis text-white<'>{d.topic}</h1>
+            <h1 className='text-3xl sm:text-4xl text-center text-ellipsis text-white'>{d.topic}</h1>
             <h2 className='text-center text-[#7F7F7F] mb-20'>{d.description?d.description:''}</h2>
-            <div  className='bg-[#1E1E1E] max-w-[600px] mx-auto w-full rounded-md lg:max-h-[100vh] lg:overflow-y-scroll'>
+            <div  className='bg-[#1E1E1E] max-w-[600px] mx-auto w-full rounded-md lg:h-[100vh] lg:overflow-y-scroll '>
         {Responses && <Responses box={d.topic}  owner={d.owner} responses={replys.reverse()} />}  
         </div> 
         </div>
@@ -59,7 +59,7 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
            {d.isActive? <form id='reply_form' className='bg-[#1E1E1E] rounded-md  max-w-[578px] px-4 py-12 md:px-12 mx-auto md:h-fit'>
               <h3 className='text-center text-xl font-semibold gradient_elements_text'>Send Response</h3>
               <p className='text-center text-[#7F7F7F] py-4'>send text, photos, audios and even videos to {username}</p>
-              <div className={style.formInputsContainer+' shadow-div'}>
+              <div className={style.formInputsContainer+' shadow-div '}>
               <textarea
               maxLength={1250}
             name="text_reply"
@@ -77,7 +77,7 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
           </div>
               </div>
          
-        </form>:<section className='text-center sm:text-xl'>
+        </form>:<section className='text-center text-lg sm:text-xl text-white'>
             This denonymous is currently not active
                 </section>}
     
@@ -86,7 +86,7 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
     
          
         </div>
-        <div  className='bg-[#1E1E1E] max-w-[600px] mx-auto w-full rounded-md lg:max-h-[100vh] lg:overflow-y-scroll'>
+        <div  className='bg-[#1E1E1E] max-w-[600px] mx-auto w-full rounded-md lg:h-[100vh] lg:overflow-y-scroll'>
 
     {Responses && <Responses owner={d.owner} responses={replys.reverse()} />}   
     </div>

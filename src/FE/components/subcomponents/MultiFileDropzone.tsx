@@ -188,7 +188,7 @@ React.useEffect(()=>{
 
     return (
       <div>
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full ">
           <div>
             {/* Main File Input */}
             <div
@@ -197,7 +197,7 @@ React.useEffect(()=>{
               })}
             >
               <input ref={ref} {...getInputProps()} id={id} key={key}/>
-              <div className="flex flex-col items-center justify-center text-xs text-gray-400">
+              <div className="flex flex-col items-center justify-center text-xs text-gray-400 ">
                 <UploadCloudIcon className="mb-1 h-7 w-7" />
                 <div className="text-gray-400">
                   drag & drop or click to upload
@@ -217,9 +217,9 @@ React.useEffect(()=>{
             return (
             <div
               key={i}
-              className="flex h-[100px] flex-col justify-center rounded border  border-gray-600 my-4 px-4 py-2 w-full"
+              className="flex h-[100px] flex-col justify-center rounded border border-gray-600 my-4 w-full py-2 "
             >
-              <div className="flex items-center gap-2 h-full text-gray-500 dark:text-white text-ellipsis max-w-fit ">
+              <div className="flex items-center gap-2 h-full text-gray-500 dark:text-white text-ellipsis ">
 {media == 'image'?<Image src={URL.createObjectURL(file)} alt={file.name} width={90} height={90} className="h-full" />:media == 'video'?<video width={90} height={90} className="h-full" loop autoPlay muted>
   <source src={URL.createObjectURL(file)}    />
 </video>
@@ -246,12 +246,13 @@ React.useEffect(()=>{
     p.style.display="block"
     e.currentTarget.style.display="none"
   }
-} size={30} className="text-[#ffdf00]" /></>
-}<audio className={`prev_audio`} id={`audio_prev_${i}_au`} ><source  src={URL.createObjectURL(file)} type={file.type}/></audio></label>
+  } size={30} className="text-[#ffdf00]" />
+  </>
+  }<audio className={`prev_audio`} id={`audio_prev_${i}_au`} ><source  src={URL.createObjectURL(file)} type={file.type}/></audio></label>
 
-}                {/* <FileIcon size="30" className="shrink-0" /> */}
-                <div className="text-sm w-[200px] " >
-                  <div className="overflow-hidden overflow-ellipsis  whitespace-nowrap">
+  }                {/* <FileIcon size="30" className="shrink-0" /> */}
+                <div className="text-sm  overflow-hidden " >
+                  <div className="overflow-hidden overflow-ellipsis  whitespace-nowrap ">
                     {file.name}
                   </div>
                   <div className="text-xs text-gray-400 dark:text-gray-400">
