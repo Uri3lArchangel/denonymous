@@ -160,21 +160,21 @@ function ReplyDenonymsScreen({ids,setState,box}:{box:string,ids:string[],setStat
   return (
     <>
     {pending?<Loading />:null}
-    <div id='replycontainer' className=' fixed  top-0 flex flex-col items-center z-[100] left-0 w-[100%] bg-black h-full replyBG  overflow-y-scroll ' >
+    <div id='replycontainer' className=' fixed py-8 top-0 flex flex-col items-center z-[100] left-0 w-[100%] bg-black h-full replyBG  overflow-y-scroll ' >
       <div className=' h-full py-4 w-full'>
       <DownloadIcon id="donwloadicon" className="absolute left-10 top-10 cursor-pointer z-[5]" size={30} onClick={downloadSS} />
         <XIcon id="xicon" className="absolute right-10 top-10 cursor-pointer z-[5]" size={30} onClick={()=>{
             setState(false)
         }} />
         <div className=' relative flex flex-col items-center justify-center h-full w-full  'id="subcontainer">
-      <h1 className='text-3xl font-bold w-full text-center mb-10' id='title'>{ decodeURIComponent(box) }</h1>
+      <h1 className='text-3xl font-bold w-full text-center mb-10 text-white' id='title'>{ decodeURIComponent(box) }</h1>
       <div className='absolute bottom-10 left-10 flex items-center text-lg ' id='attribution'>@{uname} on <Image className='w-20 ml-1' src={logo} alt='denonymous'/></div>
 
         {texts.map((e,i)=>(
             <div key={i} className='max-w-[500px] w-full  px-4 h-fit py-4 shadow-gold-2 bg-neutral-800 rounded-[10px] shadow border border-[#e4c92f] my-4'>
             <div className='flex justify-between'> <span className='gradient_elements_text text-lg'>~{uname}</span><div className='flex justify-end cursor-pointer' id={`delete_input_${i}`} style={{display:"none"}} onClick={deleteReply}><Trash2 size={20} className="text-[#f6d108]" /></div></div> 
           <div onClick={addReplyVisible} id={`icon_input_${i}`} className='flex items-center cursor-pointer my-2 text-md'><PlusIcon className="text-[#f6d108] " size={30}/><span className='gradient_elements_text'>Add a reply</span> </div>
-                <div className={`text-3xl `} id={`data_input_${i}`}>{e}</div>
+                <div className={`text-xl text-white`} id={`data_input_${i}`}>{e}</div>
                 <div style={{display:"none",flexDirection:"column"}} id={`replydiv_input_${i}`}> <textarea  name="" maxLength={100} id={`reply_input_${i}`} className='w-full text-xl h-fit min-h-[60px] outline-none text-white bg-transparent overflow-hidden'  placeholder='Type your reply here' cols={3} ></textarea>
                 <p id={`holder_input_${i}`}></p>
                <div id={`divbuttons_input_${i}`} className='h-fit text-black ' style={{alignSelf:"flex-end"}}><button className='gradient_elements_div px-4 py-1 mr-2 rounded-md' onClick={saveReply} id={`savebutton_input_${i}`}>Save</button><button className="border border-red-500 text-red-500 px-4 py-1 ml-2 rounded-md" id={`button_input_${i}`} onClick={cancelReplyVisible}>Cancel</button></div></div>

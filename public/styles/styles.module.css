@@ -9,15 +9,7 @@
 .signInBtn {
   background-image: var(--de-bg-grad);
 }
-.denonymousResponsePage {
-  background-color: #000000;
-  background-image: url(../images/BACKG.avif);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 180% 100%;
-  color: white;
-  min-height: 100vh;
-}
+
 .formInputsContainer {
   background-color: #171717;
   padding: 1em 0 0 0;

@@ -3,7 +3,7 @@ import { replyModelType } from "@/types";
 import Image from "next/image";
 import { useSession } from "../hooks/SessionHook";
 import dynamic from "next/dynamic";
-import React, {  Fragment,  useEffect, useState } from "react";
+import React, {  Fragment,  useContext,  useEffect, useState } from "react";
 import { DownloadIcon, Link2Icon, PlayCircle, Share2Icon, XIcon } from "lucide-react";
 import {FloatButtonComponent, ModalComponent} from "@/src/FE/components/libraries/antd";
 import { CiLink } from "react-icons/ci";
@@ -18,16 +18,17 @@ import { downloadMedia } from "@/src/core/lib/helpers";
 import styles from "@/public/styles/styles.module.css";
 import { TiCancel } from "react-icons/ti";
 import LoadingSkeleton from "../assets/LoadingSkeleton";
+import { NotificationContext } from "../contexts/NotificationContext";
 
 
 export default function Responses({ box,responses,owner }: { box?:string,responses: replyModelType[],owner:string }) {
     const {user,session,fetchUser} = useSession()
+    const notification = useContext(NotificationContext)!
     // All states
       const [viewer,setViewerState]= useState<{img: {
         link: string;
         mimeType: string;
     }[],display:boolean}>({img:[],display:false})
-      const [shareState, setShareState] = useState(false);
       const [index, setIndex] = useState(0);
       const [initialSlide,setInitialSlide]=useState(0)
       const [selectedResponses,setSelectedResponses]=useState<string[]>([])
@@ -61,9 +62,12 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
 }, [scrolledToBottom, responses, initialLoadCount, loading]);
     
       // internal functions
-      const copyReplyLinkToClipBoard = () => {
-        alert(window.location.href+'#'+index)
-        navigator.clipboard.writeText(window.location.href+'#'+index);
+      const copyReplyLinkToClipBoard = (c:React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+      c.stopPropagation()
+const id= c.currentTarget.id
+        navigator.clipboard.writeText(`${window.location.href+'#'+id}`);
+        notification({type:"success",message:"link copied",description:""})
+        
       };
     
     const replySS=()=>{
@@ -90,7 +94,7 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
         el:'.swiper-pagination',
        },
        navigation:{
-        nextEl:'.swiper-button-next',
+        nextEl:'.swiper-button-nextn     ',
         prevEl:'.swiper-button-prev'
        },
        spaceBetween:10
@@ -167,14 +171,14 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
         
     </div>
     
-        <section id="reply_container_ul" className={" "+viewer.display?"overflow-hidden rounded-md max-w-[500px] bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
+        <section id="reply_container_ul" className={viewer.display?"overflow-hidden rounded-md max-w-[500px] bg-[#1e1e1e] py-12":"bg-[#1e1e1e] py-12"} >
     
      <h3 className="text-center text-xl font-extrabold gradient_elements_text">
             All Responses({responses.length})
           </h3>
           <ul  className={viewer.display?"overflow-y-hidden":""}>
        
-          {responses.slice(0, initialLoadCount).map((e, n) => {
+          {responses.slice(0, initialLoadCount).map((e:replyModelType, n) => {
 
            
               let l = e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "video" || f.mimeType.split("/")[0].toLowerCase() == "image")
@@ -197,9 +201,8 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
                     } 
                     const id = `${(b.currentTarget.id)}`
                     let index=selectedResponses.findIndex((n)=>n==id);
-                    if(selectedResponses.length >=3 )return
                     if(index < 0){
-            
+                      if(selectedResponses.length >=3 )return
                       setSelectedResponses(prev=>[...prev,id])
                     b.currentTarget.style.backgroundColor="#555"
                  
@@ -306,13 +309,13 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
                     }
                   })}
                 </div>
-                <p id="text-response" className="  p-4 rounded-md my-2">{e.text}</p>
+                <p id="text-response" className=" text-white p-4 rounded-md my-2">{e.text}</p>
               
                 <Link2Icon
+                id={`${n}`}
                   className="cursor-pointer gradient_elements_div rounded-full w-[35px] h-[35px] text-black p-[0.3em] mx-auto"
-                  onClick={() => {
-                    setIndex(n);
-                   copyReplyLinkToClipBoard()
+                  onClick={(c) => {
+                   copyReplyLinkToClipBoard(c)
 
                   }}
                 />

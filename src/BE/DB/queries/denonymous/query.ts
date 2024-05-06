@@ -101,8 +101,8 @@ await connectMongo();
         
       });
       const a = replyNotification(
-        updatedUser.denonymous[denonymousIndex].key,
         updatedUser.denonymous[denonymousIndex].topic,
+        updatedUser.denonymous[denonymousIndex].key,
         username,
         updatedUser.denonymous[denonymousIndex].replys.length - 1,
         username

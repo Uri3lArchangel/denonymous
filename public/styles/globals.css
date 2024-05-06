@@ -44,10 +44,17 @@ canvas {
     margin-top: 10px;
   }
 
+.ant-btn-default{
+
+}
 
 
 
+.ant-btn-default:not(.ant-btn-dangerous):hover{
+border:1px solid #f6d108 !important;
+color: #f6d108 !important;
 
+}
 
 
 

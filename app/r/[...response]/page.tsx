@@ -46,9 +46,9 @@ async function page({params}:{params:{response:string[]}}) {
     }
 }
 return(
-  <Suspense fallback={<p className='text-3xl text-white'>loading....</p>}>
+  <div className='backgroundVector'>
   <ResponsePageComponent key_={key} username={username} userdata={userdata} isSession={isSession}/>
-  </Suspense>
+  </div>
 )
 
 }
