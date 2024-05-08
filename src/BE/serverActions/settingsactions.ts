@@ -180,7 +180,7 @@ if(!user)redirect("/auth/signin")
 console.log({denonyms})
 let urls:string[]|undefined=[]
     for(let i=0;i<denonyms.length;i++){
- urls= await deleteDenonymousAction(denonyms[i].key)
+await deleteDenonymousAction(denonyms[i].key)
         
     }
     await deleteAccountQuery(user.email)
