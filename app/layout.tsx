@@ -36,9 +36,9 @@ export default async function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
         <Analytics />
         <GoogleAnalytics />
+        <Tags />      
       </head>
       <body className={inter.className}>
-        <Tags />      
         <Nav />
 
         <NotificationApp>

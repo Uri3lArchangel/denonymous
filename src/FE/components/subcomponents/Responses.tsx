@@ -250,7 +250,7 @@ const id= c.currentTarget.id
                               alt=""
                               className="min-h-[100px] cursor-pointer h-full  "
                              
-                            />:mimeType == "video"?<PlayCircle className="rounded-[3px] h-full opacity-[0.4] cursor-pointer "  />:null}
+                            />:mimeType == "video"?<PlayCircle  className="rounded-[3px] h-full opacity-[0.4] cursor-pointer text-white "  />:null}
                            <p className="absolute text-center text-white text-2xl mx-auto left-0 right-0 top-[40%] z-2 cursor-pointer">
                           +{e.media.length - 4}
                         </p>
@@ -282,7 +282,7 @@ const id= c.currentTarget.id
                               alt=""
                               className="block rounded-[3px] cursor-pointer "
                              
-                            />:mimeType == "video"?<PlayCircle size={40} className={` rounded-[3px] h-full  cursor-pointer `} />:null}
+                            />:mimeType == "video"?<PlayCircle size={40} className={` rounded-[3px] h-full  cursor-pointer text-white`} />:null}
                             
                           </div>
                         );
