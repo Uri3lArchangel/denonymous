@@ -68,11 +68,12 @@ export const CreateDenonymousClient = () => {
             </linearGradient>
           </defs>
         </svg>
-      </button>
 
       <label htmlFor="createDenonymousBox" className={styles.gradientHeader + " mt-7 text-xl text-center cursor-pointer block"}>
         Create a Denonymous
       </label>
+      </button>
+
       {isOpen && (
         <>
           <dialog open={isOpen} className={`${styles.modal} h-full w-full`}>

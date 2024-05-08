@@ -1,8 +1,10 @@
 'use client'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { ModalComponent } from '../antd';
-import { deleteDenonymousAction } from '@/src/BE/serverActions/actions';
+import {  deleteDenonymousAction } from '@/src/BE/serverActions/actions';
 import { useEdgeStore } from '@/src/core/lib/edgestore';
+import { deleteDenonymousDB } from '@/src/BE/DB/queries/denonymous/query';
+import { revalidateTag } from 'next/cache';
 export interface ModalStyles {
     header?: CSSProperties;
     body?: CSSProperties;
@@ -22,16 +24,10 @@ function DeleteDenonymsModal({setModal,modal,key_,setLoading}:{modal:boolean,set
   return (
     <ModalComponent state={modal}  setState={setModal} styles={styles} onOk={async()=>{
       setLoading(true)
-        let a = await deleteDenonymousAction(key_);
-        if(a){
-        for(let i=0;i<a.length;i++){
-            await edgestore.denonymousMedia.delete({url:a[i]})
-        
-        }
-        };
-        setModal(false)
+       let a =await  deleteDenonymousAction(key_)
+       
+            setModal(false)
         setLoading(false)
-        
         }} ok={true} title={<p className='text-white text-md'>Delete Denonymous</p>} mask={true} >
 
      <div className=" text-red-500 text-xl">Are you sure you want to delete this denonymous?, this action cannot be undone !</div>

@@ -5,8 +5,7 @@ import { useSession } from "../hooks/SessionHook";
 import dynamic from "next/dynamic";
 import React, {  Fragment,  useContext,  useEffect, useState } from "react";
 import { DownloadIcon, Link2Icon, PlayCircle, Share2Icon, XIcon } from "lucide-react";
-import {FloatButtonComponent, ModalComponent} from "@/src/FE/components/libraries/antd";
-import { CiLink } from "react-icons/ci";
+import {FloatButtonComponent} from "@/src/FE/components/libraries/antd";
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -97,7 +96,7 @@ const id= c.currentTarget.id
         el:'.swiper-pagination',
        },
        navigation:{
-        nextEl:'.swiper-button-nextn     ',
+        nextEl:'.swiper-button-next',
         prevEl:'.swiper-button-prev'
        },
        spaceBetween:10
@@ -227,12 +226,12 @@ const id= c.currentTarget.id
                   {l.map((mediaItem, index) => {
                     let mimeType = mediaItem.mimeType.split("/")[0].toLowerCase();
                       
-                      if(index == 3 && e.media.length >4){
+                      if(index == 3 && e.media.length > 4){
     
                         return(
                           <div
                           id={`media_${index}`}
-                          className={`w-full media_${index}bg-[#111]  rounded-[3px] flex items-center justify-center relative`}
+                          className={`w-full media_${index}bg-[#111] opacity-[0.9] rounded-[3px] flex items-center justify-center relative`}
                           key={index}
                           onClick={(e)=>{
                             e.stopPropagation()
@@ -252,7 +251,7 @@ const id= c.currentTarget.id
                               className="min-h-[100px] cursor-pointer h-full  "
                              
                             />:mimeType == "video"?<PlayCircle className="rounded-[3px] h-full opacity-[0.4] cursor-pointer "  />:null}
-                           <p className="absolute text-center text-2xl mx-auto left-0 right-0 top-[40%] z-2 ">
+                           <p className="absolute text-center text-white text-2xl mx-auto left-0 right-0 top-[40%] z-2 cursor-pointer">
                           +{e.media.length - 4}
                         </p>
                         </div>
@@ -313,7 +312,7 @@ const id= c.currentTarget.id
                     }
                   })}
                 </div>
-                <p id="text-response" className=" text-white p-4 rounded-md my-2">{e.text}</p>
+                <p id="text-response" className=" text-white p-4 rounded-md my-2 break-words ">{e.text}</p>
               
                 <Link2Icon
                 id={`${n}`}
@@ -324,7 +323,7 @@ const id= c.currentTarget.id
                   }}
                 />
               </div>
-    {user?<small  className=" italic text-white/70 text-center block"> ⌃⌃ click on response to select ⌃⌃</small>:<></>}          
+    {user && user.email == owner?<small  className=" italic text-white/70 text-center block"> ⌃⌃ click on response to select ⌃⌃</small>:<></>}          
     </li>
             )
             }

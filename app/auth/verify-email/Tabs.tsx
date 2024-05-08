@@ -24,22 +24,13 @@ function Tabs({ user }: { user: userDataJWTType }) {
   return (
     <>
       <div className='flex items-center justify-between my-4'>
-        <button
-          className={`text-lg gradient_elements_text ${
-            tabActive === "Verify Email" ? "border-b border-[#ffdf00]" : "opacity-[0.75] border-0"
-          }`}
-          onClick={() => {
-            setTabActive("Verify Email");
-            // Optionally store tab change in storage if needed for external communication
-            localStorage.setItem('yourTabStorageKey', 'changed');
-          }}
-        >
-          Verify Email
-        </button>
-        <button
-          className={`text-lg gradient_elements_text ${
-            tabActive === "Change Email" ? "border-b border-[#ffdf00]" : "opacity-[0.75] border-0"
-          }`}
+      
+       
+      </div>
+      <EmailVerificationComponent tab={tabActive} email={user.email} />
+      {tabActive == "Verify Email"?<button
+          className={`text-lg gradient_elements_text  mx-auto w-fit block 
+          `}
           onClick={() => {
             setTabActive("Change Email");
             // Optionally store tab change in storage if needed for external communication
@@ -47,9 +38,17 @@ function Tabs({ user }: { user: userDataJWTType }) {
           }}
         >
           Change Email
-        </button>
-      </div>
-      <EmailVerificationComponent tab={tabActive} email={user.email} />
+        </button>:  <button
+          className={`text-lg gradient_elements_text mx-auto w-fit block mt-4
+          `}
+          onClick={() => {
+            setTabActive("Verify Email");
+            // Optionally store tab change in storage if needed for external communication
+            localStorage.setItem('yourTabStorageKey', 'changed');
+          }}
+        >
+          Verify Email
+        </button>}
     </>
   );
 }

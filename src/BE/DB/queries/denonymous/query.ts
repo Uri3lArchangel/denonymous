@@ -143,11 +143,9 @@ await connectMongo();
   }
 };
 
-export const deleteDenonymousDB = async (email: string, key_: string) => {
+export const deleteDenonymousMediaBucketDB = async (email: string, key_: string) => {
 await connectMongo();
-
   const updatedUser = await User.findOne({ email });
-console.log({updatedUser})
 
   if (updatedUser) {
     const denonymousIndex = updatedUser.denonymous.findIndex(
@@ -155,19 +153,8 @@ console.log({updatedUser})
     );
 
     if (denonymousIndex != -1) {
-      let r = updatedUser.denonymous[denonymousIndex]
-        .replys as replyModelType[];
-        const a = denonymousDeleteNotification(
-          updatedUser.denonymous[denonymousIndex].topic
-        );
-      updatedUser.denonymous.splice(denonymousIndex, 1);
-      
-     
-      updatedUser.notifications.push({
-        category: categories.deleteDenonym,
-        data: a.data,
-        owner: updatedUser.email,
-      });
+      let r = updatedUser.denonymous[denonymousIndex].replys as replyModelType[];
+        updatedUser.denonymous.splice(denonymousIndex, 1);
       await updatedUser.save(); // Save the updated document
       return r;
     } else {
@@ -175,6 +162,24 @@ console.log({updatedUser})
     }
   }
 };
+
+
+export const deleteDenonymousDB = async (email: string, key_: string) => {
+    const updatedUser = await User.findOne({ email });
+  
+    if (updatedUser) {
+      const denonymousIndex = updatedUser.denonymous.findIndex(
+        (d: any) => d.key === key_
+      );
+  
+      if (denonymousIndex != -1) {
+        // updatedUser.denonymous.splice(denonymousIndex, 1);
+        // await updatedUser.save(); // Save the updated document
+      } else {
+        return
+      }
+    }
+  };
 
 export const fetchAllDenonyms = async (email: string) => {
 await connectMongo();

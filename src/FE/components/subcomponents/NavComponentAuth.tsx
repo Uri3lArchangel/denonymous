@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import React, {  useEffect,  useState } from 'react'
 import logo from '@/public/images/logo.avif'
 import Link from 'next/link'
 import { BsBellFill, BsPersonCircle} from 'react-icons/bs'
@@ -29,7 +29,7 @@ const path = usePathname()
     <ul className='flex items-center  justify-between sm:w-[70%] w-[90%]  mx-auto'>
         <li className='flex items-end  justify-between '>
           <Link href="/"> 
-  <Image  className=' w-[150px]' src={logo} alt="logo" fetchPriority='high' loading='eager' />
+          <Image  className='w-[150px]' src={logo} alt="logo" fetchPriority='high' loading='eager' />
   </Link>
         </li>
 

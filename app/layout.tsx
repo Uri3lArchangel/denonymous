@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 import dynamic from "next/dynamic";
 import Footer from "@/src/FE/components/subcomponents/Footer";
 import { Metadata } from "next";
+import Tags from "@/ads/Tags";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {
@@ -31,13 +32,13 @@ export default async function RootLayout({
         <link rel="preload" as="image" href="/images/logo.avif" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preload" as="image" href="/images/spinner.gif" />
-        <meta name="monetag" content="e0924cc3c8afcfe53d96ac784f0cd5c9" />
+        <meta name="monetag" content="a6e917a5f88ffb0c1925488a39849857" />
         <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
         <Analytics />
         <GoogleAnalytics />
       </head>
       <body className={inter.className}>
-        {/* <Tags />       */}
+        <Tags />      
         <Nav />
 
         <NotificationApp>

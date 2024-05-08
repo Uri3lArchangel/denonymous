@@ -35,6 +35,7 @@ export function MultiFileDropzoneUsage({
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [canUpload,setCanUpload]=useState(false)
   const [isTextAreaEmpty,setIsTextAreaEmpty] = useState(true)
+  const [mediaUploadComplete,setMediaUploadComplete]=useState(false)
   const [uploadedKeys,setUploadedKeys]=useState<string[]>([])
   // const [mediaEmpty,setMediaEmpty] = useState(true)
   const [media, setMedia] = useState<{ link: string; mimeType: string }[]>([]);
@@ -119,6 +120,8 @@ export function MultiFileDropzoneUsage({
           if(mediaLimit.image)return
           setFileStates1(files);
           setCanUpload(false)
+          setMediaUploadComplete(false)
+
 
         }}
         dropzoneOptions={{accept:{"image/*":imageExtensions}}}
@@ -127,6 +130,7 @@ export function MultiFileDropzoneUsage({
           if(mediaLimit.image)return
           setCanUpload(false)
           setFileStates((prev) => [...prev, ...addedFiles]);
+          setMediaUploadComplete(false)
 
         }}
       
@@ -147,6 +151,7 @@ export function MultiFileDropzoneUsage({
           if(mediaLimit.video)return
           setFileStates2(files);
           setCanUpload(false)
+          setMediaUploadComplete(false)
 
         }}
         onFilesAdded={async (addedFiles) => {
@@ -154,11 +159,13 @@ export function MultiFileDropzoneUsage({
 
           setCanUpload(false)
           setFileStates((prev) => [...prev, ...addedFiles]);
+          setMediaUploadComplete(false)
+
         }}
       /> 
        <MultiFileDropzone
        id="chick_c"
-      disabled={sending || mediaLimit.audio}
+      disabled={sending || mediaLimit.audio }
 
       className="w-[90%] mx-auto hidden "
         value={fileStates3}
@@ -172,6 +179,8 @@ export function MultiFileDropzoneUsage({
           if(mediaLimit.audio)return
           setFileStates3(files);
           setCanUpload(false)
+          setMediaUploadComplete(false)
+
 
         }}
         onFilesAdded={async (addedFiles) => {
@@ -180,6 +189,8 @@ export function MultiFileDropzoneUsage({
 
           setCanUpload(false)
           setFileStates((prev) => [...prev, ...addedFiles]);
+          setMediaUploadComplete(false)
+
 
         }}
       />
@@ -188,15 +199,14 @@ export function MultiFileDropzoneUsage({
     className="flex flex-col justify-center items-center "
 >
     <button
-    disabled={ sending || isTextAreaEmpty}
+    disabled={ sending || isTextAreaEmpty || mediaUploadComplete}
         onClick={async (e) => {
           e.preventDefault();
           setMedia([])
-
+          setMediaUploadComplete(false)
           await Promise.all(
             fileStates.map(async (addedFileState) => {
               try {
-
                 if(addedFileState.progress!="COMPLETE" && !uploadedKeys.includes(addedFileState.key))
                 {
                   for(let i =0;i<media.length;i++){
@@ -244,6 +254,9 @@ export function MultiFileDropzoneUsage({
               }
             })
           );
+          setMediaUploadComplete(true)
+
+
         }}
         
         className={fileStates.length<1?"hidden ":`bg-green-500 block mx-auto w-[90%] h-[50px] mt-6 rounded-[10px] bg-transparent gradient_elements_text border-[#ffdf00] border-2`}
