@@ -1,7 +1,6 @@
 import { Poppins } from "next/font/google";
 import "@/public/styles/globals.css";
 import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
-const GoogleAnalytics = dynamic(() => import("@/analytics/Google"));
 import { Analytics } from "@vercel/analytics/react";
 import dynamic from "next/dynamic";
 import Footer from "@/src/FE/components/subcomponents/Footer";
@@ -11,6 +10,7 @@ import GoogleAdsense from "@/ads/GoogleAdsense";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Nav from "@/src/FE/components/Nav";
 import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
+import GoogleAnalytics from "@/analytics/Google";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {
@@ -33,6 +33,7 @@ export default async function RootLayout({
         <link rel="preload" as="image" href="/images/spinner.gif" />
         <meta name="monetag" content="a6e917a5f88ffb0c1925488a39849857" />
         <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
+        <meta name="google-site-verification" content="O6ay580QXmHQ56C-TAYLnGBXardo6ak-gDm29W7w5T4" />
         <Analytics />
         <SpeedInsights/>
         <GoogleAnalytics />
