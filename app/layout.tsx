@@ -1,9 +1,5 @@
 import { Poppins } from "next/font/google";
 import "@/public/styles/globals.css";
-const Nav = dynamic(() => import("@/src/FE/components/Nav"));
-const NotificationApp = dynamic(
-  () => import("@/src/FE/components/contexts/NotificationContext")
-);
 import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
 const GoogleAnalytics = dynamic(() => import("@/analytics/Google"));
 import { Analytics } from "@vercel/analytics/react";
@@ -13,6 +9,8 @@ import { Metadata } from "next";
 import Tags from "@/ads/Tags";
 import GoogleAdsense from "@/ads/GoogleAdsense";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Nav from "@/src/FE/components/Nav";
+import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {

@@ -12,7 +12,7 @@ const edgeStoreRouter = es.router({
     }).beforeUpload(()=>true).beforeDelete(()=>true),
 })
 
-const handler = createEdgeStoreNextHandler({
+const handler =  createEdgeStoreNextHandler({
     router:edgeStoreRouter
 })
 

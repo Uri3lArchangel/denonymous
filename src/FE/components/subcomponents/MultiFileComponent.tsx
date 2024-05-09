@@ -235,8 +235,12 @@ export function MultiFileDropzoneUsage({
                     if (progress === 100) {
                       await new Promise((resolve) => setTimeout(resolve, 1000));
                       updateFileProgress(addedFileState.key, "COMPLETE");
+                      setMediaUploadComplete(true)
                       setUploadedKeys((prev)=>[...prev,addedFileState.key])
                 setSending(false)
+
+                    }else{
+          setMediaUploadComplete(false)
 
                     }
                   },
@@ -254,7 +258,6 @@ export function MultiFileDropzoneUsage({
               }
             })
           );
-          setMediaUploadComplete(true)
 
 
         }}
