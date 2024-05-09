@@ -87,7 +87,7 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
       // internal functions
       const copyReplyLinkToClipBoard = (c:React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       c.stopPropagation()
-      const id= c.currentTarget.id
+      const id= c.currentTarget.id.replace('icon_','')
         navigator.clipboard.writeText(`${window.location.href+'#'+id}`);
         notification({type:"success",message:"link copied",description:""})
         
