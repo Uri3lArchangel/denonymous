@@ -11,11 +11,12 @@ import dynamic from "next/dynamic";
 import Footer from "@/src/FE/components/subcomponents/Footer";
 import { Metadata } from "next";
 import Tags from "@/ads/Tags";
+import GoogleAdsense from "@/ads/GoogleAdsense";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {
-
-
+  metadataBase: new URL('https://denonymous.xyz'),
   assets:["https://denonymous.xyz/assets","https://denonymous.xyz/images","https://denonymous.xyz/styles"],
   
   
@@ -35,7 +36,9 @@ export default async function RootLayout({
         <meta name="monetag" content="a6e917a5f88ffb0c1925488a39849857" />
         <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
         <Analytics />
+        <SpeedInsights/>
         <GoogleAnalytics />
+        <GoogleAdsense />
         <Tags />      
       </head>
       <body className={inter.className}>

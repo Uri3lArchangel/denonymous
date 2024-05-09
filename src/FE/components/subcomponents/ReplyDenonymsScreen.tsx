@@ -128,7 +128,7 @@ function ReplyDenonymsScreen({ids,setState,box}:{box:string,ids:string[],setStat
 
 
 
-    let data = await htmlImages.toJpeg(sub,{quality:4028,type:"avif",height:sub.getBoundingClientRect().height,width:sub.getBoundingClientRect().width,canvasHeight:sub.getBoundingClientRect().height,canvasWidth:sub.getBoundingClientRect().width});
+    let data = await htmlImages.toJpeg(sub,{quality:4028,type:"avif",width:700,height:1024});
     const link = document.createElement("a") 
     link.href=data
     link.download="image"
