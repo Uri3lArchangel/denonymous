@@ -3,7 +3,7 @@ import { replyModelType } from "@/types";
 import Image from "next/image";
 import { useSession } from "../hooks/SessionHook";
 import dynamic from "next/dynamic";
-import React, {  Fragment,  useContext,  useEffect, useState } from "react";
+import React, {  Fragment,  useContext,  useEffect, useLayoutEffect, useState } from "react";
 import { DownloadIcon, Link2Icon, PlayCircle, Share2Icon, XIcon } from "lucide-react";
 import {FloatButtonComponent} from "@/src/FE/components/libraries/antd";
 import Swiper from 'swiper';
@@ -47,26 +47,47 @@ export default function Responses({ box,responses,owner }: { box?:string,respons
         setScrolledToBottom(scrolledToBottom);
     };
     useEffect(() => {
+  
+     
       setPageLoading(false)
       window.addEventListener('scroll', handleScroll); // Listen for scroll events
       return () => window.removeEventListener('scroll', handleScroll); // Cleanup on unmount
   }, []);
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+        const index = hash.replace('#', '');
+        if (!index) return;
+
+        const item = document.getElementById(index) as HTMLLIElement;
+        if (item) {
+            // Ensure the parent container of 'item' is scrollable
+                item.scrollIntoView({
+                    behavior: "smooth",
+                    // top:20 
+                });
+            
+        } else if (Number(index) <= responses.length) {
+            // Item not found in DOM, but it might be loaded later
+            setInitialLoadCount(Number(index) + 1);
+           
+        }
+    }
+
     if (scrolledToBottom && responses.length > initialLoadCount && !loading) {
-        // Load more responses when scrolled to bottom
-        setLoading(true); // Set loading state to true
-        // Simulate loading delay (replace with actual API call)
+        setLoading(true);
         setTimeout(() => {
-            setInitialLoadCount(initialLoadCount + subsequentLoadCount); // Increase initial load count
-            setLoading(false); // Set loading state to false
-        }, 1000); // Adjust loading time as needed
+            setInitialLoadCount(initialLoadCount + subsequentLoadCount);
+            setLoading(false);
+        }, 1000);
     }
 }, [scrolledToBottom, responses, initialLoadCount, loading]);
+
     
       // internal functions
       const copyReplyLinkToClipBoard = (c:React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       c.stopPropagation()
-const id= c.currentTarget.id
+      const id= c.currentTarget.id
         navigator.clipboard.writeText(`${window.location.href+'#'+id}`);
         notification({type:"success",message:"link copied",description:""})
         
@@ -189,13 +210,13 @@ const id= c.currentTarget.id
               let a =e.media.filter(f=>f.mimeType.split("/")[0].toLowerCase() == "audio" ) 
               if(!e.visible && user?.email != owner){
                 return(
-                    <li key={n} id={`${index}`} className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
+                    <li key={n} id={`${n}`} className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
                     ><TiCancel size={45}  />
                     This response was hidden by @{uname}</li>
                 )
              }else{
               return(
-          <li key={n} id={`${index}`}>
+          <li key={n} id={`${n}`}>
               <div
                 id={`reply_${n}`}
                 onClick={
@@ -316,7 +337,7 @@ const id= c.currentTarget.id
                 <p id="text-response" className=" text-white p-4 rounded-md my-2 break-words ">{e.text}</p>
               
                 <Link2Icon
-                id={`${n}`}
+                id={`icon_${n}`}
                   className="cursor-pointer gradient_elements_div rounded-full w-[35px] h-[35px] text-black p-[0.3em] mx-auto"
                   onClick={(c) => {
                    copyReplyLinkToClipBoard(c)

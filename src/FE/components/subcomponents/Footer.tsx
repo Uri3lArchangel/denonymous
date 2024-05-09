@@ -11,7 +11,6 @@ function Footer() {
   const [state,setState]=useState(false)
   useEffect(()=>{
     const trigger = document.getElementById("trigger") as HTMLDivElement
-    console.log(trigger.getBoundingClientRect().top,window.innerHeight+5)
     if((trigger.getBoundingClientRect().top) <= (window.innerHeight+5)){
    FooterSub = dynamic(()=>import("@/src/FE/components/subcomponents/FooterSub"))
    setState(true)
