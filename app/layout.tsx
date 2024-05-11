@@ -12,6 +12,7 @@ import Nav from "@/src/FE/components/Nav";
 import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
 import GoogleAnalytics from "@/analytics/Google";
 import Hotjar from "@/analytics/Hotjar";
+import MicrosoftAnalytics from "@/analytics/MicrosoftAnalytics";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {
