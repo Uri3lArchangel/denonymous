@@ -11,6 +11,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Nav from "@/src/FE/components/Nav";
 import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
 import GoogleAnalytics from "@/analytics/Google";
+import Hotjar from "@/analytics/Hotjar";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default async function RootLayout({
         <SpeedInsights/>
         <GoogleAnalytics />
         <GoogleAdsense />
+        <Hotjar />
         <Tags />      
       </head>
       <body className={inter.className}>
