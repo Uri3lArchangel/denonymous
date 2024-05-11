@@ -78,7 +78,7 @@ const SixDigitInputField = ({email}:{email:string}) => {
       {inputs.map((value, index) => (
         <input
           key={index}
-          type="text"
+          type="number"
           className=' border my-2 text-white border-[#A9A9A9] w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] sm:mx-[4px] mx-[2px] text-[20px] text-center outline-none bg-transparent rounded-md block'
           maxLength={1}
           value={value}
