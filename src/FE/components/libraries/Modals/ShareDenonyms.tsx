@@ -26,7 +26,7 @@ function ShareDenonymsModal({setModal,modal,link}:{modal:boolean,setModal:React.
       const randomIndex = Math.floor(Math.random() * array.length);
       return array[randomIndex];
     }
-    const styles = {mask:{backdropFilter:"blur(6px)"},"body":{backgroundColor:"black"},header:{backgroundColor:"black"},content:{backgroundColor:"black",border:"1px solid #f6d108"},wrapper:{backgroundColor:"black"},footer:{backgroundColor:"black"}} as ModalStyles
+    const styles = {mask:{backdropFilter:"blur(6px)"},"body":{backgroundColor:"black"},header:{backgroundColor:"black"},content:{backgroundColor:"black",border:"1px solid #f6d108"},wrapper:{backgroundColor:"#0006"},footer:{backgroundColor:"black"}} as ModalStyles
   return (
     <ModalComponent styles={styles} ok={false} title={<p className='text-white'>share</p>} mask={true} setState={setModal}  state={modal}>
     <div className="flex justify-around bg-black">
