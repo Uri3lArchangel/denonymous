@@ -7,7 +7,8 @@ function Tags() {
 
   return (
 < >
-
+<Script data-cfasync="false" id='ads-scripts-1' src='/assets/inpagePushAnti-classic.js' strategy='afterInteractive'>
+</Script>
 <Script data-cfasync="false" id='ads-scripts-2' src='/assets/inpagePushAnti-adblock.js' strategy='afterInteractive'>
 </Script>
 </>    )
