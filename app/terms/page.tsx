@@ -55,7 +55,7 @@ function Page() {
           </article>
           <article className="mb-4">
             <h3 className="text-base font-bold">4.2 Interference</h3>
-            <p>Users must not disrupt Denonymous' operation.</p>
+            <p>Users must not disrupt Denonymous&apos; operation.</p>
           </article>
         </section>
 
@@ -63,7 +63,7 @@ function Page() {
           <h2 className="text-lg font-bold">5. Termination</h2>
           <article className="mb-4">
             <h3 className="text-base font-bold">5.1 Termination</h3>
-            <p>Denonymous can suspend or terminate users' access for violations.</p>
+            <p>Denonymous can suspend or terminate users&apos; access for violations.</p>
           </article>
           <article className="mb-4">
             <h3 className="text-base font-bold">5.2 Effect of Termination</h3>
@@ -107,7 +107,7 @@ function Page() {
           <h2 className="text-lg font-bold">10. Contact Us</h2>
           <article>
             <h3 className="text-base font-bold">10.1 Feedback</h3>
-            <p>For inquiries, contact us at{' '}
+            <p>For inquiries, contact us at
               <Link className="text-blue-500" href="mailto:contact@denonymous.xyz">
               contact@denonymous.xyz
               </Link>.
