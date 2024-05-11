@@ -377,7 +377,7 @@ const SignUpForm = () => {
             className="text-[#c9c1c1c9] text-sm cursor-pointer"
             
           >
-            Accept <Link href="#" className="underline text-[#EDC211]">Terms and Conditions</Link>
+            Accept <Link href="/terms" className="underline text-[#EDC211]">Terms and Conditions</Link>
           </label>
         </div>
         <p id="terms_display"></p>
