@@ -39,6 +39,7 @@ export default async function RootLayout({
         <SpeedInsights/>
         <GoogleAnalytics />
         <GoogleAdsense />
+        <MicrosoftAnalytics />
         <Hotjar />
         <Tags />      
       </head>
