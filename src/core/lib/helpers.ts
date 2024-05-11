@@ -133,16 +133,19 @@ export const calculateStrength = (pass: string) => {
     return str.trim();
 }
 
-const generate = ()=>{
-  return `${Math.ceil(Math.random() * 1000000)}`
-}
+
+
+
+
 export function code_generator() {
-let a= generate()
-  while(a.length < 6){
-    a = generate()
+  const randomNumbers = [];
+  for (let i = 0; i < 6; i++) {
+    const randomNumber = Math.floor(Math.random() * 100) + 1; // Generating between 1 and 100
+    randomNumbers.push(randomNumber);
   }
-  return a;
+  return randomNumbers;
 }
+
 
 export const notificationDataTraucate = (a:string)=>{
 if(a.length >= 50){
