@@ -138,12 +138,11 @@ export const calculateStrength = (pass: string) => {
 
 
 export function code_generator() {
-  const randomNumbers = [];
+  let randomString = '';
   for (let i = 0; i < 6; i++) {
-    const randomNumber = Math.floor(Math.random() * 100) + 1; // Generating between 1 and 100
-    randomNumbers.push(randomNumber);
+    randomString += Math.floor(Math.random() * 10); // Generate a random digit (0-9)
   }
-  return randomNumbers;
+  return randomString;
 }
 
 
