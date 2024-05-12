@@ -139,9 +139,17 @@ export const calculateStrength = (pass: string) => {
 
 export function code_generator() {
   let randomString = '';
+  
   for (let i = 0; i < 6; i++) {
-    randomString += Math.floor(Math.random() * 10); // Generate a random digit (0-9)
+    const randomDigit = Math.floor(Math.random() * 10); // Generate a random digit (0-9)
+    randomString += randomDigit;
   }
+
+  // If the generated string has less than 6 digits, pad it with zeros
+  while (randomString.length < 6) {
+    randomString = '0' + randomString;
+  }
+
   return randomString;
 }
 
@@ -219,15 +227,7 @@ export const copyToClipboard = (a: string) => {
   navigator.clipboard.writeText(a);
 };
 
-export function handleClickVisiblity(
-  a: React.MouseEvent<HTMLInputElement>,
-  i: number,
-  setKeyVisibility:React.Dispatch<React.SetStateAction<string>>,setVisibilityStateModal:React.Dispatch<React.SetStateAction<boolean>>,denonyms:denonymousType[]
-) {
-  a.preventDefault();
-  setKeyVisibility(denonyms![i].key);
-  setVisibilityStateModal(true);
-}
+
 
 export async function fetchUser(username:string) {
   const res = await fetch(process.env.baseURL+"/api/fetchUserByusername",{method:"POST",mode:"no-cors",body:JSON.stringify({username}),next:{revalidate:false,tags:["raieneidmie_00"]}})

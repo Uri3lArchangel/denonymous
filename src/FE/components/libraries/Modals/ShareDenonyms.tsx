@@ -29,16 +29,17 @@ function ShareDenonymsModal({setModal,modal,link}:{modal:boolean,setModal:React.
     const styles = {mask:{backdropFilter:"blur(6px)"},"body":{backgroundColor:"black"},header:{backgroundColor:"black"},content:{backgroundColor:"black",border:"1px solid #f6d108"},wrapper:{backgroundColor:"#0006"},footer:{backgroundColor:"black"}} as ModalStyles
   return (
     <ModalComponent styles={styles} ok={false} title={<p className='text-white'>share</p>} mask={true} setState={setModal}  state={modal}>
-    <div className="flex justify-around bg-black">
+    <div className="flex flex-wrap w-full max-w-[800px] justify-center ">
+      <div className='flex items-center justify-around w-fit space-x-5 mx-4 my-1'>
       <Link
 
         target="_blank"
         href={`https://api.whatsapp.com/send?text=${
           randomSelect(anonymousMessagePrompts) + "%0A%0A"
         }${encodeURI(link)}&is_copy_url=false`}
-        className=" text-white hover:text-[#f6d108]"
+        className=" text-white hover:text-[#f6d108] flex flex-col items-center"
       >
-        <FaWhatsapp />
+        <FaWhatsapp size={20} />
         <p>Whatsapp</p>
       </Link>
       <Link
@@ -51,24 +52,25 @@ function ShareDenonymsModal({setModal,modal,link}:{modal:boolean,setModal:React.
           "#",
           "%23"
         )}
-        className=" text-white hover:text-[#f6d108]"
+        className=" text-white hover:text-[#f6d108] flex flex-col items-center"
       >
-        <RiTwitterXLine />
+        <RiTwitterXLine size={20} />
         <p>Twitter</p>
       </Link>
-
+      </div>
+      <div className='flex items-center justify-around w-fit space-x-5 mx-4 my-1'>
       <Link
         target="_blank"
         href={`https://t.me/share/url?url=${encodeURI(link)}&text=${randomSelect(
           anonymousMessagePrompts
         )}`}
-        className='hover:text-[#f6d108] text-white'
+        className='hover:text-[#f6d108] text-white flex flex-col items-center'
       >
-        <FaTelegram />
+        <FaTelegram size={20} />
         <p>telegram</p>
       </Link>
       <Link href={""}
-        className=" text-white hover:text-[#f6d108]"
+        className=" text-white hover:text-[#f6d108] flex flex-col items-center"
         onClick={(e) => {
          e.preventDefault() ;
           copyToClipboard(link);
@@ -80,9 +82,9 @@ function ShareDenonymsModal({setModal,modal,link}:{modal:boolean,setModal:React.
           
         }}
       >
-        <CiLink />
+        <CiLink size={20}/>
         <p>Copy link</p>
-      </Link>
+      </Link></div>
     </div>
   </ModalComponent>  )
 }

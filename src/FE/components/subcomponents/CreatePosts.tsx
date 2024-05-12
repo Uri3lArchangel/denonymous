@@ -37,8 +37,18 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
    function handleClick(a: React.MouseEvent<HTMLInputElement>, i: number) {
     a.preventDefault();
     setKey(denonyms[i].key);
-    setTopic(denonyms[i].key);
+    setTopic(denonyms[i].topic);
     setactiveStateModal(true);
+  }
+   function handleClickVisiblity(
+    a: React.MouseEvent<HTMLInputElement>,
+    i: number,
+  ) {
+    a.preventDefault();
+    setKeyVisibility(denonyms![i].key);
+    setTopic(denonyms![i].topic
+      )
+    setVisibilityStateModal(true);
   }
   return (
     <>
@@ -144,15 +154,12 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                                     "../libraries/Modals/ChangeVisibilityModal"
                                   )
                               );
-                              const handleClickVisiblity = (
-                                await import("@/src/core/lib/helpers")
-                              ).handleClickVisiblity;
+                        
                               handleClickVisiblity(
                                 a,
                                 i,
-                                setKeyVisibility,
-                                setVisibilityStateModal,
-                                denonyms
+                              
+                                
                               );
                             }}
                           />
@@ -246,6 +253,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                  {ChangeDenonymousResponseVisibility && <ChangeDenonymousResponseVisibility
                     setmodal={setVisibilityStateModal}
                     modal={visiblityStateModal}
+                    topic={topic}
                     changeVisibility={changeVisibility}
                     e={e}
                   />}

@@ -10,7 +10,7 @@ function ActivateDenonyms({modal,setmodal,key_,e,topic}:{modal:boolean,setmodal:
 <ModalComponent styles={styles}  title={e.isActive?<h1 className='text-white'>Deactivate Denonymous</h1>:<h1 className='text-white'>Activate Denonymous</h1> } ok={true} onOk={async()=>{
 changeDenonymousViewState(key_!);setmodal(false);
 }} state={modal} setState={setmodal}>
-<div>Are you sure you want to {e.isActive?"deactivte this denonymous, you would stop receiving responses from users, but still keep your messages":"activate your denonymous, users would now be able to send responses to you"} {e.topic}</div>
+<div>Are you sure you want to {e.isActive?"deactivte this denonymous, you would stop receiving responses from users, but still keep your messages":"activate your denonymous, users would now be able to send responses to you"} {topic}</div>
 </ModalComponent>  )
 }
 
