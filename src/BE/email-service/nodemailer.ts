@@ -1,14 +1,14 @@
 import nodemailer from "nodemailer";
-// mail.privateemail.com
 const transporter = nodemailer.createTransport({
   host: "live.smtp.mailtrap.io",
   port: 587,
   auth: {
     user: "api",
     pass: process.env.webmail_pass,
+    
   },
+  secure:false
 });
-// https://denonymous.xyz
 export async function signUpConfirmation(recipientEmail: string, key: string) {
   try{
   // send mail with defined transport object
