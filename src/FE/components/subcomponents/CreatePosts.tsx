@@ -23,6 +23,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
   const [pending, setPending] = useState(false);
   const [deleteDenonymousModal, setDeleteDenonymousModal] = useState(false);
   const [activeStateModal, setactiveStateModal] = useState(false);
+  const [topic,setTopic]=useState('')
   const [visiblityStateModal, setVisibilityStateModal] = useState(false);
   const [link, setLink] = useState("0");
   const [loading, setLoading] = useState(false);
@@ -36,6 +37,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
    function handleClick(a: React.MouseEvent<HTMLInputElement>, i: number) {
     a.preventDefault();
     setKey(denonyms[i].key);
+    setTopic(denonyms[i].key);
     setactiveStateModal(true);
   }
   return (
@@ -236,6 +238,8 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                     setmodal={setactiveStateModal}
                     modal={activeStateModal}
                     key_={key_}
+                    topic={topic}
+                    id={i+"_modal_activate"}
                     e={e}
                   />}
 

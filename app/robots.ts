@@ -5,7 +5,7 @@ export default function robots():MetadataRoute.Robots{
         rules:[
             {
                 userAgent:"*",
-                allow:['/','/auth/*','/images/logo.png','/images/delogo.png','/r/'],
+                allow:['/','/auth/*','/images/logo.avif','/images/delogo.avif','/r/'],
                 disallow:['/notifications/','/settings/','/api/','/images/','/auth/new-password/']
             }
         ]
