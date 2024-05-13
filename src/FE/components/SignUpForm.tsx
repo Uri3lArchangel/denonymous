@@ -250,15 +250,25 @@ const SignUpForm = () => {
       method: "POST",
       body: JSON.stringify(body),
     });
-    setLoading(false)
     if (res.status == 201) {
+    
+      await signIn("credentials", {
+        email: body.email,
+        password: body.password,
+        redirect: false,
+      });
+    setLoading(false)
+
       notification({
         message:'Account created successfully',
         type:"success",
         description:""
       })
-      setTimeout(()=>{router.push("/auth/signin")},2000)
+
+      setTimeout(()=>{router.push("/auth/verify-email")},2000)
     }
+    setLoading(false)
+
     const data = (await res.json()) as baseResponseType;
     if(res.status == 400 || res.status == 500){
       notification({

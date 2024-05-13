@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
     const hash = passwordHasher(password);
     const user = (await createUser(username,email, hash)) as userModelType;
   await signUpConfirmation( user.email,user.token.value);
+  
     
     return NextResponse.json(
       { status: "success", message: "" },
