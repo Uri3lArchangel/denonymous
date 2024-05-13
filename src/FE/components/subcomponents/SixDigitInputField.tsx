@@ -25,6 +25,7 @@ const SixDigitInputField = ({email}:{email:string}) => {
 
   // functions
   const handleInputChange = (index: number, value: string) => {
+    if(isNaN(Number(value)))return
     if (!isNaN(Number(value)) && value.length <= 1) {
       const newInputs = [...inputs];
       newInputs[index] = value;
