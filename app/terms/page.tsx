@@ -1,5 +1,5 @@
 import Link from 'next/link';
-export const dynamic = false;
+export const dynamic = "force-static";
 
 function Page() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const dynamic = false;
+export const dynamic = "force-static";
 
 const PrivacyPolicy = () => {
   return (
