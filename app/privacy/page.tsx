@@ -1,4 +1,30 @@
+import { Metadata } from 'next';
 import React from 'react';
+export const metadata: Metadata = {
+    title: "Privacy Policy | Denonymous",
+    description:
+      " This policy outlines data collection, storage practices, and your control over your information. Discover Denonymous' commitment to user trust and a truly anonymous experience. Learn how Denonymous empowers you to share text, images, audio, and video messages without revealing your identity.",
+    keywords: [
+      "Denonymous",
+      "anonymous messaging app",
+      "nprivacy policy",
+      "text responses",
+      "image responses",
+      "video responses",
+      "audio responses",
+      "real-time updates",
+      "authenticated users",
+      "data security",
+      "user control",
+    ],
+    alternates: {
+      canonical: "https://denonymous.xyz/privacy",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
 
 export const dynamic = "force-static";
 

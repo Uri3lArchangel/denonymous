@@ -13,8 +13,8 @@ function FooterSub() {
     <div className=" mx-auto w-full max-w-[1024px]"  >
   <Image src={logo} alt="denonymous" className="mt-4 w-40" />
   <p className=' font-extralight my-4 text-sm sm:w-[60%]'>Denonymous: The No 1 platform for Sharing video, image, audio and text responses anonymously. Register with us, create a Denonymous, and share with others to receive responses on any topic today.</p>
-  <Link href="/privacy" className='block text-white  underline'>Terms and Conditions</Link>
-  <Link href="/privacy" className='block text-white  underline'>Privacy Policy</Link>
+  <Link href="/privacy" className='block text-white  underline' target='_blank'>Terms and Conditions</Link>
+  <Link href="/privacy" className='block text-white  underline' target='_blank'>Privacy Policy</Link>
   <ul className="flex space-x-4 my-4">
     <li>
       <Link href="https://twitter.com/denonymous_">
