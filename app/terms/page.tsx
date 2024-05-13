@@ -1,4 +1,5 @@
 import Link from 'next/link';
+export const dynamic = false;
 
 function Page() {
   return (

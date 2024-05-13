@@ -11,6 +11,7 @@ import { Metadata } from "next";
 import { revalidateTag } from "next/cache";
 import dynamic from "next/dynamic";
 import React from "react";
+import MarkAsRead from "./MarkAsRead";
 
 export const metadata: Metadata = {
   title: "Notifications | Denonymous",
@@ -51,6 +52,7 @@ async function page() {
           Notifications({nots.length})
         </h1>
       </header>
+    <MarkAsRead />
       <section className="w-[90%] h-[60vh] max-w-[600px] overflow-y-scroll mx-auto">
         {newNots.length > 0 ? (
           newNots.map((e, i) => (

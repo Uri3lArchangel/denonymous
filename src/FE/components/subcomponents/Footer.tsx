@@ -11,13 +11,13 @@ function Footer() {
   const [state,setState]=useState(false)
   useEffect(()=>{
     const trigger = document.getElementById("trigger") as HTMLDivElement
-    if((trigger.getBoundingClientRect().top) <= (window.innerHeight+5)){
+    if((trigger.getBoundingClientRect().top) <= (window.innerHeight+20)){
    FooterSub = dynamic(()=>import("@/src/FE/components/subcomponents/FooterSub"))
    setState(true)
     }
     window.onscroll=()=>{
     const trigger = document.getElementById("trigger") as HTMLDivElement
-    if((trigger.getBoundingClientRect().top) <= (window.innerHeight+5)){
+    if((trigger.getBoundingClientRect().top) <= (window.innerHeight+20)){
    FooterSub = dynamic(()=>import("@/src/FE/components/subcomponents/FooterSub"))
    setState(true)
     }
