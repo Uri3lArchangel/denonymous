@@ -10,10 +10,10 @@ const PrivacyPolicy = () => {
       <h2 className="text-2xl font-bold mt-8">I. Introduction</h2>
       <p>
         Denonymous, Inc. (&quot;Denonymous,&quot; &quot;we&quot; &quot;us,&quot; or &quot;our&quot;) is committed to
-        safeguarding the privacy of its users (each, a "User" and collectively,
-        "Users"). This Privacy Policy (the "Policy") describes the information
+        safeguarding the privacy of its users (each, a &quot;User&quot; and collectively,
+        &quot;Users&quot;). This Privacy Policy (the &quot;Policy&quot;) describes the information
         we collect from Users when they utilize the Denonymous web-based
-        anonymous messaging platform (the "Service"), how that information is
+        anonymous messaging platform (the &quot;Service&quot;), how that information is
         used, and the choices available to Users regarding their data.
       </p>
 
@@ -40,7 +40,7 @@ const PrivacyPolicy = () => {
         <li>
           **Denonymous Boxes: Fostering Anonymous Communication**
 
-          A core function of Denonymous is the creation of "Denonymous Boxes."
+          A core function of Denonymous is the creation of &quot;Denonymous Boxes.&quot;
           These act as anonymous message boards, allowing authenticated Users
           to establish a space where others can submit text, image, audio, or
           video messages without revealing their identities. Importantly,
