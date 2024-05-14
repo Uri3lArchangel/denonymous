@@ -7,9 +7,11 @@ function Tags() {
 
   return (
 < >
-<Script data-cfasync="false" id='ads-scripts-1' src='/assets/inpagePushAnti-classic.js' strategy='afterInteractive'>
+<Script data-cfasync="false" id='ads-scripts-1' src='/assets/inpagePushAnti-classic.js' async strategy='afterInteractive'>
 </Script>
-<Script data-cfasync="false" id='ads-scripts-2' src='/assets/inpagePushAnti-adblock.js' strategy='afterInteractive'>
+<Script data-cfasync="false" id='ads-scripts-2' src='/assets/inpagePushAnti-adblock.js' async strategy='afterInteractive'>
+</Script>
+<Script data-cfasync="false" id='ads-scripts-3' src="https://rauvoaty.net/pfe/current/tag.min.js?z=7481654"  async strategy='afterInteractive'>
 </Script>
 </>    )
 }
