@@ -19,6 +19,7 @@ const fetchUserViaJWT=async(cookie:any)=>{
 export async function middleware(request: NextRequest) {
   
    try{ 
+
     let cookie;
     const cookieObj = cookies().get("denon_session_0")
     if(cookieObj){

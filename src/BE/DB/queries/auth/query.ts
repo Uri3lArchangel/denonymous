@@ -23,12 +23,18 @@ catch(err:any){
 
 export const findUserByEmailAndPassword = async(email:string,password:string)=>{
     try{
-
+      if(!password){
+      let user =await User.findOne({username:email})
+      if(user) throw new Error("This account only allows SSO sign in")
+      user = await User.findOne({email})
+      if(user) throw new Error("This account only allows SSO sign in")
+      }else{
       const hash = passwordHasher(password)
       let user =await User.findOne({username:email,password:hash})
       if(user) return user
       user = await User.findOne({email,password:hash})
     return user
+      }
     }
     catch(err:any){
         console.log(err)
@@ -53,10 +59,11 @@ notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:u
 })
 return user 
     }else{
-        let user = User.findOne({email})
+        let user =await  User.findOne({email})
         if(user) return user
- user =await User.create({uuid,email,isEmailVerified:true,username,notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username}]
+await User.create({uuid,email,isEmailVerified:true,username,notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username}]
  })
+ user = await User.findOne({email})
 return user 
 
     }

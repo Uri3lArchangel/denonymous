@@ -7,8 +7,13 @@ import { cookies } from "next/headers"
 
 export const updateNotificationAction=async(id:number,owner:string)=>
 {
- await updateNotificationOpenedStateQuery(id,owner)
- revalidateTag("notifications_fetch_tag")
+try{ await updateNotificationOpenedStateQuery(id,owner)
+ revalidatePath('/notifications')
+ revalidateTag("notifications_fetch_tag")}catch(err:any){
+    console.log(err)
+    
+ }
+
 }
 
 

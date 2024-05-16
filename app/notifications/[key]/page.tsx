@@ -34,8 +34,9 @@ async function page({params}:{params:{key:number}}) {
     const {key}=params
     const nots = await fetchNotficationsServer()
     const current = nots[key]
-    updateNotificationAction(key,current.owner)
+   await updateNotificationAction(key,current.owner)
  revalidateTag("notifications_fetch_tag")
+
 
   return (
     

@@ -34,7 +34,7 @@ const deleteAcc = async()=>{
 }
 
   return (
-<ModalComponent setState={setState} state={state} title="Delete Account" styles={{content:{backgroundColor:"#171717",border:"1px solid #ffdf00",borderRadius:"10px"},header:{backgroundColor:"#171717"}}}>
+<ModalComponent setState={setState} state={state} title={<h1 className='text-white'>Delete Account</h1>} styles={{content:{backgroundColor:"#171717",border:"1px solid #ffdf00",borderRadius:"10px",color:"white"},header:{backgroundColor:"#171717",color:"white"}}}>
 {  pending?<Loading />:<></>}
 
 <div className='px-8' >

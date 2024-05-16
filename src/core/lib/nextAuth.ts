@@ -6,14 +6,18 @@ import GoogleProvider from 'next-auth/providers/google'
 import { setSessionCookie } from "./Cookie";
 import { userDataTokenSign } from "./JWTFuctions";
 import { revalidateTag } from "next/cache";
+import { userModelType } from "@/types";
 
 export const nextAuthConfig:NextAuthOptions={
     providers:[
+   
 CredentialsProvider({
 credentials:{
     email:{type:"text",placeholder:"abc...@gmail.com or abc",label:"Email or username"},
     password:{type:"password",placeholder:"*************",label:"Password"}
 },
+
+
 async authorize(credentials) {
     if(!credentials || !credentials.email || !credentials.password) throw new Error("Invalid credentials");
     const user = await findUserByEmailAndPassword(credentials.email,credentials.password);
@@ -39,25 +43,26 @@ async authorize(credentials) {
         async signIn({account,profile}){
 
          try{
-            //  if(account?.provider == "google" && profile && profile.email){
-                
-            //     await connectMongoClient()
-            //     const newUser = await createUser(profile.email)
-            //     const token = userDataTokenSign(newUser.email,newUser.UUID,newUser.isEmailVerified,newUser.isPremium)
-            //     setSessionCookie(token)
-            //     await disConnectMongoClient()
-            //     return newUser
-            // }
+             if(account?.provider == "google" && profile && profile.email){
+                const newUser = await createUser(profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0],profile.email) 
+                const token = userDataTokenSign(profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0],newUser.email,newUser.UUID,newUser.isEmailVerified,newUser.isPremium)
+                setSessionCookie(token)
+
+                return newUser
+            }
             if(account?.provider == "credentials"){
                return true
             }
-            return false}catch(err:any){
-               return false
+            return false
+        
+        }catch(err:any){
+            console.log(err)
+               return true
             }
         },
+    
       
-    }, session:{
-        strategy:undefined,
-        
-    }
+    },
+    session: { strategy: "jwt" }
+
 }

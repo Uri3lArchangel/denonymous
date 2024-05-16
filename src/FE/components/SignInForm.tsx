@@ -6,6 +6,7 @@ import signin from '@/public/styles/styles.module.css'
 import { NotificationContext } from "./contexts/NotificationContext";
 import { EyeIcon, EyeOffIcon, ScanEyeIcon } from "lucide-react";
 import { useSession } from "./hooks/SessionHook";
+import GoogleSignInBtn from "./subcomponents/GoogleSignInBtn";
 
 const SignInForm = () => {
   const [loading,setLoading]=useState(false)
@@ -16,10 +17,10 @@ const SignInForm = () => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
-  // const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   await signIn("google", { redirect: false });
-  // };
+  const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await signIn("google", { redirect: false });
+  };
 
   const credentialSignIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -125,13 +126,8 @@ const SignInForm = () => {
       >
         {loading?<div className="flex justify-center"><span>Signing in...</span></div>: <span>Sign In</span>}
       </button>
-      {/* <button
-        type="button"
-        onClick={googleSignin}
-        className={"border-2 border-[#fff] text-base font-bold  p-2 rounded  w-[200px] mx-auto flex items-center justify-center "+ signin.GoogleBtn}
-      ><FcGoogle size={20} className="mx-[2px]" />
-       <p className="">  Google Sign in</p>
-      </button> */}
+      <GoogleSignInBtn click={googleSignin} />
+
 
       <p className="text-center mt-3 text-sm line-break">
         Don&apos;t have an account?

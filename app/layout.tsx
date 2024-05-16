@@ -2,10 +2,8 @@ import { Poppins } from "next/font/google";
 import "@/public/styles/globals.css";
 import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
 import { Analytics } from "@vercel/analytics/react";
-import dynamic from "next/dynamic";
 import Footer from "@/src/FE/components/subcomponents/Footer";
 import { Metadata } from "next";
-import Tags from "@/ads/Tags";
 import GoogleAdsense from "@/ads/GoogleAdsense";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Nav from "@/src/FE/components/Nav";
@@ -13,6 +11,7 @@ import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
 import GoogleAnalytics from "@/analytics/Google";
 import Hotjar from "@/analytics/Hotjar";
 import MicrosoftAnalytics from "@/analytics/MicrosoftAnalytics";
+import TagsAntiBlock from "@/ads/TagsAntiBlock";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {
@@ -42,9 +41,9 @@ export default async function RootLayout({
         <GoogleAdsense />
         <MicrosoftAnalytics />
         <Hotjar />
-        <Tags />      
       </head>
       <body className={inter.className}>
+        <TagsAntiBlock />
         <Nav />
 
         <NotificationApp>

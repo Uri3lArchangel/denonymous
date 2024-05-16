@@ -46,7 +46,7 @@ async function page({params}:{params:{response:string[]}}) {
     }
 }
 return(
-  <div className='backgroundVector'>
+  <div className='backgroundVector py-8'>
   <ResponsePageComponent key_={key} username={username} userdata={userdata} isSession={isSession}/>
   </div>
 )

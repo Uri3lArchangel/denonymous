@@ -18,7 +18,7 @@ let a =(notifications.filter(e=>!e.opened))
 const path = usePathname()
   useEffect(() => {
     setActiveLink(path);
-  }, [path]);
+  }, [path,unread]);
 
 
 

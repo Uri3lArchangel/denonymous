@@ -11,6 +11,8 @@ import signin from "@/public/styles/styles.module.css";
 import Loading from "@/app/loading";
 import { NotificationContext } from "./contexts/NotificationContext";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import {FcGoogle} from 'react-icons/fc'
+import GoogleSignInBtn from "./subcomponents/GoogleSignInBtn";
 
 const SignUpForm = () => {
   // states
@@ -146,7 +148,10 @@ const SignUpForm = () => {
   // Google sign in function
   const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await signIn("google", { redirect: false });
+    const a = await signIn("google", { redirect: false,callbackUrl:"/api/auth/callback/google" });
+    if(a?.error){
+      notification({type:"error",message:a.error,description:""})
+    }
   };
 
   
@@ -404,17 +409,7 @@ const SignUpForm = () => {
           >
             Submit
           </button>
-          {/* <button
-            type="button"
-            className={
-              "border-2 border-[#edc211] text-[#edc211] text-base font-bold  p-2 rounded  w-[200px] mx-auto flex items-center justify-center " +
-              signin.GoogleBtn
-            }
-            onClick={googleSignin}
-          >
-            <FcGoogle size={20} className="mx-[2px]" />
-            <p className=""> Google Sign in</p>
-          </button> */}
+<GoogleSignInBtn click={googleSignin} />
         </div>
         <p className="text-center mt-3 text-sm line-break">
           Already have an account?{" "}
