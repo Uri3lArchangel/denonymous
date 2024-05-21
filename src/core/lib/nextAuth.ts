@@ -6,7 +6,6 @@ import GoogleProvider from 'next-auth/providers/google'
 import { setSessionCookie } from "./Cookie";
 import { userDataTokenSign } from "./JWTFuctions";
 import { revalidateTag } from "next/cache";
-import { userModelType } from "@/types";
 
 export const nextAuthConfig:NextAuthOptions={
     providers:[
@@ -63,6 +62,7 @@ async authorize(credentials) {
     
       
     },
-    session: { strategy: "jwt" }
+    session: { strategy: "jwt" },
+   
 
 }

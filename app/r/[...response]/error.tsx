@@ -12,7 +12,6 @@ export default function Error({
   reset: () => void;
 }) {
 
-  console.log(error.name)
  
   return (
     <main className="flex  flex-col items-center pt-20 bg-black h-[100vh] text-white">

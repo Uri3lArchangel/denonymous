@@ -35,8 +35,10 @@
     "server-only": "^0.0.1",
     "sharp": "^0.33.3",
     "swiper": "^11.0.5",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.2.2",
-    "wavesurfer.js": "^7.6.4"
+    "wavesurfer.js": "^7.6.4",
+    "ws": "^8.17.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.5",

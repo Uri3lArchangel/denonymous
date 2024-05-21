@@ -19,8 +19,8 @@ export const metadata:Metadata = {
     "password reset link"
 ],
   robots:{
-    index:false,
-    follow:false
+    index:true,
+    follow:true
   },
  
 }

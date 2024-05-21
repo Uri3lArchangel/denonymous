@@ -38,7 +38,7 @@ async function ResponsePageComponent({username,userdata,key_,isSession}:{usernam
         <div >
             <h1 className='text-3xl sm:text-4xl text-center text-ellipsis text-white max-w-[600px] mx-auto break-words'>{d.topic}</h1>
             <h2 className='text-center text-[#7F7F7F] mb-20 max-w-[400px] mx-auto break-words'>{d.description?d.description:''}</h2>
-            <div  className='bg-[#1E1E1E] max-w-[600px] mx-auto w-full rounded-md ' >
+            <div  className='bg-[#1E1E1E] max-w-[600px] mx-auto w-full rounded-md  min-h-[70vh]' >
         {Responses && <Responses box={d.topic}  owner={d.owner} responses={replys.reverse()} />}  
         </div> 
         </div>

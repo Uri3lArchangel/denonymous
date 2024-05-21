@@ -20,8 +20,8 @@ export const metadata:Metadata = {
     "preferences"
 ],
   robots:{
-    index:false,
-    follow:false
+    index:true,
+    follow:true
   },
  
 }

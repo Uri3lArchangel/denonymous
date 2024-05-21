@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     canonical: "https://denonymous.xyz/notifications",
   },
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
 };
 

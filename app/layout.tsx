@@ -1,7 +1,6 @@
 import { Poppins } from "next/font/google";
 import "@/public/styles/globals.css";
 import { SessionProvider } from "@/src/FE/components/hooks/SessionHook";
-import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/src/FE/components/subcomponents/Footer";
 import { Metadata } from "next";
 import GoogleAdsense from "@/ads/GoogleAdsense";
@@ -35,7 +34,6 @@ export default async function RootLayout({
         <meta name="monetag" content="a6e917a5f88ffb0c1925488a39849857" />
         <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
         <meta name="google-site-verification" content="O6ay580QXmHQ56C-TAYLnGBXardo6ak-gDm29W7w5T4" />
-        <Analytics />
         <SpeedInsights/>
         <GoogleAnalytics />
         <GoogleAdsense />
@@ -43,7 +41,7 @@ export default async function RootLayout({
         <Hotjar />
       </head>
       <body className={inter.className}>
-        <TagsAntiBlock />
+        {/* <TagsAntiBlock /> */}
         <Nav />
 
         <NotificationApp>

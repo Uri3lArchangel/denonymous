@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     "public responses"
 ],
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
   
 };
