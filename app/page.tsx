@@ -91,7 +91,7 @@ function page() {
                     hottest gossip without anyone knowing it&apos;s you? This is your
                     safe space to go full blast, zero judgement. So ditch the
                     pressure, be your chaotic, unfiltered self, and vibe with
-                    people who get it. It's gonna be lit
+                    people who get it. It&apos;s gonna be lit
                   </p>
                 </article>
               </li>
