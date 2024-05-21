@@ -84,11 +84,11 @@ function page() {
                   />
                   <h2 className=" font-semibold my-4">Anonymity</h2>
                   <p className="text-[#00000099] font-extralight">
-                    OMG, society is so sus these days. Like, everyone's gotta be
+                    OMG, society is so sus these days. Like, everyone&apos;s gotta be
                     perfect online, with their filtered pics and curated feeds.
-                    Gag Here's the tea: our platform lets you ditch the fake and
+                    Gag Here&apos;s the tea: our platform lets you ditch the fake and
                     be 100% you, NO CAP. Wanna meme anonymously? Spill the
-                    hottest gossip without anyone knowing it's you? This is your
+                    hottest gossip without anyone knowing it&apos;s you? This is your
                     safe space to go full blast, zero judgement. So ditch the
                     pressure, be your chaotic, unfiltered self, and vibe with
                     people who get it. It's gonna be lit
@@ -106,8 +106,8 @@ function page() {
                   />
                   <h2 className=" font-semibold my-4">Safe & Secure</h2>
                   <p className="text-[#00000099] font-extralight">
-                    We know anonymity is fire, but safety is bae. That's why our
-                    platform is built like a fortress . We're talking top-notch
+                    We know anonymity is fire, but safety is bae. That&apos;s why our
+                    platform is built like a fortress . We&apos;re talking top-notch
                     encryption to keep your stuff private, a platform tighter
                     than a drum, and anonymous posting so you can unleash your
                     inner savage without the drama.
@@ -125,12 +125,12 @@ function page() {
                   />
                   <h2 className=" font-semibold my-4">Easy 2 Use</h2>
                   <p className="text-[#00000099] font-extralight">
-                    This isn't just a platform, it's your haven – a digital
+                    This isn&apos;t just a platform, it&apos;s your haven – a digital
                     sanctuary where security meets positivity. Share your
                     thoughts, dreams, or even the deepest confessions, all while
                     knowing your identity is fiercely protected. Express
                     yourself freely, with the power of anonymity fueling your
-                    voice. Join us today, and let's rewrite the script on online
+                    voice. Join us today, and let&apos;s rewrite the script on online
                     communication
                   </p>
                 </article>
