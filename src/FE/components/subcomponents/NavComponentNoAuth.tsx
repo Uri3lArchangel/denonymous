@@ -67,7 +67,7 @@ triggerComponent={
 />
 
 <Link href="/auth/signin" className='gradient_elements_text border border-[#ffdf00] mr-2 px-6 py-2 rounded-md hidden sm:block'>Sign in</Link>
-<Link href="/auth/signup" className='gradient_elements_div px-6 py-2 rounded-md hidden ml-2 sm:block'>Sign up</Link>
+<Link href="/auth/signup" className='gradient_elements_div px-6 py-2 text-black rounded-md hidden ml-2 sm:block'>Sign up</Link>
 </li>
 </>
      

@@ -76,8 +76,7 @@ function page() {
               <li className="border-2 border-[#19182519] rounded-md my-8 py-10 px-8 md:w-[250px] mx-2">
                 <article>
                   <Image
-                    loading="lazy"
-                    fetchPriority="low"
+                    fetchPriority="high"
                     className="block mx-auto"
                     src={anon}
                     alt="anonymity"
@@ -98,8 +97,7 @@ function page() {
               <li className="border-2 border-[#19182519] rounded-md my-8 py-10 px-8 md:w-[250px] mx-2">
                 <article>
                   <Image
-                    loading="lazy"
-                    fetchPriority="low"
+                    fetchPriority="high"
                     className="block mx-auto"
                     src={sec}
                     alt="security"
@@ -117,8 +115,7 @@ function page() {
               <li className="border-2 border-[#19182519] rounded-md my-8 py-10 px-8 md:w-[250px]">
                 <article>
                   <Image
-                    loading="lazy"
-                    fetchPriority="low"
+                    fetchPriority="high"
                     className="block mx-auto"
                     src={easy}
                     alt="security"

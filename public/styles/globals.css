@@ -21,11 +21,12 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 * {
-  scrollbar-width: auto;
+  scrollbar-width: thin;
   scrollbar-color: #f6d108 black;
 }
 *::-webkit-scrollbar {
   width: 2px;
+  height: 2px;
 }
 
 *::-webkit-scrollbar-track {
@@ -39,10 +40,41 @@ input[type="number"] {
 input[type="checkbox"]{
   accent-color: #f2d204;
 }
+.checkboxFilter{
+    width: 20px;
+    height: 20px;
+    accent-color: #f2d204 !important;
+}
+.checkboxFilter{
+  appearance: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border: 1px solid #fff9;
+}
+.checkboxFilter::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  transform: scale(0);
+background-image: var(--de-bg-grad);
+}
+.checkboxFilter:checked::before {
+  transform: scale(1);
+}
+.checkboxFilter:hover {
+  color: black;
+}
+
+
+
 /* Root and tag styles */
 :root{
 --de-bg-grad:linear-gradient(270deg,#f2d204 0%,#f6d108 27.6%,#edc211 54.17%,#e3b419 77.6%,#daa521 100%);
 user-select: none;
+color: #fff;
 }
 button:disabled{
   filter: brightness(0.75) ;
@@ -191,8 +223,9 @@ background-color: #ffdf00 !important;
   }
   .gradient_elements_div{
     background-image: var(--de-bg-grad);
-  
+    color: black;
   }
+  
   .line-break{
     line-break: strict;
   }
