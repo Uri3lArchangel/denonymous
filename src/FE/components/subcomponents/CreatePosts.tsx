@@ -8,7 +8,7 @@ import { denonymousType } from "@/types";
 import Link from "next/link";
 import styles from "@/public/styles/styles.module.css";
 import React, { useContext, useState } from "react";
-import { Trash2Icon } from "lucide-react";
+import { Share2Icon, Trash2Icon } from "lucide-react";
 import { TooltipApp } from "../libraries/antd";
 import { NotificationContext } from "../contexts/NotificationContext";
 import ResponsesSVG from "../assets/ResponsesSVG";
@@ -192,6 +192,21 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                         role="button"
                         aria-label={`Copy link for ${e.topic} denonymous`}
                         className={` rounded-l px-4  border-[#EDC211] border-2 `}
+                        onClick={() => {
+                          setLink(e.link);
+                          ShareDenonymsModal = dynamic(
+                            () => import("../libraries/Modals/ShareDenonyms")
+                          );
+                          setModal(true);
+                        }}
+                     
+                      >
+                        <Share2Icon className="text-[#EDC211] " size={24}/>
+                      </button>
+                      <button
+                        aria-label={`Open modal for ${e.topic} denonymous link sharing`}
+                        role="button"
+                        className={`w-full max-w-[200px] sm:w-fit rounded-r px-4 py-2 text-[#0f0f0f] bg-[#EDC211]`}
                         onClick={async () => {
                           const copyToClipboard = (
                             await import("@/src/core/lib/helpers")
@@ -204,38 +219,8 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                           });
                         }}
                       >
-                        <svg
-                          className="copyIconSVG"
-                          width="14"
-                          height="18"
-                          viewBox="0 0 14 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M11.5705 0.872658C11.5705 0.757589 11.55 0.643656 11.5103 0.537416C11.4705 0.431176 11.4123 0.334728 11.3389 0.253622C11.2655 0.172517 11.1784 0.108355 11.0826 0.0648313C10.9868 0.0213074 10.8842 -0.000719691 10.7807 1.79307e-05H0.789813C0.686331 -0.000719691 0.58374 0.0213074 0.487945 0.0648313C0.392149 0.108355 0.305041 0.172517 0.231633 0.253622C0.158226 0.334728 0.0999687 0.431176 0.0602155 0.537416C0.0204623 0.643656 -2.126e-06 0.757589 1.65658e-10 0.872658V14.7902C-2.126e-06 14.9052 0.0204623 15.0192 0.0602155 15.1254C0.0999687 15.2316 0.158226 15.3281 0.231633 15.4092C0.305041 15.4903 0.392149 15.5545 0.487945 15.598C0.58374 15.6415 0.686331 15.6635 0.789813 15.6628C0.934287 15.6628 1.05141 15.5457 1.05141 15.4012V3.15795C1.05141 2.05338 1.94684 1.15794 3.05141 1.15794H11.2852C11.4428 1.15794 11.5705 1.03022 11.5705 0.872658Z"
-                            fill="black"
-                          />
-                          <path
-                            d="M12.8281 2.2373H2.76684C2.35008 2.2373 2.01224 2.61297 2.01224 3.07638V17.061C2.01224 17.5244 2.35008 17.9001 2.76684 17.9001H12.8281C13.2449 17.9001 13.5827 17.5244 13.5827 17.061V3.07638C13.5827 2.61297 13.2449 2.2373 12.8281 2.2373Z"
-                            fill="black"
-                          />
-                        </svg>
-                      </button>
-                      <button
-                        aria-label={`Open modal for ${e.topic} denonymous link sharing`}
-                        role="button"
-                        className={`w-full max-w-[200px] sm:w-fit rounded-r px-4 py-2 text-[#0f0f0f] bg-[#EDC211]`}
-                        onClick={() => {
-                          setLink(e.link);
-                          ShareDenonymsModal = dynamic(
-                            () => import("../libraries/Modals/ShareDenonyms")
-                          );
-                          setModal(true);
-                        }}
-                      >
                         {" "}
-                        Share
+                        Copy Link
                       </button>
                     </div>
                   </div>

@@ -11,6 +11,59 @@ import {
 } from "@/src/core/data/notficationCore";
 import {  revalidateTag } from "next/cache";
 import crypto from "crypto";
+
+export const createFirstDenonymous = async (
+  email: string,
+  topic: string,
+  desc?: string
+) => {
+await connectMongo();
+
+  const user = (await User.findOne({ email })) as userModelType;
+  let a = user.denonymous.filter(
+    (e) => e.topic == removeWhitespace(topic) && !e.isDeleted
+  );
+  if (a.length > 0) {
+    return {
+      type: "error",
+      message: "A denonymous with this same topic already exists",
+    };
+  }
+  const key = crypto.randomBytes(6).toString("hex");
+  const link = `${process.env.baseURL}/r/${user.username}/${key}`;
+  const aa = denonymousCreationNotification(
+    topic,
+    user.username,
+    user.denonymous.length
+  );
+  await User.updateOne(
+    { email },
+    {
+      $push: {
+        denonymous: {
+          key,
+          topic: topic,
+          link,
+          responsesViewState:false,
+          owner: email,
+          description: desc,
+        },
+        notifications: {
+          owner: user.username,
+          category: categories.denonym,
+          data: aa.data,
+          link: aa.link,
+        },
+      },
+    }
+  );
+  revalidateTag("notifications_fetch_tag");
+  return { type: "success", message: "Denonymous Created" };
+};
+
+
+
+
 export const createDenonymous = async (
   email: string,
   topic: string,
