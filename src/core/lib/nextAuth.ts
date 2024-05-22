@@ -63,7 +63,7 @@ async authorize(credentials) {
       
     },
     pages:{
-        error:"/auth/signin"
+        signIn:"/auth/signin"
     },
     session: { strategy: "jwt" },
    
