@@ -6,7 +6,7 @@ import { code_generator } from "@/src/core/lib/helpers"
 import { connectMongo } from "@/connection"
 import { categories, signupwelocme } from "@/src/core/data/notficationCore"
 import { passwordReset } from "@/src/BE/email-service/nodemailer"
-import { createDenonymous, createFirstDenonymous } from "../denonymous/query"
+import {  createFirstDenonymous } from "../denonymous/query"
 
 connectMongo()
 
@@ -66,6 +66,8 @@ return user
         if(user) return user
 await User.create({uuid,email,isEmailVerified:true,username,notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username}]
  })
+ const name = email.split("@")[0]
+await createFirstDenonymous(email,name,"Hi, Send me an anonyous message")
  user = await User.findOne({email})
 return user 
 
