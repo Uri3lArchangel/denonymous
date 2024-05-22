@@ -305,7 +305,7 @@ export default function Responses({
         <h3 className="text-center text-xl font-extrabold gradient_elements_text">
           All Responses({responses.length})
         </h3>
-        <section className="sticky top-[75px] bg-black overflow-hidden rounded-md p-4 max-w-[540px] mx-auto">
+        <section className="sticky top-[75px] bg-black overflow-hidden rounded-md p-4 max-w-[540px] z-[10] mx-auto">
           <h4 className="text-white  text-center md:text-left md:my-2">Filter Responses</h4>
           <div className="overflow-x-scroll py-4">
           <div className="flex items-center justify-between w-[500px]">
@@ -363,7 +363,7 @@ export default function Responses({
                 <li
                   key={n}
                   id={`${n}`}
-                  className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[95%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
+                  className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[96%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
                 >
                   <TiCancel size={45} />
                   This response was hidden by @{uname}
