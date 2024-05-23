@@ -305,7 +305,7 @@ export default function Responses({
         <h3 className="text-center text-xl font-extrabold gradient_elements_text">
           All Responses({responses.length})
         </h3>
-        <section className="sticky top-[75px] bg-black overflow-hidden rounded-md p-4 max-w-[540px] z-[10] mx-auto">
+        <section className=" bg-black my-2 overflow-hidden rounded-md p-4 max-w-[540px] z-[10] mx-auto">
           <h4 className="text-white  text-center md:text-left md:my-2">Filter Responses</h4>
           <div className="overflow-x-scroll py-4">
           <div className="flex items-center justify-between w-[500px]">
@@ -315,7 +315,7 @@ export default function Responses({
                 htmlFor="byImage"
                 className="cursor-pointer  text-gray-300"
               >
-                By Image
+                Image
               </label>
             </div>
             <div className="flex items-center">
@@ -324,7 +324,7 @@ export default function Responses({
                 htmlFor="byVideo"
                 className="cursor-pointer  text-gray-300"
               >
-                By Video
+                Video
               </label>
             </div>
             <div className="flex items-center">
@@ -333,7 +333,7 @@ export default function Responses({
                 htmlFor="byAudio"
                 className="cursor-pointer  text-gray-300"
               >
-                By Audio
+                Audio
               </label>
             </div>
              <div className="flex items-center">
@@ -342,7 +342,7 @@ export default function Responses({
                 htmlFor="byTextOnly"
                 className="cursor-pointer  text-gray-300"
               >
-                By Text Only
+                Text Only
               </label>
             </div>
           </div>
