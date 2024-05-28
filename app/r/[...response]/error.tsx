@@ -1,5 +1,6 @@
 'use client';
 
+import { errorcodes } from "@/src/core/data/errorcodes";
 import { MdWarningAmber } from "react-icons/md";
 
 interface ErrorProps {
@@ -8,12 +9,9 @@ interface ErrorProps {
 }
 
 const Error: React.FC<ErrorProps> = ({ error }) => {
-  console.log(error.message.split("|")[0])
 
-  let display ="An error occured"
-  if(error.message.split("|")[1]=="client"){
-    display=error.message.split("|")[0] 
-  }
+  let display = errorcodes[error.message]?errorcodes[error.message]:"An error occured"
+ 
 
   return (
     <main className="flex flex-col items-center pt-20 bg-black h-[100vh] text-white">

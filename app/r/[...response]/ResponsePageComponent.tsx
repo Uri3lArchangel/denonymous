@@ -23,7 +23,7 @@ async function ResponsePageComponent({
   let all = (await fetchUser(username)) as userModelType;
 
   if (!all) {
-    throw new Error("The owner of this denonymous was not found|client");
+    throw new Error("0001");
   }
 
   const filterDenonymous = (await import("@/src/core/lib/helpers"))
@@ -33,7 +33,7 @@ async function ResponsePageComponent({
   console.log({ d });
   if (!d) {
     throw new Error(
-      "This denonymous does not exist or has been deleted|client"
+     "0002"
     );
   }
 
