@@ -32,8 +32,8 @@ async authorize(credentials) {
 },
 })
 ,        GoogleProvider({
-            clientId:process.env.googleProviderClientID!,
-            clientSecret:process.env.googleProviderClientSecret!,
+            clientId:process.env.NODE_ENV == "production"?process.env.googleProviderClientID_prod!:process.env.googleProviderClientID!,
+            clientSecret:process.env.NODE_ENV == "production"?process.env.googleProviderClientSecret_prod!:process.env.googleProviderClientSecret!,
             
         })
     ],
