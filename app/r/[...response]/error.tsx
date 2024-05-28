@@ -8,11 +8,11 @@ interface ErrorProps {
 }
 
 const Error: React.FC<ErrorProps> = ({ error }) => {
+  console.log(error.message.split("|")[0])
 
-  const errorMessageParts = error.message.split("|")[0] 
   let display ="An error occured"
-  if(errorMessageParts[1]=="client"){
-    display=error.message.split('|')[0]
+  if(error.message.split("|")[0]=="client"){
+    display=error.message.split("|")[1] 
   }
 
   return (
