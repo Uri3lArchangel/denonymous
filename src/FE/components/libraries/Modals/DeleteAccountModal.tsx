@@ -42,7 +42,7 @@ const deleteAcc = async()=>{
 <p className='text-neutral-300 text-center my-4 '>Write the statement: &quot;<span className='text-white select-text font-bold text-md'>delete my account</span> &quot; in the space below to delete your account. <span className=' text-red-500'> This action cannot be undone, and all denonyms linked to your account would be deleted</span> </p>
 <input onChange={inputChange} maxLength={17} type="text" className='text-white w-full block border border-neutral-300 bg-transparent outline-none h-[35px] mx-auto sm:w-[70%] rounded-md px-2 ' />
 
-<button disabled={!clickable || pending} onClick={deleteAcc} className='gradient_elements_div mx-auto block px-6 py-2 rounded-md my-6'>Delete account</button>
+<button disabled={!clickable || pending} onClick={deleteAcc} className='gradient_elements_div mx-auto block px-6 py-2 rounded-md my-6 text-black'>Delete account</button>
 </div>
 </ModalComponent>
     )

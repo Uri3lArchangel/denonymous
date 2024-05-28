@@ -32,7 +32,7 @@ const path = usePathname()
           <Image  className='w-[150px]' src={logo} alt="logo" fetchPriority='high' loading='eager' />
   </Link>
         </li>
-
+    
 <>
 <li className='md:hidden ' >
 <DropdownApp rootClassName={"navDropdown"} trigger={['click']} triggerComponent={<CiMenuBurger size={30} className="cursor-pointer text-white" />} items={navPages} />

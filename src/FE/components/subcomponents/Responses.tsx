@@ -305,8 +305,9 @@ export default function Responses({
         <h3 className="text-center text-xl font-extrabold gradient_elements_text">
           All Responses({responses.length})
         </h3>
-        <section className=" bg-black my-2 overflow-hidden rounded-md p-4 max-w-[540px] z-[10] mx-auto">
-          <h4 className="text-white  text-center md:text-left md:my-2">Filter Responses</h4>
+        {/* filter */}
+      {responses.length >0?  <section className=" bg-black my-2 overflow-hidden rounded-md p-4 max-w-[540px] z-[10] mx-auto">
+          <h4 className="text-white  text-center md:text-left md:my-2">Filter Responses By</h4>
           <div className="overflow-x-scroll py-4">
           <div className="flex items-center justify-between w-[500px]">
             <div className="flex items-center ">
@@ -347,7 +348,7 @@ export default function Responses({
             </div>
           </div>
           </div>
-        </section>
+        </section>:null}
         <ul className={viewer.display ? "overflow-y-hidden" : ""}>
           {responses.slice(0, initialLoadCount).map((e: replyModelType, n) => {
             let l = e.media.filter(

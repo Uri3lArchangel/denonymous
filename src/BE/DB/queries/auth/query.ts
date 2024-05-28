@@ -58,16 +58,14 @@ const user =await User.create({uuid,email,password,username,token:{
 },
 notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username}]
 })
-const name = email.split("@")[0]
-await createFirstDenonymous(email,name,"Hi, Send me an anonyous message")
+await createFirstDenonymous(email,username,"Hi, Send me an anonyous message")
 return user 
     }else{
         let user =await  User.findOne({email})
         if(user) return user
 await User.create({uuid,email,isEmailVerified:true,username,notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username}]
  })
- const name = email.split("@")[0]
-await createFirstDenonymous(email,name,"Hi, Send me an anonyous message")
+await createFirstDenonymous(email,username+"'s denonymous","Hi, Send me an anonyous message")
  user = await User.findOne({email})
 return user 
 
