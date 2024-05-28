@@ -10,9 +10,7 @@ interface ErrorProps {
 
 const Error: React.FC<ErrorProps> = ({ error }) => {
 
-  let display = errorcodes[error.message]?errorcodes[error.message]:"An error occured"
- 
-
+  let display = "This denonymous doesn't exist"
   return (
     <main className="flex flex-col items-center pt-20 bg-black h-[100vh] text-white">
       <MdWarningAmber size={70} className="text-red-500" />
