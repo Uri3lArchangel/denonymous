@@ -1,6 +1,5 @@
 'use client';
 
-import { errorcodes } from "@/src/core/data/errorcodes";
 import { MdWarningAmber } from "react-icons/md";
 
 interface ErrorProps {

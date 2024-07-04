@@ -50,7 +50,7 @@ function page() {
                 🤫
               </div>
               <h1 className="text-[36px] font-extrabold max-w-[400px] text-white mb-10 text-center  ">
-                Exchange Secret Messages Online{" "}
+                Exchange Anonymous Messages Online{" "}
               </h1>
               <Link
                 href="/dashboard"

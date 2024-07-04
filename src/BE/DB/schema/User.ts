@@ -43,6 +43,7 @@ const UserSchema = new Schema({
         nextRequestable:Number
        } 
     },
+    points:Number,
     denonymous:[{
         key:String,
         owner:String,
