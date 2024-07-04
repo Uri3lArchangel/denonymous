@@ -97,6 +97,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(({ drop
         }
       if(value){
         const unsupportedFile = files.reduce((unsupported, fileState) => {
+          console.log({type:fileState.type})
           if (!Formats.includes(fileState.type)) {
             return true; // Set unsupported to true if unsupported file type is found
           }
