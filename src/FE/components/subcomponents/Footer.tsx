@@ -2,7 +2,7 @@
 'use client'
 // import FooterSub from "@/src/FE/components/subcomponents/FooterSub";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 let FooterSub:any;
 

@@ -306,7 +306,7 @@ export default function Responses({
           All Responses({responses.length})
         </h3>
         {/* filter */}
-      {responses.length >0?  <section className=" bg-black my-2 overflow-hidden rounded-md p-4 max-w-[540px] z-[10] mx-auto">
+      { <section className=" bg-black my-2 overflow-hidden rounded-md p-4 max-w-[540px] z-[10] mx-auto">
           <h4 className="text-white  text-center md:text-left md:my-2">Filter Responses By</h4>
           <div className="overflow-x-scroll py-4">
           <div className="flex items-center justify-between w-[500px]">
@@ -348,8 +348,9 @@ export default function Responses({
             </div>
           </div>
           </div>
-        </section>:null}
+        </section>}
         <ul className={viewer.display ? "overflow-y-hidden" : ""}>
+        
           {responses.slice(0, initialLoadCount).map((e: replyModelType, n) => {
             let l = e.media.filter(
               (f) =>
@@ -359,18 +360,7 @@ export default function Responses({
             let a = e.media.filter(
               (f) => f.mimeType.split("/")[0].toLowerCase() == "audio"
             );
-            if (!e.visible && user?.email != owner) {
-              return (
-                <li
-                  key={n}
-                  id={`${n}`}
-                  className={`flex text-gray-400 items-center mt-10 mb-4 py-8 px-4 w-[96%] shadow-hd rounded-[10px] mx-auto bg-[#000] cursor-default`}
-                >
-                  <TiCancel size={45} />
-                  This response was hidden by @{uname}
-                </li>
-              );
-            } else {
+          
               return (
                 <li key={n} id={`${n}`}>
                   <div
@@ -538,7 +528,7 @@ export default function Responses({
                   )}
                 </li>
               );
-            }
+            
           })}
         </ul>
         {loading &&

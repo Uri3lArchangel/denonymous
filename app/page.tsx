@@ -42,13 +42,13 @@ function page() {
         <section>
           <header className=" backgroundVector bg-black min-h-[80vh] md:min-h-[65vh] pt-14  px-8">
             <div className=" flex flex-col items-center  max-w-[1024px] mx-auto">
-              <div className="bg-[#FFFAE1]  w-fit max-w-[300px] rounded-md px-6 py-2 flex text-[13px] mb-6">
+              <Link href="/dashboard" className="bg-[#FFFAE1]  w-fit max-w-[300px] rounded-md px-6 py-2 flex text-[13px] mb-6 cursor-pointer">
                 <p className="gradient_elements_text mx-1  w-fit">
                   {" "}
                   Explore the world Of Secret!{" "}
                 </p>
                 🤫
-              </div>
+              </Link>
               <h1 className="text-[36px] font-extrabold max-w-[400px] text-white mb-10 text-center  ">
                 Exchange Anonymous Messages Online{" "}
               </h1>
@@ -56,7 +56,7 @@ function page() {
                 href="/dashboard"
                 className="gradient_elements_div text-[16px] w-full py-4 block rounded-md text-center max-w-[200px] sm:px-6"
               >
-                Dashboard
+                Get your own messages
               </Link>
             </div>
           </header>

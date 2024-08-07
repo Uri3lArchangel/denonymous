@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { EdgeStoreProvider } from "@/src/core/lib/edgestore";
 import style from "@/public/styles/styles.module.css";
 import { MultiFileDropzoneUsage } from "@/src/FE/components/subcomponents/MultiFileComponent";
+import Link from "next/link";
 let Responses: any = null;
 
 async function ResponsePageComponent({
@@ -30,7 +31,6 @@ async function ResponsePageComponent({
     .filterDenonymous;
 
   let d = filterDenonymous(all, key) as denonymousType;
-  console.log({ d });
   if (!d) {
     throw new Error(
      "0002"
@@ -40,6 +40,7 @@ async function ResponsePageComponent({
   let replys = d.replys;
 
   if (isSession && d.owner == userdata?.email) {
+
     Responses = dynamic(
       () => import("@/src/FE/components/subcomponents/Responses")
     );
@@ -62,9 +63,15 @@ async function ResponsePageComponent({
       </>
     );
   } else {
+    if( d.responsesViewState == false){
+     
+      Responses = null
+      
+     }else{
     Responses = dynamic(
       () => import("@/src/FE/components/subcomponents/Responses")
     );
+     }
 
     let mediaLimit = filterMediaLimitOn(all.denonymous, key);
     return (
@@ -118,7 +125,18 @@ async function ResponsePageComponent({
           }
         </div>
         <div className="bg-[#1E1E1E] max-w-[750px] mx-auto w-full rounded-md ">
+          {!d.responsesViewState?<p className="text-2xl text-white text-center">All responses have bee hidden by {username}</p>:null}
           {Responses && <Responses owner={d.owner} r={replys.reverse()} />}
+          {userdata?(  <Link
+                href="/dashboard"
+                className="gradient_elements_div text-[16px] py-4 block rounded-md w-full mx-auto text-center max-w-[250px] my-4 "
+              >
+                Get your own messages
+              </Link>):(
+                <div className="flex justify-center flex-wrap max-w-[400px] mx-auto">
+                <Link href="/auth/signup" className='gradient_elements_div px-6 py-4 max-w-[150px] text-center my-4 mx-auto block text-black rounded-md  ml-2 '>Sign up</Link>
+                <Link href="/auth/signin" className='gradient_elements_text border max-w-[150px] text-center my-4 mx-auto block border-[#ffdf00] mr-2 px-6 py-4 rounded-md'>Sign in</Link>
+              </div>)}
         </div>
       </div>
     );

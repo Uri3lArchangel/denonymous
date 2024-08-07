@@ -27,6 +27,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
   const [visiblityStateModal, setVisibilityStateModal] = useState(false);
   const [link, setLink] = useState("0");
   const [loading, setLoading] = useState(false);
+  const [disableDenonymous,setDisableDenonymousState]=useState(false)
   const notification = useContext(NotificationContext)!;
 
   const changeVisibility = async () => {
@@ -120,6 +121,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                             type="checkbox"
                             checked={!e.isActive}
                             readOnly
+                            disabled={disableDenonymous}
                             onClick={async (a) => {
                               ActivateDenonyms = dynamic(
                                 () =>
@@ -132,7 +134,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                             className="cursor-pointer select-none"
                             htmlFor={`show_responses_${i}`}
                           >
-                            Disable Denonymous
+                            {disableDenonymous?"Please Wait.....":"Disable Denonymous"}
                           </label>{" "}
                         </div>
                       </TooltipApp>
@@ -229,6 +231,7 @@ const MyDenonyms = ({ denonyms }: { denonyms: denonymousType[] | [] }) => {
                 {ActivateDenonyms &&  <ActivateDenonyms
                     setmodal={setactiveStateModal}
                     modal={activeStateModal}
+                    setDisableState={setDisableDenonymousState}
                     key_={key_}
                     topic={topic}
                     id={i+"_modal_activate"}
