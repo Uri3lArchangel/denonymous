@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": " next dev ",
+    "dev": "next dev",
     "build": "next build",
     "start": " next start",
     "lint": "next lint"
@@ -17,7 +17,9 @@
     "@vercel/speed-insights": "^1.0.10",
     "antd": "^5.12.8",
     "aws4": "^1.12.0",
+    "coffee-script": "^1.12.7",
     "dotenv": "^16.4.5",
+    "eccrypto": "^1.1.6",
     "html-to-image": "^1.11.11",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.368.0",
@@ -34,10 +36,14 @@
     "react-intersection-observer": "^9.8.2",
     "server-only": "^0.0.1",
     "sharp": "^0.33.3",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "swiper": "^11.0.5",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.2",
     "wavesurfer.js": "^7.6.4",
+    "weavedb-sdk": "^0.44.3",
+    "weavedb-sdk-node": "^0.44.3",
     "ws": "^8.17.0"
   },
   "devDependencies": {
@@ -47,6 +53,7 @@
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/ws": "^8.5.12",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",

@@ -1,12 +1,16 @@
 'use client'
-import React, { Suspense, useContext, useRef, useState } from 'react'
+import React, {  useContext, useRef, useState } from 'react'
 import { createDenonyous } from "@/src/BE/serverActions/actions";
 import { NotificationContext } from '@/src/FE/components/contexts/NotificationContext';
 import styles from "@/public/styles/styles.module.css";
+import { addPoints } from '../serverActions/pointsActions';
+import AuthenticatedPointsModal from '@/src/FE/components/libraries/Modals/AuthenticatedPointsModal';
+import { POINTS_DenonymousBox } from '@/src/core/data/points';
 
 
 function CreateDenonymousForm({handleModalClose}:{handleModalClose:any}) {
   const [pending,setPending]=useState(false)
+  const [points,setPoints]=useState(false)
   const notification = useContext(NotificationContext)!
   const topicRef = useRef<HTMLInputElement>(null)
   const descRef = useRef<HTMLTextAreaElement>(null)
@@ -32,6 +36,11 @@ setPending(false)
   })
   if(res.type == "success"){
     handleModalClose()
+  
+    // const [s,e] = await addPoints(POINTS_DenonymousBox)
+    // if(s){
+    //   setPoints(true)
+    // }
   }
 }
 
@@ -39,6 +48,7 @@ setPending(false)
 
   return (
     <form id='createDenonymousForm'>
+     { points?<AuthenticatedPointsModal points={POINTS_DenonymousBox} />:null}
     <input
     ref={topicRef}
     maxLength={50}

@@ -12,8 +12,22 @@ export const setSessionCookie = (token:string)=>{
 
 }
 
+export const setPointsCookie = (token:string)=>{
+    cookies().delete("denon_points")
+    cookies().set("denon_points",token,{
+        maxAge:25920000, // 300 days = 3600 seconds * 24 * 30 * 10,
+        secure:true,
+        httpOnly:true,
+    } )
+
+}
+
 
 
 export const deleteSessionCookie=()=>{
     cookies().delete("denon_session_0")
+}
+
+export const deletePointsCookie=()=>{
+    cookies().delete("denon_points")
 }

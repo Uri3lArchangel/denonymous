@@ -23,3 +23,12 @@ export const signKeyData=({...a})=>{
 const key = JWT.sign(a,process.env.keygenkey!)
 return key
 }
+
+export const signPointsData = (points:number)=>{
+    const token = JWT.sign({points},process.env.userDataTokenKey!)
+    return token
+}
+export const verifyPointsData = (token:string)=>{
+const {points} = JWT.verify(token,process.env.userDataTokenKey!) as {points:number}
+return points
+}

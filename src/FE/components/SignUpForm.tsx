@@ -148,7 +148,7 @@ const SignUpForm = () => {
   // Google sign in function
   const googleSignin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const a = await signIn("google", { redirect: false,callbackUrl:"/api/auth/callback/google" });
+    const a = await signIn("google", { redirect: false,callbackUrl:"/api/auth/callback/google"});
     if(a?.error){
       notification({type:"error",message:a.error,description:""})
     }
