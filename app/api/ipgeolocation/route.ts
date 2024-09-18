@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     const country = data.country;
     console.log({country})
     const currency = getCurrencyFromCountry(country);
-    console.log({currency})
+    console.log({currency,data})
     return NextResponse.json([currency,null])
   } catch (error: any) {
     return NextResponse.json([null,error.message])
