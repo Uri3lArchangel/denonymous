@@ -3,7 +3,6 @@ import React, {  useContext, useRef, useState } from 'react'
 import { createDenonyous } from "@/src/BE/serverActions/actions";
 import { NotificationContext } from '@/src/FE/components/contexts/NotificationContext';
 import styles from "@/public/styles/styles.module.css";
-import { addPoints } from '../serverActions/pointsActions';
 import AuthenticatedPointsModal from '@/src/FE/components/libraries/Modals/AuthenticatedPointsModal';
 import { POINTS_DenonymousBox } from '@/src/core/data/points';
 
@@ -37,10 +36,7 @@ setPending(false)
   if(res.type == "success"){
     handleModalClose()
   
-    // const [s,e] = await addPoints(POINTS_DenonymousBox)
-    // if(s){
-    //   setPoints(true)
-    // }
+   
   }
 }
 

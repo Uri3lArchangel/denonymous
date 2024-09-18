@@ -40,6 +40,38 @@ input[type="number"] {
 input[type="checkbox"]{
   accent-color: #f2d204;
 }
+#premium_check{
+ width: 20px;
+ height: 20px;
+ appearance: none;
+-webkit-appearance: none;
+border: 1px solid #f2d204;
+display: flex;
+align-content: center;
+justify-content: center;
+border-radius: 100%;
+
+}
+
+#premium_check::before{
+  content: "";
+  width: 19px;
+  height: 19px;
+  transform: scale(0);
+  background-color: #f2d204;
+  border-radius: 100%;
+}
+#premium_check:checked::before{
+  transform: scale(1);
+
+}
+
+#premium_derm{
+  height: 4px;
+  box-shadow: 0px 10px 12px  #f2d204ff;
+  width: 100%;
+}
+
 .checkboxFilter{
     width: 20px;
     height: 20px;

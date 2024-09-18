@@ -14,6 +14,7 @@ import TagsAntiBlock from "@/ads/TagsAntiBlock";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
 export const metadata: Metadata = {
+  keywords:['denonymos',"denonymous","anonymouse","multimedia","multi anonymous","mous","denonyms","boxes","denon","anon","denonymouz","anonymous"],
   metadataBase: new URL('https://denonymous.xyz'),
   assets:["https://denonymous.xyz/assets","https://denonymous.xyz/images","https://denonymous.xyz/styles"],
   

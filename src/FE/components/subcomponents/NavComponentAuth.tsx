@@ -41,9 +41,7 @@ const path = usePathname()
 <li className='hidden md:flex text-white navlinks text-sm'>
 <Link href="/" className={`mx-2 lg:mx-4 ${activeLink === '/' ? 'gradient_elements_text' : ''}`} id='home_link'>Home</Link>
 <Link href="/dashboard" className={`mx-2 lg:mx-4 ${activeLink.includes('dashboard') ? 'gradient_elements_text' : ''} `} id='dashboard_link'>Dashboard</Link>
-<TooltipApp text='' title='Premium feature coming soon!'>
-<Link aria-disabled href="" className='mx-2 lg:mx-4 cursor-not-allowed opacity-[0.7]'>Premium</Link>
-</TooltipApp>
+<Link  href="/subscription" className='mx-2 lg:mx-4 '>Premium</Link>
 
 </li>
 <li className=' items-center justify-between flex  '>
