@@ -70,7 +70,7 @@ const Subscription = () => {
                   <div className="text-2xl font-bold text-[#f2d204]">
                     {" "}
                     {getSymbolFromCurrency(currency)}{" "}
-                    {price.toFixed(2).toLocaleString()} {currency}
+                    {Number(price.toFixed(2)).toLocaleString()} {currency}
                   </div>
                 )}{" "}
               </section>
