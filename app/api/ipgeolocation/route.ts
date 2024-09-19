@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import currencyCodes from "currency-codes";
+import countryToCurrency, {Countries} from "country-to-currency";
+import { premiumPriceUSD } from "@/src/core/data/constants";
 
-const getCurrencyFromCountry = (countryCode: string) => {
-  const currency = currencyCodes.country(countryCode);
-  return currency ? currency[0] : "USD";
+const getCurrencyFromCountry = (countryCode:Countries) => {
+  return countryToCurrency[countryCode]
+    ? countryToCurrency[countryCode]
+    : "USD";
 };
 
 export async function GET(req: NextRequest) {
@@ -14,10 +16,19 @@ export async function GET(req: NextRequest) {
     const res = await fetch(geoUrl);
     const data = await res.json();
     const country = data.country;
-    console.log({ country, data,ip });
-    const currency = getCurrencyFromCountry(country);
-    console.log({ currency, data,ip });
-    return NextResponse.json([currency, null]);
+    const currency = getCurrencyFromCountry(country).toLocaleUpperCase();
+    const response = await fetch(
+      `https://api.exchangerate-api.com/v4/latest/${currency}`,{next:{revalidate:3600}}
+    );  
+    
+    const d = await response.json()
+    let baseprice=Number(d.rates[currency]);
+    if(isNaN(baseprice)){
+      baseprice=1;
+    }
+    const price =baseprice *premiumPriceUSD
+    // console.log({dd:d.rates[currency.toLocaleUpperCase()],cc:currency,country})
+    return NextResponse.json([{price,currency}, null]);
   } catch (error: any) {
     return NextResponse.json([null, error.message]);
   }

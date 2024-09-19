@@ -1,0 +1,1 @@
+export const premiumPriceUSD = 3.50
