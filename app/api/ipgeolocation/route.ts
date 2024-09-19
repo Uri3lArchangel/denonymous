@@ -9,7 +9,7 @@ const getCurrencyFromCountry = (countryCode:Countries) => {
 };
 
 export async function GET(req: NextRequest) {
-  const ip = req.headers.get("x-forwarded-for") || req.ip;
+  const ip = req.headers.get("x-real-ip") || req.ip;
   const geoUrl = `https://ipinfo.io/${ip}?token=${process.env.ipinfo_token}`;
 
   try {
