@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       req.headers.get("x-real-ip") ||
       req.ip ||
       "127.0.0.1";
-    console.log({ forw:  req.headers.get("x-forwarded-for"),real:req.headers.get("x-real-ip"),ip: req.ip });
+    console.log({ forw:  req.headers.get("x-forwarded-for"),reali:req.headers.get("x-real-ip"),ip: req.ip });
     const geoUrl = `https://ipinfo.io/${ip}?token=${process.env.ipinfo_token}`;
     const res = await fetch(geoUrl);
     const data = await res.json();
