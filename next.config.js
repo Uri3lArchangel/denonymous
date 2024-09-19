@@ -6,6 +6,19 @@ const nextConfig = {
         { hostname: "denonymous.xyz" }
       ]
     },
+    async headers() {
+      return [
+        {
+          source: '/(.*)',
+          headers: [
+            {
+              key: 'X-Forwarded-For',
+              value: '$remote_addr', // Ensure the real client IP is forwarded
+            },
+          ],
+        },
+      ];
+    },
   }
   
   module.exports = nextConfig

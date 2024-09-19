@@ -7,38 +7,19 @@ const getCurrencyFromCountry = (countryCode: Countries) => {
     ? countryToCurrency[countryCode]
     : "USD";
 };
-const getClientIp = (req: NextRequest) => {
-  const xForwardedFor = req.headers.get("x-forwarded-for");
-  console.log({ xForwardedFor });
-
-  // If the header contains multiple IPs, return the first one
-  if (xForwardedFor) {
-    return xForwardedFor.split(",")[0].trim();
-  }
-
-  // Fallback to X-Real-IP if available
-  console.log({ real: req.headers.get("x-real-ip") });
-
-  return req.headers.get("x-real-ip");
-};
 
 export async function POST(req: NextRequest) {
   try {
-    let country = "US" as Countries;
-    console.log({ geo: req.geo });
-
-    if (!req.geo?.country) {
-      const ip = getClientIp(req);
-      const geoUrl = `https://ipinfo.io/${ip}?token=${process.env.ipinfo_token}`;
-      const res = await fetch(geoUrl);
-      const data = await res.json();
-      country = data.country as Countries;
-      console.log({ ip });
-    } else {
-      country = req.geo!.country as Countries;
-      console.log({ geo: req.geo });
-    }
-
+    const ip =
+      req.headers.get("x-forwarded-for") ||
+      req.headers.get("x-real-ip") ||
+      req.ip ||
+      "127.0.0.1";
+    console.log({ forw: ip });
+    const geoUrl = `https://ipinfo.io/${ip}?token=${process.env.ipinfo_token}`;
+    const res = await fetch(geoUrl);
+    const data = await res.json();
+    const country = data.country;
     const currency = getCurrencyFromCountry(country).toLocaleUpperCase();
     const response = await fetch(
       `https://api.exchangerate-api.com/v4/latest/${currency}`,
