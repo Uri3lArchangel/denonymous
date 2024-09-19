@@ -47,7 +47,7 @@ const page = async() => {
                 <input id="premium_check" checked type="checkbox" />
                 <h2 className="pl-4 text-xl">Premium Plan</h2>
               </div>
-              <div className="text-2xl"> {getSymbolFromCurrency(currency)}  {price} {currency}</div>
+              <div className="text-2xl"> {getSymbolFromCurrency(currency)}  {price.toFixed(2).toLocaleString()} {currency}</div>
             </section>
 
             <ul className="p-4">
