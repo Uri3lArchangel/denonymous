@@ -15,6 +15,7 @@ export async function GET(req: NextRequest) {
   try {
     const res = await fetch(geoUrl);
     const data = await res.json();
+    console.log({ip,data})
     const country = data.country;
     const currency = getCurrencyFromCountry(country).toLocaleUpperCase();
     const response = await fetch(
