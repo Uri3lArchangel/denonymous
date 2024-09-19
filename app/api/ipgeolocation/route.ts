@@ -26,6 +26,8 @@ const getClientIp = (req: NextRequest) => {
 export async function GET(req: NextRequest) {
   try {
     let country;
+    console.log({geo:req.geo})
+
     if (!req.geo) {
       const ip = getClientIp(req);
       const geoUrl = `https://ipinfo.io/${ip}?token=${process.env.ipinfo_token}`;
