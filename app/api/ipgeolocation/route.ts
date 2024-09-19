@@ -22,7 +22,7 @@ const getClientIp = (req: NextRequest) => {
   return req.headers.get("x-real-ip");
 };
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     let country = "US" as Countries;
     console.log({ geo: req.geo });

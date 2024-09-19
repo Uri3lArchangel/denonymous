@@ -4,7 +4,7 @@ import getSymbolFromCurrency from 'currency-symbol-map'
 
 
 const fetchIPGeoLocationCurrency = async()=>{
-  const res = await fetch(process.env.baseURL+"/api/ipgeolocation",{next:{revalidate:0}})
+  const res = await fetch(process.env.baseURL+"/api/ipgeolocation",{next:{revalidate:0},method:"POST",body:JSON.stringify({})})
   const [data,error] = await res.json(); 
   if(error){
     console.log(error)
