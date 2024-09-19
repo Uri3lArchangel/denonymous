@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
       baseprice=1;
     }
     const price =baseprice *premiumPriceUSD
-    // console.log({dd:d.rates[currency.toLocaleUpperCase()],cc:currency,country})
+    console.log({dd:d.rates[currency.toLocaleUpperCase()],cc:currency,country})
     return NextResponse.json([{price,currency}, null]);
   } catch (error: any) {
     return NextResponse.json([null, error.message]);
