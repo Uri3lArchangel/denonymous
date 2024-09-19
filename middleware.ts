@@ -19,9 +19,9 @@ const fetchUserViaJWT=async(cookie:any)=>{
 export async function middleware(request: NextRequest) {
   
    try{ 
-    if(request.nextUrl.pathname.includes("subscription")){
-        console.log({middle:request.headers.get("x-forwarded-for")})
-      }
+    // if(request.nextUrl.pathname.includes("subscription")){
+    //     console.log({middle:request.headers.get("x-forwarded-for")})
+    //   }
     let cookie;
     const cookieObj = cookies().get("denon_session_0")
     if(cookieObj){
@@ -67,5 +67,5 @@ export async function middleware(request: NextRequest) {
 }
  
 export const config = {
-    matcher: ["/auth/:path+","/dashboard","/subscription","/r","/settings","/notifications"],
+    matcher: ["/auth/:path+","/dashboard","/r","/settings","/notifications"],
 }
