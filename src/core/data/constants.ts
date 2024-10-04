@@ -1,1 +1,2 @@
-export const premiumPriceUSD = 3.50
+export const premiumPriceNGN = 5000
+export const premiumDiscount= 40/100

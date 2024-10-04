@@ -124,8 +124,8 @@ async function ResponsePageComponent({
             </main>
           }
         </div>
-        <div className="bg-[#1E1E1E] max-w-[750px] mx-auto w-full rounded-md ">
-          {!d.responsesViewState?<p className="text-2xl text-white text-center">All responses have bee hidden by {username}</p>:null}
+        <div className="bg-[#1E1E1E] max-w-[750px] mx-auto w-full rounded-md p-6">
+          {!d.responsesViewState?<p className="text-2xl text-white text-center">All responses have been hidden by {username}</p>:null}
           {Responses && <Responses owner={d.owner} r={replys.reverse()} />}
           {userdata?(  <Link
                 href="/dashboard"

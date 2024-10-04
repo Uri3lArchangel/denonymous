@@ -1,0 +1,1 @@
+export const paystackCurrencies = ["USD","NGN","ZAR","KES"]

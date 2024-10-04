@@ -4,11 +4,23 @@ import { IoIosCheckmark } from "react-icons/io";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { URLRESOLVE } from "@/src/core/lib/helpers";
 import { NotificationContext } from "@/src/FE/components/contexts/NotificationContext";
+import { PaystackButton } from "react-paystack";
+import { paystackCurrencies } from "@/src/core/data/paystackCurrencies";
+import { premiumDiscount } from "@/src/core/data/constants";
+import Link from "next/link";
 
-const Subscription = () => {
+const Subscription = ({ email }: { email: string }) => {
   const not = useContext(NotificationContext)!;
   const [price, setPrice] = useState<number | null>(null);
   const [currency, setCurrency] = useState<string | null>(null);
+  const [config, setConfig] = useState({
+    reference: new Date().getTime().toString(),
+    email: email,
+    amount: 10,
+    publicKey: "pk_test_4b75999c612d38f1f8532eaa2e172a3ac6d876d4",
+  });
+
+  const handleSuccess = async (ref: any) => {};
 
   useEffect(() => {
     const run = async () => {
@@ -28,13 +40,15 @@ const Subscription = () => {
       }
       setPrice(price);
       setCurrency(currency);
+      setConfig((prev) => ({ ...prev, amount: price * 100 }));
     };
     run();
-  });
+  }, [price, currency]);
+
   return (
-    <main className="min-h-[100vh] backgroundVector pt-20">
-      <section className="flex justify-between max-w-[1200px] mx-auto">
-        <div className="w-full md:w-[30%]">
+    <main className="min-h-[100vh] backgroundVector pt-20  ">
+      <section className="flex justify-between max-w-[600px] lg:max-w-[1200px] mx-auto flex-col items-center lg:flex-row my-8">
+        <div className="w-full lg:w-[30%]">
           <h1 className="text-2xl">
             Upgrade to <span className="font-bold">Denonymous+ </span> (Premium
             👑)
@@ -54,24 +68,36 @@ const Subscription = () => {
             <li> Max 2 denonymous boxes at once</li>
           </ul>
         </div>
-        <section className=" w-full max-w-[600px]">
-          <div className="bg-[#242222] px-16 py-8 rounded-lg relative border-2 border-[#f2d204]">
+        <section className=" w-full max-w-[600px]  my-8">
+          <div className="bg-[#242222] w-full px-4 lg:px-16 py-8 rounded-lg relative border-2 my-4 border-[#f2d204]">
             <span className="absolute top-4 right-4">👑</span>
             <div>
               <section className="flex justify-between items-center">
                 {" "}
                 <div className="flex space-x-2 items-center">
                   <input id="premium_check" checked type="checkbox" />
-                  <h2 className="pl-4 text-xl">Premium Plan</h2>
+                  <h2 className="pl-4 text-xl">Infinity Premium Plan</h2>
                 </div>
                 {!price || !currency ? (
                   <div className="loading_skeleton h-8 w-36 rounded-lg"></div>
                 ) : (
-                  <div className="text-2xl font-bold text-[#f2d204]">
-                    {" "}
-                    {getSymbolFromCurrency(currency)}{" "}
-                    {Number(price.toFixed(2)).toLocaleString()} {currency}
-                  </div>
+                  <section>
+                    <div className="text-sm lg:text-lg  text-[#f2d204] line-through opacity-[0.7]">
+                      {" "}
+                      {getSymbolFromCurrency(currency)}{" "}
+                      {Number(price.toFixed(2)).toLocaleString()} {currency}
+                    </div>
+                    <div className="text-lg lg:text-xl font-bold text-[#f2d204]">
+                      {getSymbolFromCurrency(currency)}{" "}
+                      {Number(
+                        (price - premiumDiscount * price).toFixed(2)
+                      ).toLocaleString()}{" "}
+                      {currency} / mo
+                    </div>
+                    <p className="text-red-500 my-2">
+                      {premiumDiscount * 100}% discount
+                    </p>
+                  </section>
                 )}{" "}
               </section>
 
@@ -82,19 +108,19 @@ const Subscription = () => {
                 </li>
                 <li className="flex text-sm my-2 opacity-[0.8]">
                   <IoIosCheckmark className="text-green-400" size={30} />
-                  <p>Unlimited Video responses</p>
+                  <p>Unlimited Video responses on all denonymous box</p>
                 </li>
                 <li className="flex text-sm my-2 opacity-[0.8]">
                   <IoIosCheckmark className="text-green-400" size={30} />
-                  <p>Unlimited Image responses</p>
+                  <p>Unlimited Image responses on all denonymous box</p>
                 </li>
                 <li className="flex text-sm my-2 opacity-[0.8]">
                   <IoIosCheckmark className="text-green-400" size={30} />
-                  <p>Unlimited audio responses</p>
+                  <p>Unlimited audio responses on all denonymous box</p>
                 </li>
                 <li className="flex text-sm my-2 opacity-[0.8]">
                   <IoIosCheckmark className="text-green-400" size={30} />
-                  <p>Unlimited Image responses</p>
+                  <p>Unlimited Image responses on all denonymous box</p>
                 </li>
                 <li className="flex text-sm my-2 opacity-[0.8]">
                   <IoIosCheckmark className="text-green-400" size={30} />
@@ -108,8 +134,22 @@ const Subscription = () => {
             </div>
           </div>
           <div>
-            <button>Pay With Paystack</button>
-            <button></button>
+            {currency ? (
+              price ? (
+                <PaystackButton
+                  disabled={!paystackCurrencies.includes(currency)}
+                  className="bg-white mr-2 text-black rounded-lg  px-6 py-2"
+                  {...config}
+                  text="Pay With Paystack"
+                  onSuccess={(ref) => {
+                    handleSuccess(ref);
+                  }}
+                />
+              ) : (
+                <div className="loading_skeleton h-8 w-36 rounded-lg"></div>
+              )
+            ) : null}
+        
           </div>
         </section>
       </section>

@@ -39,7 +39,7 @@ function NavComponentNoAuth() {
 <li className='hidden lg:flex text-white navlinks text-sm'>
 <Link href="/" className={`mx-2 lg:mx-4 ${activeLink === '/' ? 'gradient_elements_text' : ''} `} id='home_link'>Home</Link>
 <Link href="/dashboard"  className={`mx-2 lg:mx-4 ${activeLink.includes('dashboard') ? 'gradient_elements_text' : ''}`} id='dashboard_link'>Dashboard</Link>
-<Link  href="/subscription" className='mx-2 lg:mx-4 ' >Premium</Link>
+<Link  href="/subscription" className={`mx-2 lg:mx-4 ${activeLink.includes('subscription') ? 'gradient_elements_text' : ''} `} >Premium</Link>
 
 </li>
 <li className='hidden sm:flex lg:hidden'>
