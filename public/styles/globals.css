@@ -356,7 +356,9 @@ background-color: #ffdf00 !important;
 
   }
   
-
+.blurBg{
+  backdrop-filter: blur(100px);
+}
 
   
 

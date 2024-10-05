@@ -6,6 +6,7 @@ import { EdgeStoreProvider } from "@/src/core/lib/edgestore";
 import style from "@/public/styles/styles.module.css";
 import { MultiFileDropzoneUsage } from "@/src/FE/components/subcomponents/MultiFileComponent";
 import Link from "next/link";
+import WarningModal from "@/src/FE/components/libraries/Modals/WarningModal";
 let Responses: any = null;
 
 async function ResponsePageComponent({
@@ -47,6 +48,7 @@ async function ResponsePageComponent({
 
     return (
       <>
+
         <div>
           <h1 className="text-3xl sm:text-4xl text-center text-ellipsis text-white max-w-[600px] mx-auto break-words">
             {d.topic}
@@ -129,8 +131,7 @@ async function ResponsePageComponent({
           {Responses && <Responses owner={d.owner} r={replys.reverse()} />}
           {userdata?(  <Link
                 href="/dashboard"
-                className="gradient_elements_div text-[16px] py-4 block rounded-md w-full mx-auto text-center max-w-[250px] my-4 "
-              >
+                className="gradient_elements_div text-[16px] py-4 block rounded-md w-full mx-auto text-center max-w-[250px] my-4 ">
                 Get your own messages
               </Link>):(
                 <div className="flex justify-center flex-wrap max-w-[400px] mx-auto">

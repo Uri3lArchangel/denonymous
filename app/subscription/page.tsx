@@ -7,16 +7,16 @@ import { verifyUserDataToken } from "@/src/core/lib/JWTFuctions";
 
 
 const page = async() => {
-  // const cookie = cookies().get("denon_session_0")
-  // if(!cookie || !cookie.value){
-  //  redirect("/auth/signin")
-  // }
-  // const user = verifyUserDataToken(cookie.value)
-  // if(!user){
-  //   redirect("/auth/signin")
-  // }
+  const cookie = cookies().get("denon_session_0")
+  if(!cookie || !cookie.value){
+   redirect("/auth/signin")
+  }
+  const user = verifyUserDataToken(cookie.value)
+  if(!user){
+    redirect("/auth/signin")
+  }
   return (
-    <Subscription email={"@"} />
+    <Subscription email={user.email} premium={user.premium} />
   );
 };
 

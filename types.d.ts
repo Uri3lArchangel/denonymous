@@ -106,3 +106,11 @@ export interface replyModelType {
   }[];
   bookmarked: boolean;
 }
+
+export interface u1 {
+  UUID: string,
+  points: number,
+  walletAddress: string,
+  premiumEndDate: number,
+  premiumDenonymousBoxes: string[],
+}

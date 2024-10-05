@@ -23,9 +23,10 @@ if(!sessionToken){
 
 
 const res =await createDenonymous(sessionToken.email,String(topic),String(desc))
-if(res.type=="error"){
+if(res.type=="error" || res.type == "warning"){
   return res
 }
+
 revalidatePath("/")
 revalidateTag("denonymous_box_0102")
 revalidateTag("raieneidmie_00")

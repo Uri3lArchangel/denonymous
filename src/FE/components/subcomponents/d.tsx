@@ -3,6 +3,7 @@ import React, {  useState } from "react";
 import styles from "@/public/styles/styles.module.css";
 import dynamic from "next/dynamic";
 import LoadingSkeleton from "../assets/LoadingSkeleton";
+import WarningModal from "../libraries/Modals/WarningModal";
 let CreateDenonymousForm:any;
 
   
@@ -14,6 +15,8 @@ export const CreateDenonymousClient = () => {
 
 
   const [isOpen, setIsOpen] = useState(false);
+  const [warning,setWarning]=useState(false)
+  const [message,setMessage]=useState("")
 
  
   const handleModalOpen = () => {
@@ -32,6 +35,7 @@ export const CreateDenonymousClient = () => {
 
   return (
     <section>
+      {warning?<WarningModal setModal={setWarning} message={message}/>:null}
       <button
       id="createDenonymousBox"
         type="button"
@@ -88,7 +92,7 @@ export const CreateDenonymousClient = () => {
                 Create a Denonymous
               </h1> 
 
-              <CreateDenonymousForm handleModalClose={handleModalClose} />
+              <CreateDenonymousForm handleModalClose={handleModalClose} setWarning={setWarning}  setMessage={setMessage}/>
               <button
                 className="absolute top-0 right-0 p-4 text-[#fff] text-2xl"
                 onClick={handleModalClose}

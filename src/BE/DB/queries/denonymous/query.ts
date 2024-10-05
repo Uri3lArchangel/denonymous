@@ -82,6 +82,12 @@ await connectMongo();
     };
   }
   const key = crypto.randomBytes(6).toString("hex");
+  if(user.denonymous.length == 3){
+    return {
+      type: "warning",
+      message: "Max",
+    };
+  }
   const link = `${process.env.baseURL}/r/${user.username}/${key}`;
   const aa = denonymousCreationNotification(
     topic,

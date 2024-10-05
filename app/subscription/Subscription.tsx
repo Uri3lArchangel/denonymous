@@ -8,8 +8,10 @@ import { PaystackButton } from "react-paystack";
 import { paystackCurrencies } from "@/src/core/data/paystackCurrencies";
 import { premiumDiscount } from "@/src/core/data/constants";
 import Link from "next/link";
+import SolPay from "./SolPay";
+import WalletContext from "./Walletconnect";
 
-const Subscription = ({ email }: { email: string }) => {
+const Subscription = ({ email,premium }: { email: string,premium:boolean }) => {
   const not = useContext(NotificationContext)!;
   const [price, setPrice] = useState<number | null>(null);
   const [currency, setCurrency] = useState<string | null>(null);
@@ -65,7 +67,7 @@ const Subscription = ({ email }: { email: string }) => {
             <li> Max 2 video responses per box</li>
             <li> Max 3 image responses per box</li>
             <li> Max 2 audio responses per box</li>
-            <li> Max 2 denonymous boxes at once</li>
+            <li> Max 3 denonymous boxes at once</li>
           </ul>
         </div>
         <section className=" w-full max-w-[600px]  my-8">
@@ -76,7 +78,7 @@ const Subscription = ({ email }: { email: string }) => {
                 {" "}
                 <div className="flex space-x-2 items-center">
                   <input id="premium_check" checked type="checkbox" />
-                  <h2 className="pl-4 text-xl">Infinity Premium Plan</h2>
+                  <h2 className="pl-4 text-xl">Unlimited Premium Plan</h2>
                 </div>
                 {!price || !currency ? (
                   <div className="loading_skeleton h-8 w-36 rounded-lg"></div>
@@ -92,7 +94,7 @@ const Subscription = ({ email }: { email: string }) => {
                       {Number(
                         (price - premiumDiscount * price).toFixed(2)
                       ).toLocaleString()}{" "}
-                      {currency} / mo
+                      {currency}
                     </div>
                     <p className="text-red-500 my-2">
                       {premiumDiscount * 100}% discount
@@ -133,7 +135,7 @@ const Subscription = ({ email }: { email: string }) => {
               </ul>
             </div>
           </div>
-          <div>
+          {!premium?<div className="flex flex-wrap">
             {currency ? (
               price ? (
                 <PaystackButton
@@ -149,8 +151,20 @@ const Subscription = ({ email }: { email: string }) => {
                 <div className="loading_skeleton h-8 w-36 rounded-lg"></div>
               )
             ) : null}
-        
+            {currency ? (
+              price ? (
+                <WalletContext>
+                  <SolPay email={email} />
+                </WalletContext>
+              ) : (
+                <div className="loading_skeleton h-8 w-36 rounded-lg"></div>
+              )
+            ) : null}
+          </div>:
+          <div className="text-center">
+            You are a premium user 👑
           </div>
+          }
         </section>
       </section>
     </main>

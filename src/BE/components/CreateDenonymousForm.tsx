@@ -1,5 +1,5 @@
 'use client'
-import React, {  useContext, useRef, useState } from 'react'
+import React, {  SetStateAction, useContext, useRef, useState } from 'react'
 import { createDenonyous } from "@/src/BE/serverActions/actions";
 import { NotificationContext } from '@/src/FE/components/contexts/NotificationContext';
 import styles from "@/public/styles/styles.module.css";
@@ -7,10 +7,11 @@ import AuthenticatedPointsModal from '@/src/FE/components/libraries/Modals/Authe
 import { POINTS_DenonymousBox } from '@/src/core/data/points';
 
 
-function CreateDenonymousForm({handleModalClose}:{handleModalClose:any}) {
+function CreateDenonymousForm({handleModalClose,setWarning,setMessage}:{handleModalClose:any,setWarning:React.Dispatch<SetStateAction<boolean>>,setMessage:React.Dispatch<SetStateAction<string>>}) {
   const [pending,setPending]=useState(false)
   const [points,setPoints]=useState(false)
   const notification = useContext(NotificationContext)!
+
   const topicRef = useRef<HTMLInputElement>(null)
   const descRef = useRef<HTMLTextAreaElement>(null)
 
@@ -19,7 +20,6 @@ const createDenonymousFunction=async(e:React.MouseEvent<HTMLButtonElement>)=>{
   e.preventDefault()
   const topicError = (document.getElementById("topic_error") as HTMLParagraphElement);
   const descError = (document.getElementById("desc_error") as HTMLParagraphElement);
-
   if(!topicRef || !topicRef.current || !descRef || !descRef.current)return
   const topic =topicRef.current.value;
   const desc = descRef.current.value;
@@ -30,6 +30,14 @@ const createDenonymousFunction=async(e:React.MouseEvent<HTMLButtonElement>)=>{
 
   const res= await createDenonyous(topic,desc)
 setPending(false)
+if(res.type == "warning" && res.message == "Max"){
+setMessage("Maximum denonymous boxes allowed for free accounts, upgrade to premium for unlimited boxes")
+setWarning(true)
+setPending(false)
+handleModalClose()
+
+return
+}
   notification({
     type:res.type as any,message:res.message,description:""
   })
