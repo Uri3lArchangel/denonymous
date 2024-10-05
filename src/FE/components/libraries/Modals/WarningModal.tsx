@@ -12,7 +12,7 @@ const WarningModal = ({ message,setModal,state }: { message: string,setModal:Rea
         {state == "i"?<button>Upgrade this denonymous</button>:<Link href="/subscription" className="gradient_elements_div px-4 py-2 block mx-auto rounded-md w-fit ">
           Upgrade to premium
         </Link>}
-        <button className="bg-red-500 px-4 py-2 mx-auto rounded-md" onClick={(()=>{
+        <button className="bg-red-500 px-4 py-2 mx-auto block rounded-md" onClick={(()=>{
             setModal(false)
         })}>Close</button>
         </div>
