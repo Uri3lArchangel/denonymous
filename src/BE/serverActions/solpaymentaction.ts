@@ -12,7 +12,7 @@ export const verifySOlPaymentAction = async (
   email: string,
   amount: number,
 ) => {
-  const SOLANA_NETWORK = "https://go.getblock.io/d4313eea15e44474bab6d8c680a969ca"; // Or Mainnet
+  const SOLANA_NETWORK = process.env.RPC!; // Or Mainnet
   if (!signature) {
     return [null, "No signature detected"];
   }

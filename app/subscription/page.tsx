@@ -16,7 +16,7 @@ const page = async() => {
     redirect("/auth/signin")
   }
   return (
-    <Subscription email={user.email} premium={user.premium} />
+    <Subscription email={user.email} RPC={process.env.RPC!} premium={user.premium} />
   );
 };
 

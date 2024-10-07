@@ -11,13 +11,14 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 interface WalletContextProps {
   children: ReactNode;
+  RPC:string
 }
 
-const WalletContext: FC<WalletContextProps> = ({ children }) => {
+const WalletContext: FC<WalletContextProps> = ({ children,RPC }) => {
   const network = WalletAdapterNetwork.Mainnet;
 
   // Replace with your custom RPC endpoint
-  const endpoint = useMemo(() => 'https://go.getblock.io/d4313eea15e44474bab6d8c680a969ca', []);
+  const endpoint = useMemo(() => RPC!, []);
 
   const wallets = useMemo(
     () => [

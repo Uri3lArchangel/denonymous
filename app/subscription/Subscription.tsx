@@ -11,7 +11,7 @@ import Link from "next/link";
 import SolPay from "./SolPay";
 import WalletContext from "./Walletconnect";
 
-const Subscription = ({ email,premium }: { email: string,premium:boolean }) => {
+const Subscription = ({ email,premium,RPC }: { email: string,premium:boolean,RPC:string }) => {
   const not = useContext(NotificationContext)!;
   const [price, setPrice] = useState<number | null>(null);
   const [currency, setCurrency] = useState<string | null>(null);
@@ -153,7 +153,7 @@ const Subscription = ({ email,premium }: { email: string,premium:boolean }) => {
             ) : null} */}
             {currency ? (
               price ? (
-                <WalletContext>
+                <WalletContext RPC={RPC}>
                   <SolPay email={email} />
                 </WalletContext>
               ) : (
