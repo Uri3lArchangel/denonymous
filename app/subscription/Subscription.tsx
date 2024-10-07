@@ -136,7 +136,7 @@ const Subscription = ({ email,premium }: { email: string,premium:boolean }) => {
             </div>
           </div>
           {!premium?<div className="flex flex-wrap">
-            {currency ? (
+            {/* {currency ? (
               price ? (
                 <PaystackButton
                   disabled={!paystackCurrencies.includes(currency)}
@@ -150,7 +150,7 @@ const Subscription = ({ email,premium }: { email: string,premium:boolean }) => {
               ) : (
                 <div className="loading_skeleton h-8 w-36 rounded-lg"></div>
               )
-            ) : null}
+            ) : null} */}
             {currency ? (
               price ? (
                 <WalletContext>

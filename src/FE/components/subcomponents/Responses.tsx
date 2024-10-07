@@ -268,6 +268,7 @@ export default function Responses({
                     fetchPriority="low"
                     loading="lazy"
                     src={e.link}
+
                     alt=""
                     style={{ transition: "all 2s linear" }}
                     width={2048}
@@ -427,7 +428,7 @@ export default function Responses({
                                   className="min-h-[100px] cursor-pointer h-full  "
                                 />
                               ) : mimeType == "video" ? (
-                                <video>
+                                <video className="cursor-pointer">
                                   <source src={mediaItem.link} />
                                 </video>
                               ) : null}
@@ -464,7 +465,7 @@ export default function Responses({
                                   className="block rounded-[3px] cursor-pointer "
                                 />
                               ) : mimeType == "video" ? (
-                                <video>
+                                <video className="cursor-pointer">
                                   <source src={mediaItem.link} />
                                 </video>
                               ) : null}

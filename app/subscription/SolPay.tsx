@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext} from "react";
 import {
-  Connection,
   PublicKey,
   Transaction,
   LAMPORTS_PER_SOL,
@@ -14,14 +13,14 @@ import { getSolToNgnRate } from "@/src/BE/web3/conversion";
 import { NotificationContext } from "@/src/FE/components/contexts/NotificationContext";
 import { message } from "antd";
 import { verifySOlPaymentAction } from "@/src/BE/serverActions/solpaymentaction";
+import { useRouter } from "next/navigation";
 
-const SOLANA_NETWORK = "https://api.devnet.solana.com"; // Use Mainnet or Devnet
 
 const SolPay = ({ email }: { email: string }) => {
   const note = useContext(NotificationContext)!
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
-
+  const router = useRouter()
   const recipientPublicKey = new PublicKey(
     "E8WZUeVFiQ3aNJTciAG1PaHfwJgAwgfi6HpDi52BfsHp"
   ); 
@@ -74,7 +73,7 @@ const SolPay = ({ email }: { email: string }) => {
             description:"",
             message:"Payment successful!"
         })
-        //   router.push('/premium-content'); // Redirect to premium content
+          router.push('/dashboard'); // Redirect to premium content
       } else {
         note({
             type:"error",

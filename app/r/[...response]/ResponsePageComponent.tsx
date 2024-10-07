@@ -6,7 +6,6 @@ import { EdgeStoreProvider } from "@/src/core/lib/edgestore";
 import style from "@/public/styles/styles.module.css";
 import { MultiFileDropzoneUsage } from "@/src/FE/components/subcomponents/MultiFileComponent";
 import Link from "next/link";
-import WarningModal from "@/src/FE/components/libraries/Modals/WarningModal";
 let Responses: any = null;
 
 async function ResponsePageComponent({

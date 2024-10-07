@@ -94,11 +94,11 @@ const SignInForm = () => {
           name="email"
           id="email"
           placeholder="Enter Email or Username"
-          className=" border-b-2 border-[#B58419] w-full mb-7 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none"
+          className=" border-b-2 border-[#B58419] w-full mb-2 bg-transparent placeholder:text-[#c9c1c1c9] focus:outline-none"
         />
 
       </div>
-<p id="display1"></p>
+<p id="display1" className="mb-4"></p>
       <div className="border-b-2 mb-10 border-[#B58419]">
         <label htmlFor="password" className="block text-sm mb-5">
           Your Password:
@@ -115,7 +115,7 @@ const SignInForm = () => {
         {showPassword ?  <EyeOffIcon className="cursor-pointer" onClick={togglePasswordVisibility} /> :  <EyeIcon className="cursor-pointer" onClick={togglePasswordVisibility} />}
       </div>
       </div>
-<p id="display2"></p>
+<p id="display2" className="mb-4"></p>
 
       <Link href={"/auth/reset-password"} className="underline text-[#ffdf00]">forgot password?</Link>
       <button

@@ -85,15 +85,12 @@ export const AuthDropdown: MenuProps["items"] = [
     key: "3",
     label: (
       <div className="navlinks">
-        <TooltipApp text="" title="Premium feature coming soon!">
           <Link
-            aria-disabled
-            href=""
-            className="mx-2 text-[1.05em] lg:mx-4 cursor-not-allowed opacity-[0.8] gradient_elements_text"
+            href="/subscription"
+            className="mx-2 text-[1.05em] lg:mx-4  gradient_elements_text"
           >
             Premium
           </Link>
-        </TooltipApp>
       </div>
     ),
   },
@@ -147,15 +144,13 @@ export const navPages: MenuProps["items"] = [
   {
     key: "3",
     label: (
-      <TooltipApp text='' title='Premium feature coming soon!'>
 
       <Link
-        href=""
-        className="text-[1.05em] gradient_elements_text px-6 py-2 rounded-md block underline sm:text-lg text-center cursor-not-allowed opacity-[0.7]"
+        href="/subscription"
+        className="text-[1.05em] gradient_elements_text px-6 py-2 rounded-md block underline sm:text-lg text-center "
       >
         Premium
       </Link>
-      </TooltipApp>
     ),
   },
 ];
