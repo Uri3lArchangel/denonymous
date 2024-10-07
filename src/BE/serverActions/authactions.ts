@@ -15,6 +15,10 @@ try{
     if(!user){
         return {type:"error",message:"No records with this email"}
     }
+    if(!user.password){
+        return {type:"warning",message:"This account uses google auth"}
+
+    }
     if(user.token.nextRequestable > Date.now()){
         return {type:"warning",message:'Please wait for the cooldown period ',time:user.token.nextRequestable}
     }

@@ -1,13 +1,9 @@
 'use client'
 import React from 'react'
 import PasswordRestFormButton from './PasswordRestFormButton'
-import Image from 'next/image'
-import logo from "@/public/images/logo.avif";
 import { useFormState } from 'react-dom';
 import { sendResetLink } from '../serverActions/authactions';
 import styles from "@/public/styles/styles.module.css";
-import SixDigitInputField from '@/src/FE/components/subcomponents/SixDigitInputField';
-import Link from 'next/link';
 
 function PasswordResetForm() {
     const  initialState={

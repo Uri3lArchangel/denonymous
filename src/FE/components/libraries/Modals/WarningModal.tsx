@@ -9,10 +9,10 @@ const WarningModal = ({ message,setModal,state }: { message: string,setModal:Rea
       <div>
         <p className="my-4 max-w-[800px]">{message}</p>
         <div className="block lg:flex justify-around max-w-[400px] mx-auto">
-        {state == "i"?<button>Upgrade this denonymous</button>:<Link href="/subscription" className="gradient_elements_div px-4 py-2 block mx-auto rounded-md w-fit ">
+        {state == "i"?<button>Upgrade this denonymous</button>:<Link href="/subscription" className="gradient_elements_div my-2 px-4 py-2 block mx-auto rounded-md w-fit ">
           Upgrade to premium
         </Link>}
-        <button className="bg-red-500 px-4 py-2 mx-auto block rounded-md" onClick={(()=>{
+        <button className="bg-red-500 px-4 py-2 mx-auto block rounded-md my-2" onClick={(()=>{
             setModal(false)
         })}>Close</button>
         </div>
