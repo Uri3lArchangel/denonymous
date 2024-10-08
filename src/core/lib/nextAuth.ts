@@ -60,7 +60,7 @@ async authorize(credentials) {
                 }
                  u1 = await UserSec.findOne({username:newUser.username}) as u1
         
-                const token = userDataTokenSign(username,newUser.email,newUser.isEmailVerified,newUser.isPremium)
+                const token = userDataTokenSign(newUser.username,newUser.email,newUser.isEmailVerified,newUser.isPremium)
                 setSessionCookie(token)
 
                 return newUser
