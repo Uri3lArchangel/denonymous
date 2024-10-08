@@ -20,7 +20,7 @@ const DePointsClient = () => {
 
     const run = async () => {
       const res = await fetch(URLRESOLVE( "/api/getDePoints"), {
-        next: { revalidate: false,tags:['denonymous_box_0102','raieneidmie_00','depoints_tag'] },
+        next: { revalidate: 0,tags:['denonymous_box_0102','raieneidmie_00','depoints_tag'] },
       });
       const [d, error] = (await res.json()) as [
         { points: number; auth: boolean },
