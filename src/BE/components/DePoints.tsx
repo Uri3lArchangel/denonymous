@@ -1,8 +1,8 @@
 import DePointsClient from '@/src/FE/components/DePointsClient'
-import { URLRESOLVE } from '@/src/core/lib/helpers'
 
 const DePoints = async() => {
-const res = await fetch(URLRESOLVE("/api/getDePoints"))
+
+const res = await fetch(process.env.baseURL!+"/api/getDePoints",{next:{revalidate:false,tags:['denonymous_box_0102','raieneidmie_00']}})
 const [data,error] = await res.json() as [{points:number,auth:boolean},string]
 if(error){
 

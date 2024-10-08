@@ -1,8 +1,8 @@
 
 import { createUser } from "@/src/BE/DB/queries/auth/query";
 import { signUpConfirmation } from "@/src/BE/email-service/nodemailer";
+import { validateEmail, validateUsername } from "@/src/core/lib/BEhelpers";
 import { passwordHasher } from "@/src/core/lib/hashers";
-import { validateEmail, validateUsername } from "@/src/core/lib/helpers";
 import { userModelType } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 

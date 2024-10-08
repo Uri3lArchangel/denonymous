@@ -1,7 +1,6 @@
 import { findUserByEmail } from "@/src/BE/DB/queries/auth/query";
 import { verifyUserDataToken } from "@/src/core/lib/JWTFuctions";
 import { userModelType } from "@/types";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest) {

@@ -1,13 +1,10 @@
 'use client'
 import { changeEmailActionWithoutRediirect } from '@/src/BE/serverActions/settingsactions'
-import { validateEmail } from '@/src/core/lib/helpers'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { NotificationContext } from '../contexts/NotificationContext'
+import { validateEmail } from '@/src/core/lib/BEhelpers'
 
 
-const initialState = {
-    type:"",message:""
-}
 const ChangeEmail = ({email}:{email:string}) => {
     const [pending,setPending]=useState(false)
     const notification = useContext(NotificationContext)!

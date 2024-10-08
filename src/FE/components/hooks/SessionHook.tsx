@@ -1,6 +1,6 @@
 "use client";
-import { URLRESOLVE, fetchNotificationsClient } from "@/src/core/lib/helpers";
-import { userDataJWTType, userNotificationType } from "@/types";
+import { URLRESOLVE } from "@/src/core/lib/helpers";
+import { userDataJWTType } from "@/types";
 import {
   SetStateAction,
   createContext,

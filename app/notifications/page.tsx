@@ -13,6 +13,8 @@ import dynamic from "next/dynamic";
 import React from "react";
 import MarkAsRead from "./MarkAsRead";
 
+export const revalidate=0;
+
 export const metadata: Metadata = {
   title: "Notifications | Denonymous",
   description:

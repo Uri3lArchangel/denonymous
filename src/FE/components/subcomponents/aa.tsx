@@ -1,8 +1,6 @@
 'use client'
-import { URLRESOLVE, formatTime, validateEmail } from '@/src/core/lib/helpers'
-import Image from 'next/image'
+import { URLRESOLVE, formatTime } from '@/src/core/lib/helpers'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import logo from "../../../../public/images/logo.png";
 import styles from "../../../../styles/styles.module.css";
 import { NotificationContext } from '../contexts/NotificationContext';
 

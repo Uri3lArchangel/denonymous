@@ -1,5 +1,5 @@
 "use client";
-import { URLRESOLVE, validateEmail, validateUsername } from "@/src/core/lib/helpers";
+import { URLRESOLVE } from "@/src/core/lib/helpers";
 import { baseResponseType } from "@/types";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -11,8 +11,9 @@ import signin from "@/public/styles/styles.module.css";
 import Loading from "@/app/loading";
 import { NotificationContext } from "./contexts/NotificationContext";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import {FcGoogle} from 'react-icons/fc'
+
 import GoogleSignInBtn from "./subcomponents/GoogleSignInBtn";
+import { validateEmail, validateUsername } from "@/src/core/lib/BEhelpers";
 
 const SignUpForm = () => {
   // states
