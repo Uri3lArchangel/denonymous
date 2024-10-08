@@ -1,4 +1,5 @@
 "use client";
+import { URLRESOLVE } from "@/src/core/lib/helpers";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
@@ -18,7 +19,7 @@ const DePointsClient = () => {
 
 
     const run = async () => {
-      const res = await fetch(process.env.baseURL! + "/api/getDePoints", {
+      const res = await fetch(URLRESOLVE( "/api/getDePoints"), {
         next: { revalidate: false,tags:['denonymous_box_0102','raieneidmie_00','depoints_tag'] },
       });
       const [d, error] = (await res.json()) as [
@@ -27,6 +28,7 @@ const DePointsClient = () => {
       ];
       setPoints(d.points)
     };
+    run()
   });
 
   return (

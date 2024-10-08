@@ -114,7 +114,6 @@ export const deleteDenonymousAction = async (key_: string) => {
             }),
           }
         );
-        console.log(a.headers);
       }
     }
     revalidateTag("denonymous_box_0102");

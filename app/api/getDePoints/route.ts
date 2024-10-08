@@ -9,7 +9,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req:NextRequest) {
     try {
         const cookie = cookies().get(cookieKey)
-        console.log({cookie})
         if(!cookie||!cookie.value){
             return NextResponse.json([{points:0,auth:true},null])
         }
@@ -20,7 +19,6 @@ export async function GET(req:NextRequest) {
 
         await connectMongo()
         const u1 = await UserSec.findOne({username:user.username}) as u1
-        console.log({u1})
         if(!u1){
             return NextResponse.json([{points:0,auth:true},null])
         }
