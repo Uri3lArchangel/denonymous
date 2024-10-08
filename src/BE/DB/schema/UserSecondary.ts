@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const UserSecSchema = new Schema({
-  username: {type:String,required:true,unique:true},
+  username: {type:String,required:true,unique:true,lowercase:true},
   points: {type:Number,default:0},
   walletAddress: String,
   premiumEndDate: {type:Number,default:0},
