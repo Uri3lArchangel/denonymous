@@ -15,7 +15,6 @@ export async function POST(req:NextRequest) {
 const user = await findUserByEmail(token.email) as userModelType
 if(user.isEmailVerified){
     await connectMongo()
-    const u1 = await UserSec.findOne({username:user.username}) as u1
     const newToken = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium)
     setSessionCookie(newToken)
 

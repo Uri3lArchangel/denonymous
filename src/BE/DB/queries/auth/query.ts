@@ -88,7 +88,7 @@ await createFirstDenonymous(email,username+"'s denonymous","Hi, Send me an anony
  if(!u1){
  await UserSec.create({username:user.username,points:10})
  }
-  await UserSec.updateOne({username:user.username},{points:10})
+  await UserSec.updateOne({username:user.username},{points:u1.points+10})
 
 return user 
 

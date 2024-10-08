@@ -8,7 +8,6 @@ import { userDataTokenSign } from "./JWTFuctions";
 import { revalidateTag } from "next/cache";
 import UserSec from "@/src/BE/DB/schema/UserSecondary";
 import { u1 } from "@/types";
-import { connectMongo } from "@/connection";
 
 export const nextAuthConfig:NextAuthOptions={
     providers:[

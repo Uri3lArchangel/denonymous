@@ -11,7 +11,6 @@ import { signUpConfirmation } from "../email-service/nodemailer"
 import { passwordHasher } from "@/src/core/lib/hashers"
 import { deleteDenonymousAction } from "./actions"
 import { deleteAccountQuery, fetchAllDenonyms } from "../DB/queries/denonymous/query"
-import UserSec from "../DB/schema/UserSecondary"
 import { u1 } from "@/types"
 import { connectMongo } from "@/connection"
 
@@ -45,7 +44,6 @@ export const changeEmailActionWithoutRediirect = async(e:FormData)=>{
         await changeEmail(email_,newEmail)
         await signUpConfirmation(newEmail,code)
         await connectMongo()
-        const u1 = await UserSec.findOne({username:oldUserdata.username}) as u1
         const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium)
         setSessionCookie(newToken)
         revalidatePath("/verify-email")

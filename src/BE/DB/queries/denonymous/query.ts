@@ -127,7 +127,7 @@ await connectMongo();
   } else {
     await UserSec.updateOne(
       { username: user.username },
-      { points: 5 }
+      { points: u1.points+5 }
     );
   }
   return { type: "success", message: "Denonymous Created" };

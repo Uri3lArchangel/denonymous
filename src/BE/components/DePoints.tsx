@@ -18,7 +18,7 @@ const DePoints = async() => {
   else{
   data= {points:0,auth:true}
 
-const res = await fetch(process.env.baseURL!+"/api/getDePoints",{method:"POST",body:(JSON.stringify({username:user.username})),next:{revalidate:false,tags:['denonymous_box_0102','raieneidmie_00','depoints_tag']}})
+const res = await fetch(process.env.baseURL!+"/api/getDePoints",{method:"POST",body:(JSON.stringify({username:user.username})),next:{revalidate:0,tags:['denonymous_box_0102','raieneidmie_00','depoints_tag']}})
 const [d,error] = await res.json() as [{points:number,auth:boolean},string]
 if(error){
 
