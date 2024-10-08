@@ -105,7 +105,6 @@ export const verifyEmailAction=async(code:string)=>{
        const user = r.data
        if(!user)return { message:"Invalid Code",type:"error" }
        await connectMongo()
-       const u1 = await UserSec.findOne({username:user.username}) as u1
         const token  = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium)
 
         setSessionCookie(token)
