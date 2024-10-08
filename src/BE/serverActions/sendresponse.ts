@@ -10,9 +10,9 @@ export const isPremiumCheck  = async(username:string,key_:string)=>{
     try{
         await connectMongo()
        const user =  await User.findOne({username}) as userModelType;
-      const u1 = await UserSec.findOne({UUID:user.UUID}) as u1
+      const u1 = await UserSec.findOne({username:user.username}) as u1
       if(!u1){
-        await UserSec.create({UUID:user.UUID})
+        await UserSec.create({username:user.username})
       }
        const isDenonymousPremium = u1.premiumDenonymousBoxes.includes(key_)
        if(isDenonymousPremium || (user.isPremium && u1.premiumEndDate < Date.now())  ){

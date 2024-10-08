@@ -11,7 +11,6 @@ export interface userNotificationType{
 export type userModelType = {
   email: string;
   password: string;
-  UUID: string;
   createdAt: Date;
   isPremium: boolean;
   username: string;
@@ -78,7 +77,7 @@ export interface denonymousType  {
 export interface userDataJWTType {
   email: string;
   username:string
-  uuid: string;
+  points:number
   verified: boolean;
   premium: boolean;
   expiry: string;
@@ -108,7 +107,7 @@ export interface replyModelType {
 }
 
 export interface u1 {
-  UUID: string,
+  username: string,
   points: number,
   walletAddress: string,
   premiumEndDate: number,

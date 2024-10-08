@@ -2,7 +2,6 @@ import { Schema, model, models } from "mongoose";
 import crypto from 'crypto'
 
 const UserSchema = new Schema({
-    UUID:String,
     createdAt:{
         type:Date,
         default:new Date(Date.now())

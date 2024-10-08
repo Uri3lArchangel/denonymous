@@ -1,14 +1,14 @@
 import { userDataJWTType, userNotificationType } from '@/types'
 import JWT from 'jsonwebtoken'
 
-export const userDataTokenSign = (username:string,email:string,uuid:string,verified:boolean,premium:boolean)=>{
-    const expiry=(Date.now()+(2592000))
-    return JWT.sign({email,username,uuid,verified,premium,expiry},process.env.userDataTokenKey!+expiry)
+export const userDataTokenSign = (username:string,email:string,verified:boolean,premium:boolean,points:number)=>{
+    const expiry=(Date.now()+(4))
+    return JWT.sign({email,username,verified,premium,points,expiry},process.env.userDataTokenKey!+expiry)
 }
 export const verifyUserDataToken=(token:string)=>{
     if(!token){return}
     const {expiry} = (JWT.decode(token) as userDataJWTType)
-    // if(Date.now()>Number(expiry)){return}
+    if(Date.now()>Number(expiry)){return}
 
     const data = JWT.verify(token,process.env.userDataTokenKey!+expiry) as userDataJWTType | undefined 
     return data

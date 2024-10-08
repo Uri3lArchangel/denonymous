@@ -6,6 +6,8 @@ import GoogleProvider from 'next-auth/providers/google'
 import { setSessionCookie } from "./Cookie";
 import { userDataTokenSign } from "./JWTFuctions";
 import { revalidateTag } from "next/cache";
+import UserSec from "@/src/BE/DB/schema/UserSecondary";
+import { u1 } from "@/types";
 
 export const nextAuthConfig:NextAuthOptions={
     providers:[
@@ -22,7 +24,13 @@ async authorize(credentials) {
     const user = await findUserByEmailAndPassword(credentials.email,credentials.password);
     if(user){
         const {password,...userWithoutPassword}= user
-        const token = userDataTokenSign(user.username,user.email,user.UUID,user.isEmailVerified,user.isPremium)
+        let u1 = await UserSec.findOne({username:user.username}) as u1
+        if(!u1){
+            await UserSec.create({points:0})
+        }
+         u1 = await UserSec.findOne({username:user.username}) as u1
+
+        const token = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium,u1.points)
         setSessionCookie(token)
         revalidateTag("nav_revalidate")
         return userWithoutPassword as User
@@ -44,7 +52,13 @@ async authorize(credentials) {
          try{
              if(account?.provider == "google" && profile && profile.email){
                 const newUser = await createUser(profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0],profile.email) 
-                const token = userDataTokenSign(profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0],newUser.email,newUser.UUID,newUser.isEmailVerified,newUser.isPremium)
+                let u1 = await UserSec.findOne({username:newUser.username}) as u1
+                if(!u1){
+                    await UserSec.create({points:0})
+                }
+                 u1 = await UserSec.findOne({username:newUser.username}) as u1
+        
+                const token = userDataTokenSign(profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0],newUser.email,newUser.isEmailVerified,newUser.isPremium,u1.points)
                 setSessionCookie(token)
 
                 return newUser

@@ -10,18 +10,7 @@
   background-image: var(--de-bg-grad);
 }
 
-.formInputsContainer {
-  background-color: #171717;
-  padding: 1em 0 0 0;
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-  border-bottom: 2px solid #daa521;
-  border-top: 2px solid #f6d108;
-  border-left: 2px solid #edc211;
-  border-right: 2px solid #ffdf00;
-  border-radius: 14px;
-}
+
 .modal {
   position: fixed;
   top: 0;

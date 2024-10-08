@@ -11,52 +11,10 @@ import { signUpConfirmation } from "../email-service/nodemailer"
 import { passwordHasher } from "@/src/core/lib/hashers"
 import { deleteDenonymousAction } from "./actions"
 import { deleteAccountQuery, fetchAllDenonyms } from "../DB/queries/denonymous/query"
+import UserSec from "../DB/schema/UserSecondary"
+import { u1 } from "@/types"
+import { connectMongo } from "@/connection"
 
-export const changeUsernameAction = async(e:FormData)=>{
-try{
-
-    const username_ = e.get("uname") as string
-    const newUsername = e.get("uname-input") as string
-  
-
-
-const user = await fetchUsernameData(newUsername)
-if(user){
-
-    return {message:"This username is taken",type:"warning"}
-}
-
-await changeUsernameViaUsername(username_,newUsername)
-
-    
-    
-  
-    const cookie = cookies().get("denon_session_0")
-    if(!cookie) {
-        redirect("/auth/signin")
-        
-    }
-    const oldUserdata = verifyUserDataToken(cookie.value)
-    if(!oldUserdata){
-        redirect("/auth/signin")
-        
-    }
-    const  {email,username,...unchanged} = oldUserdata
-    const token = userDataTokenSign(newUsername,email,unchanged.uuid,unchanged.verified,unchanged.premium)
-    setSessionCookie(token)
-
-    revalidatePath("/settings")
-    return {message:"Change saved",type:"success"}
-
-
-}catch(err:any){
-    console.log(err)
-
-    return {message:"An error occured",type:"error"}
-
-}
-
-}
 
 export const changeEmailActionWithoutRediirect = async(e:FormData)=>{
     try{
@@ -86,8 +44,9 @@ export const changeEmailActionWithoutRediirect = async(e:FormData)=>{
         await setResetVerificationCodeDB(email_,code)
         await changeEmail(email_,newEmail)
         await signUpConfirmation(newEmail,code)
-      
-        const newToken = userDataTokenSign(oldUserdata.username,newEmail,oldUserdata.uuid,false,oldUserdata.premium)
+        await connectMongo()
+        const u1 = await UserSec.findOne({username:oldUserdata.username}) as u1
+        const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium,u1.points)
         setSessionCookie(newToken)
         revalidatePath("/verify-email")
 
@@ -129,8 +88,9 @@ return {message:"Email changed",type:"success"}
             await setResetVerificationCodeDB(email_,code)
             await changeEmail(email_,newEmail)
             await signUpConfirmation(newEmail,code)
-          
-            const newToken = userDataTokenSign(oldUserdata.username,newEmail,oldUserdata.uuid,false,oldUserdata.premium)
+            await connectMongo()
+            const u1 = await UserSec.findOne({username:oldUserdata.username}) as u1
+            const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium,u1.points)
             setSessionCookie(newToken)
             redirect("/auth/verify-email")
 
@@ -147,7 +107,9 @@ export const verifyEmailAction=async(code:string)=>{
        const r=  await updateUserEmailStatusByToken(code)
        const user = r.data
        if(!user)return { message:"Invalid Code",type:"error" }
-        const token  = userDataTokenSign(user.username,user.email,user.UUID,user.isEmailVerified,user.isPremium)
+       await connectMongo()
+       const u1 = await UserSec.findOne({username:user.username}) as u1
+        const token  = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium,u1.points)
 
         setSessionCookie(token)
         return{

@@ -11,15 +11,16 @@ import imageExtensions from "../../../core/data/imageValidExtensions.json";
 import videoExtensions from "../../../core/data/videoValidExtensions.json";
 import audioExtensions from "../../../core/data/audioValidExtensions.json";
 import { NotificationContext } from "../contexts/NotificationContext";
-import { isPremiumCheck } from "@/src/BE/serverActions/sendresponse";
 import WarningModal from "../libraries/Modals/WarningModal";
 
 export function MultiFileDropzoneUsage({
   username,
   key_,
   mediaLimit,
+  premium
 }: {
   username: string;
+  premium:boolean
   key_: string;
   mediaLimit: {
     audio: boolean;
@@ -43,13 +44,9 @@ export function MultiFileDropzoneUsage({
   // const [mediaEmpty,setMediaEmpty] = useState(true)
   const [media, setMedia] = useState<{ link: string; mimeType: string }[]>([]);
   const { edgestore } = useEdgeStore();
-  const [premium, setPremium] = useState(false);
   useEffect(() => {
-    const run = async () => {
-      // setPremium(await isPremiumCheck(username, key_));
-    };
+  
 
-    run()
     const text = document.getElementById("response") as HTMLTextAreaElement;
     text.addEventListener("keyup", () => {
       if (text.value != "" && fileStates.length == 0) {

@@ -41,14 +41,14 @@ export const verifySOlPaymentAction = async (
         await User.updateOne({email},{isPremium:true})
         const user  = await User.findOne({email}) as userModelType;
 
-        const us = await UserSec.findOne({UUID:user.UUID}) as u1
+        let us = await UserSec.findOne({username:user.username}) as u1
         if(!us){
           await UserSec.create({premiumEndDate:Date.now()+31*24*3600*1000,points:1000})
         }else{
-          await UserSec.updateOne({UUID:user.UUID},{premiumEndDate:Date.now()+31*24*3600*1000,points:us.points+1000})
+          await UserSec.updateOne({username:user.username},{premiumEndDate:Date.now()+31*24*3600*1000,points:us.points+1000})
         }
-
-       const token = userDataTokenSign(user.username,email,user.UUID,user.isEmailVerified,user.isPremium)
+        us = await UserSec.findOne({username:user.username}) as u1
+       const token = userDataTokenSign(user.username,email,user.isEmailVerified,user.isPremium,us.points)
         setSessionCookie(token)
         revalidatePath("/subscription");
       return [true, null];

@@ -234,3 +234,4 @@ export async function fetchUser(username:string) {
   const data =await res.json()
   return data.user
 }
+

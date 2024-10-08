@@ -34,7 +34,9 @@ export default function Responses({
   box,
   r,
   owner,
+  premium
 }: {
+  premium:boolean
   box?: string;
   r: replyModelType[];
   owner: string;
@@ -299,11 +301,11 @@ export default function Responses({
         id="reply_container_ul"
         className={
           viewer.display
-            ? "overflow-hidden rounded-md max-w-[500px] bg-[#1e1e1e] py-12"
-            : "bg-[#1e1e1e] py-12"
+            ? `overflow-hidden rounded-md max-w-[500px]py-12`
+            : "py-12"
         }
       >
-        <h3 className="text-center text-xl font-extrabold gradient_elements_text">
+        <h3 className={`text-center text-xl font-extrabold  ${premium?"text-black":"gradient_elements_text"} `}>
           All Responses({responses.length})
         </h3>
         {/* filter */}

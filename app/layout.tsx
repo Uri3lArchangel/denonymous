@@ -7,9 +7,8 @@ import GoogleAdsense from "@/ads/GoogleAdsense";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Nav from "@/src/FE/components/Nav";
 import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
-import GoogleAnalytics from "@/analytics/Google";
-import Hotjar from "@/analytics/Hotjar";
 import MicrosoftAnalytics from "@/analytics/MicrosoftAnalytics";
+import DePoints from "@/src/BE/components/DePoints";
 // import TagsAntiBlock from "@/ads/TagsAntiBlock";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
@@ -36,10 +35,8 @@ export default async function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-5897237172978966" />
         <meta name="google-site-verification" content="O6ay580QXmHQ56C-TAYLnGBXardo6ak-gDm29W7w5T4" />
         <SpeedInsights/>
-        <GoogleAnalytics />
         <GoogleAdsense />
         <MicrosoftAnalytics />
-        <Hotjar />
       </head>
       <body className={inter.className}>
         {/* <TagsAntiBlock /> */}
@@ -47,6 +44,7 @@ export default async function RootLayout({
 
         <NotificationApp>
           <SessionProvider>
+            <DePoints />
             <div className="md:w-[100%] w-full  mx-auto">{children}</div>
           </SessionProvider>
         </NotificationApp>

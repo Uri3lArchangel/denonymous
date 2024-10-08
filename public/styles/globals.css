@@ -10,6 +10,21 @@
     background-color: hsl(0, 0%, 28%);
   }
 }
+
+
+@keyframes showPoints {
+  0%{
+    left: -150px;
+  }25%{
+    left: 0;
+  }50%{
+    left: 0;
+    
+  }
+  100%{
+    left: -150px;
+  }
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -120,9 +135,6 @@ canvas {
     margin-top: 10px;
   }
 
-.ant-btn-default{
-
-}
 
 
 
@@ -130,6 +142,16 @@ canvas {
 border:1px solid #f6d108 !important;
 color: #f6d108 !important;
 
+}
+
+.depoints_display{
+left: -150px;
+animation-name: showPoints;
+animation-duration: 3s;
+animation-iteration-count: 1;
+animation-timing-function: ease-in-out;
+transition-timing-function: ease-in-out;
+transition: left 1.5s;
 }
 
 
