@@ -8,7 +8,6 @@ import {
   changeMediaSettingsQuery,
   changeResponsesVisibilityQuery,
   createDenonymous,
-  deleteDenonymousDB,
   deleteDenonymousMediaBucketDB,
   denonymousViewStateChange,
   sendRelpy,

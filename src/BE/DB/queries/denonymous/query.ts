@@ -120,8 +120,8 @@ await connectMongo();
       },
     }
   );
-  revalidateTag("notifications_fetch_tag");
   const u1 = await UserSec.findOne({ username: user.username });
+  console.log({u1})
   if (!u1) {
     await UserSec.create({ username: user.username, points: 5 });
   } else {
@@ -130,6 +130,8 @@ await connectMongo();
       { points: u1.points+5 }
     );
   }
+  revalidateTag("notifications_fetch_tag");
+
   return { type: "success", message: "Denonymous Created" };
 };
 
