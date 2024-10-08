@@ -87,7 +87,6 @@ return {message:"Email changed",type:"success"}
             await changeEmail(email_,newEmail)
             await signUpConfirmation(newEmail,code)
             await connectMongo()
-            const u1 = await UserSec.findOne({username:oldUserdata.username}) as u1
             const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium)
             setSessionCookie(newToken)
             redirect("/auth/verify-email")
