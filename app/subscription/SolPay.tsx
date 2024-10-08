@@ -83,6 +83,7 @@ const SolPay = ({ email }: { email: string }) => {
         
       }
     } catch (error:any) {
+      console.log({error})
       message.destroy()
         note({
             type:"error",

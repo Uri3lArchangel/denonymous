@@ -8,6 +8,7 @@ import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
+import { clusterApiUrl } from '@solana/web3.js';
 
 interface WalletContextProps {
   children: ReactNode;
@@ -18,7 +19,7 @@ const WalletContext: FC<WalletContextProps> = ({ children,RPC }) => {
   const network = WalletAdapterNetwork.Devnet;
 
   // Replace with your custom RPC endpoint
-  const endpoint = useMemo(() => RPC!, []);
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   const wallets = useMemo(
     () => [
