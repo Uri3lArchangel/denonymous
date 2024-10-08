@@ -1,4 +1,4 @@
-import { denonymousType, userModelType, userNotificationType } from "@/types"
+import { denonymousType, userModelType } from "@/types"
 import crypto from 'crypto'
 
 export const keygen = ()=>{

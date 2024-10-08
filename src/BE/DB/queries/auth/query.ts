@@ -1,13 +1,28 @@
-import { denonymousType, replyModelType, userModelType } from "@/types"
+import {  userModelType } from "@/types"
 import User from "../../schema/User"
 import { passwordHasher } from "@/src/core/lib/hashers"
 import crypto from 'crypto'
-import { code_generator } from "@/src/core/lib/helpers"
 import { connectMongo } from "@/connection"
 import { categories, denonymousPointsNotification, signupwelocme } from "@/src/core/data/notficationCore"
 import { passwordReset } from "@/src/BE/email-service/nodemailer"
 import {  createFirstDenonymous } from "../denonymous/query"
 import UserSec from "../../schema/UserSecondary"
+
+ function code_generator() {
+  let randomString = '';
+  
+  for (let i = 0; i < 6; i++) {
+    const randomDigit = Math.floor(Math.random() * 10); // Generate a random digit (0-9)
+    randomString += randomDigit;
+  }
+
+  // If the generated string has less than 6 digits, pad it with zeros
+  while (randomString.length < 6) {
+    randomString = '0' + randomString;
+  }
+
+  return randomString;
+}
 
 connectMongo()
 
