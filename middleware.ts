@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
 import { userDataJWTType, userModelType } from './types'
+import { cookieKey } from './src/core/data/constants'
 
 
 const fetchUserViaJWT=async(cookie:any)=>{
@@ -23,12 +24,13 @@ export async function middleware(request: NextRequest) {
     //     console.log({middle:request.headers.get("x-forwarded-for")})
     //   }
     let cookie;
-    const cookieObj = cookies().get("denon_session_0")
+    const cookieObj = cookies().get(cookieKey)
     if(cookieObj){
         cookie = cookieObj.value
     }
 
-    const session =await fetchUserViaJWT(request.cookies.get("denon_session_0"))
+    const session =await fetchUserViaJWT(cookieObj)
+    
     if(!session && (!request.nextUrl.pathname.includes("/auth"))){
         return NextResponse.redirect(new URL("/auth/signin",request.nextUrl))
     }
@@ -40,7 +42,9 @@ export async function middleware(request: NextRequest) {
 
     }
   }
+
   if(session){
+
     if(request.nextUrl.pathname.includes("verify-email")){
         if(session.verified){
             return NextResponse.redirect(new URL("/",request.nextUrl))

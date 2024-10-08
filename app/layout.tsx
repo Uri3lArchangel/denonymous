@@ -9,6 +9,7 @@ import Nav from "@/src/FE/components/Nav";
 import NotificationApp from "@/src/FE/components/contexts/NotificationContext";
 import MicrosoftAnalytics from "@/analytics/MicrosoftAnalytics";
 import DePoints from "@/src/BE/components/DePoints";
+import { ModalProvider } from "@/src/FE/components/libraries/Modals/ModalProvider";
 // import TagsAntiBlock from "@/ads/TagsAntiBlock";
 
 const inter = Poppins({ weight: ["500"], subsets: ["latin-ext"] ,preload:true});
@@ -44,8 +45,10 @@ export default async function RootLayout({
 
         <NotificationApp>
           <SessionProvider>
+            <ModalProvider>
             <DePoints />
             <div className="md:w-[100%] w-full  mx-auto">{children}</div>
+            </ModalProvider>
           </SessionProvider>
         </NotificationApp>
         <Footer />

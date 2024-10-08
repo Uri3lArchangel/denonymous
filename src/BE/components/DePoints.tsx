@@ -1,20 +1,14 @@
 import DePointsClient from '@/src/FE/components/DePointsClient'
-import { cookieKey } from '@/src/core/data/constants'
-import { verifyUserDataToken } from '@/src/core/lib/JWTFuctions'
-import { cookies } from 'next/headers'
 
-const DePoints = () => {
-    let points = 0
-    const cookie = cookies().get(cookieKey)
-    if(cookie && cookie.value){
-        const data = verifyUserDataToken(cookie.value)
-        if(data){
-        points = data.points
-        }
-    }
+const DePoints = async() => {
+const res = await fetch("/api/getDePoints")
+const [data,error] = await res.json() as [{points:number,auth:boolean},string]
+if(error){
+
+}
 
   return (
- <DePointsClient points={points} />
+ <DePointsClient points={data.points} auth={data.auth} />
   )
 }
 

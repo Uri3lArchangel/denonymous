@@ -1,31 +1,36 @@
 "use client";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import styles from "@/public/styles/styles.module.css";
 import dynamic from "next/dynamic";
 import LoadingSkeleton from "../assets/LoadingSkeleton";
 import WarningModal from "../libraries/Modals/WarningModal";
-let CreateDenonymousForm:any;
+import AuthenticatedPointsModal from "../libraries/Modals/AuthenticatedPointsModal";
+import { useModal } from "../libraries/Modals/ModalProvider";
+let CreateDenonymousForm: any;
 
-  
-
-
-
-
-export const CreateDenonymousClient = () => {
-
-
+export const CreateDenonymousClient = ({RPC}:{RPC:string}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [warning,setWarning]=useState(false)
-  const [message,setMessage]=useState("")
+  const [warning, setWarning] = useState(false);
+  const [message, setMessage] = useState("");
+  const {isOpen:isModalOpen,data} = useModal()
 
- 
   const handleModalOpen = () => {
     CreateDenonymousForm = dynamic(
-      ()=>import("@/src/BE/components/CreateDenonymousForm"),{loading(loadingProps) {
-        
-        return(<>{loadingProps.isLoading?<LoadingSkeleton className="" />:<></>}</>)
-      }}
-    )
+      () => import("@/src/BE/components/CreateDenonymousForm"),
+      {
+        loading(loadingProps) {
+          return (
+            <>
+              {loadingProps.isLoading ? (
+                <LoadingSkeleton className="" />
+              ) : (
+                <></>
+              )}
+            </>
+          );
+        },
+      }
+    );
     setIsOpen(true);
   };
 
@@ -35,9 +40,14 @@ export const CreateDenonymousClient = () => {
 
   return (
     <section>
-      {warning?<WarningModal setModal={setWarning} message={message}/>:null}
+      {isModalOpen ? (
+        <AuthenticatedPointsModal RPC={RPC} points={data} />
+      ) : null}
+      {warning ? (
+        <WarningModal setModal={setWarning} message={message} />
+      ) : null}
       <button
-      id="createDenonymousBox"
+        id="createDenonymousBox"
         type="button"
         aria-label="Create a Denonymous"
         onClick={handleModalOpen}
@@ -73,9 +83,15 @@ export const CreateDenonymousClient = () => {
           </defs>
         </svg>
 
-      <label htmlFor="createDenonymousBox" className={styles.gradientHeader + " mt-7 text-xl text-center cursor-pointer block"}>
-        Create a Denonymous
-      </label>
+        <label
+          htmlFor="createDenonymousBox"
+          className={
+            styles.gradientHeader +
+            " mt-7 text-xl text-center cursor-pointer block"
+          }
+        >
+          Create a Denonymous
+        </label>
       </button>
 
       {isOpen && (
@@ -90,14 +106,18 @@ export const CreateDenonymousClient = () => {
                 }
               >
                 Create a Denonymous
-              </h1> 
+              </h1>
 
-              <CreateDenonymousForm handleModalClose={handleModalClose} setWarning={setWarning}  setMessage={setMessage}/>
+              <CreateDenonymousForm
+                handleModalClose={handleModalClose}
+                setWarning={setWarning}
+                setMessage={setMessage}
+              />
               <button
                 className="absolute top-0 right-0 p-4 text-[#fff] text-2xl"
                 onClick={handleModalClose}
                 aria-label="Close Modal"
-              type="button"
+                type="button"
               >
                 &times;
               </button>

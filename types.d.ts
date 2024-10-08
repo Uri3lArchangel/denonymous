@@ -77,7 +77,6 @@ export interface denonymousType  {
 export interface userDataJWTType {
   email: string;
   username:string
-  points:number
   verified: boolean;
   premium: boolean;
   expiry: string;

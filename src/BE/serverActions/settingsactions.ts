@@ -46,7 +46,7 @@ export const changeEmailActionWithoutRediirect = async(e:FormData)=>{
         await signUpConfirmation(newEmail,code)
         await connectMongo()
         const u1 = await UserSec.findOne({username:oldUserdata.username}) as u1
-        const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium,u1.points)
+        const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium)
         setSessionCookie(newToken)
         revalidatePath("/verify-email")
 
@@ -90,7 +90,7 @@ return {message:"Email changed",type:"success"}
             await signUpConfirmation(newEmail,code)
             await connectMongo()
             const u1 = await UserSec.findOne({username:oldUserdata.username}) as u1
-            const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium,u1.points)
+            const newToken = userDataTokenSign(oldUserdata.username,newEmail,false,oldUserdata.premium)
             setSessionCookie(newToken)
             redirect("/auth/verify-email")
 
@@ -109,7 +109,7 @@ export const verifyEmailAction=async(code:string)=>{
        if(!user)return { message:"Invalid Code",type:"error" }
        await connectMongo()
        const u1 = await UserSec.findOne({username:user.username}) as u1
-        const token  = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium,u1.points)
+        const token  = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium)
 
         setSessionCookie(token)
         return{

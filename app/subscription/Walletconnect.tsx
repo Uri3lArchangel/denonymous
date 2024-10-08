@@ -22,7 +22,6 @@ const WalletContext: FC<WalletContextProps> = ({ children,RPC }) => {
 
   const wallets = useMemo(
     () => [
-      new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
     ],
     [network]

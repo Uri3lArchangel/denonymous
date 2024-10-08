@@ -7,10 +7,12 @@ import {
   categories,
   denonymousCreationNotification,
   denonymousDeleteNotification,
+  denonymousPointsNotification,
   replyNotification,
 } from "@/src/core/data/notficationCore";
 import {  revalidateTag } from "next/cache";
 import crypto from "crypto";
+import UserSec from "../../schema/UserSecondary";
 
 export const createFirstDenonymous = async (
   email: string,
@@ -33,7 +35,6 @@ await connectMongo();
   const link = `${process.env.baseURL}/r/${user.username}/${key}`;
   const aa = denonymousCreationNotification(
     topic,
-    user.username,
     user.denonymous.length
   );
   await User.updateOne(
@@ -91,7 +92,6 @@ await connectMongo();
   const link = `${process.env.baseURL}/r/${user.username}/${key}`;
   const aa = denonymousCreationNotification(
     topic,
-    user.username,
     user.denonymous.length
   );
   await User.updateOne(
@@ -106,15 +106,30 @@ await connectMongo();
           description: desc,
         },
         notifications: {
+          $each:[{
           owner: user.username,
           category: categories.denonym,
           data: aa.data,
           link: aa.link,
-        },
+        },{
+          owner:user.username,
+          category:categories.points,
+          data:denonymousPointsNotification(5).data,
+          link:null
+        }]}
       },
     }
   );
   revalidateTag("notifications_fetch_tag");
+  const u1 = await UserSec.findOne({ username: user.username });
+  if (!u1) {
+    await UserSec.create({ username: user.username, points: 5 });
+  } else {
+    await UserSec.updateOne(
+      { username: user.username },
+      { points: 5 }
+    );
+  }
   return { type: "success", message: "Denonymous Created" };
 };
 

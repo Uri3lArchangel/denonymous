@@ -8,6 +8,7 @@ import { userDataTokenSign } from "./JWTFuctions";
 import { revalidateTag } from "next/cache";
 import UserSec from "@/src/BE/DB/schema/UserSecondary";
 import { u1 } from "@/types";
+import { connectMongo } from "@/connection";
 
 export const nextAuthConfig:NextAuthOptions={
     providers:[
@@ -26,11 +27,11 @@ async authorize(credentials) {
         const {password,...userWithoutPassword}= user
         let u1 = await UserSec.findOne({username:user.username}) as u1
         if(!u1){
-            await UserSec.create({points:0})
+            await UserSec.create({points:0,username:user.username})
         }
          u1 = await UserSec.findOne({username:user.username}) as u1
 
-        const token = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium,u1.points)
+        const token = userDataTokenSign(user.username,user.email,user.isEmailVerified,user.isPremium)
         setSessionCookie(token)
         revalidateTag("nav_revalidate")
         return userWithoutPassword as User
@@ -51,14 +52,16 @@ async authorize(credentials) {
 
          try{
              if(account?.provider == "google" && profile && profile.email){
-                const newUser = await createUser(profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0],profile.email) 
-                let u1 = await UserSec.findOne({username:newUser.username}) as u1
+                const username = profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0]
+                const newUser = await createUser(username,profile.email) 
+
+                let u1 = await UserSec.findOne({username}) as u1
                 if(!u1){
-                    await UserSec.create({points:0})
+                    await UserSec.create({points:0,username})
                 }
-                 u1 = await UserSec.findOne({username:newUser.username}) as u1
+                 u1 = await UserSec.findOne({username}) as u1
         
-                const token = userDataTokenSign(profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0],newUser.email,newUser.isEmailVerified,newUser.isPremium,u1.points)
+                const token = userDataTokenSign(username,newUser.email,newUser.isEmailVerified,newUser.isPremium)
                 setSessionCookie(token)
 
                 return newUser
@@ -77,7 +80,7 @@ async authorize(credentials) {
       
     },
     pages:{
-        signIn:"/auth/signin"
+        // signIn:"/auth/signin"
     },
     session: { strategy: "jwt" },
    

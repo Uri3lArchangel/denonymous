@@ -4,9 +4,10 @@ import { passwordHasher } from "@/src/core/lib/hashers"
 import crypto from 'crypto'
 import { code_generator } from "@/src/core/lib/helpers"
 import { connectMongo } from "@/connection"
-import { categories, signupwelocme } from "@/src/core/data/notficationCore"
+import { categories, denonymousPointsNotification, signupwelocme } from "@/src/core/data/notficationCore"
 import { passwordReset } from "@/src/BE/email-service/nodemailer"
 import {  createFirstDenonymous } from "../denonymous/query"
+import UserSec from "../../schema/UserSecondary"
 
 connectMongo()
 
@@ -63,10 +64,17 @@ return user
     }else{
         let user =await  User.findOne({email})
         if(user) return user
-await User.create({uuid,email,isEmailVerified:true,username,notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username}]
+await User.create({uuid,email,isEmailVerified:true,username,notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:username},{category:categories.points,data:denonymousPointsNotification(10).data,opened:false,owner:username}]
  })
 await createFirstDenonymous(email,username+"'s denonymous","Hi, Send me an anonyous message")
- user = await User.findOne({email})
+
+ user = await User.findOne({email}) as userModelType
+ const u1 = await UserSec.findOne({username:user.username})
+ if(!u1){
+ await UserSec.create({username:user.username,points:10})
+ }
+  await UserSec.updateOne({username:user.username},{points:10})
+
 return user 
 
     }

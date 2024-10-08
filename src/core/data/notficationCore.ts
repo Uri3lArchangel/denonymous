@@ -1,6 +1,6 @@
 export const signupwelocme ="Welcome you have created an account 🎉, you can now enjoy receiving anonymous messages from friends, family and even strangers, go on and create a new denonymous box"
 
-export const categories = {auth:"Authenication", reply:"Someone sent a response " , subscription:"subscription",denonym:"A new denonymous was created 🌟",deleteDenonym:"A denonymous was just deleted 👋"}
+export const categories = {auth:"Authenication", reply:"Someone sent a response " , subscription:"subscription",denonym:"A new denonymous was created 🌟",deleteDenonym:"A denonymous was just deleted 👋",points:"DEpoints earned ⭐"}
 
 
 export const replyNotification=(box:string,key:string,uname:string,id:number,owner:string)=>{
@@ -11,10 +11,16 @@ export const replyNotification=(box:string,key:string,uname:string,id:number,own
  }
  }
 
- export const denonymousCreationNotification=(box:string,uname:string,id:number)=>{
+ export const denonymousCreationNotification=(box:string,id:number)=>{
     return{
         data:`'${box}' denonymous has been created, go to your dashboard and share it's link with everyone and let's see what responses people anonymously send in 🤫`,
         link:process.env.baseURL+"/dashboard#"+id,
+    }
+ }
+
+ export const denonymousPointsNotification=(points:number)=>{
+    return{
+        data:`You have earned ${points} DEpoints ⭐, which can be later claimed to your solana wallet as tokens`,
     }
  }
 
