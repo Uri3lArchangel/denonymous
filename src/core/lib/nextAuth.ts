@@ -53,12 +53,12 @@ async authorize(credentials) {
              if(account?.provider == "google" && profile && profile.email){
                 const username = profile.name?profile.name.replaceAll(" ","_"):profile.email.split('@')[0]
                 const newUser = await createUser(username,profile.email) 
-
-                let u1 = await UserSec.findOne({username}) as u1
+                
+                let u1 = await UserSec.findOne({username:newUser.username}) as u1
                 if(!u1){
-                    await UserSec.create({points:0,username})
+                    await UserSec.create({points:0,username:newUser.username})
                 }
-                 u1 = await UserSec.findOne({username}) as u1
+                 u1 = await UserSec.findOne({username:newUser.username}) as u1
         
                 const token = userDataTokenSign(username,newUser.email,newUser.isEmailVerified,newUser.isPremium)
                 setSessionCookie(token)

@@ -67,6 +67,7 @@ export const createUser=async(username:string,email:string,password?:string)=>{
 
     if(password){
 
+      
 const user =await User.create({uuid,email,password,username,token:{
   value:code_generator(),
   expires:Date.now()+(30*60*1000),
@@ -76,6 +77,9 @@ notifications:[{category:categories.auth,data:signupwelocme,opened:false,owner:u
 })
 await createFirstDenonymous(email,username,"Hi, Send me an anonyous message")
 return user 
+
+
+
     }else{
         let user =await  User.findOne({email})
         if(user) return user
