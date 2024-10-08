@@ -9,9 +9,9 @@ export async function POST(req:NextRequest) {
         console.log({username})
         await connectMongo()
         const u1 = await UserSec.findOne({username}) as u1
-
+        console.log({u1})
         if(!u1){
-            return NextResponse.json([{points:0,auth:false},null])
+            return NextResponse.json([{points:0,auth:true},null])
         }
         console.log({username,u1})
         
