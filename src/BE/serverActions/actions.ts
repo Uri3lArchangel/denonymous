@@ -40,6 +40,7 @@ export const createDenonyous = async (topic: string, desc: string) => {
     revalidatePath("/");
     revalidateTag("denonymous_box_0102");
     revalidateTag("raieneidmie_00");
+    revalidateTag("depoints_tag");
     return res;
   } catch (err: any) {
     console.log(err.message)
