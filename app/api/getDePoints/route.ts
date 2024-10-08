@@ -13,10 +13,12 @@ export async function POST(req:NextRequest) {
         if(!u1){
             return NextResponse.json([{points:0,auth:false},null])
         }
+        console.log({username,u1})
         
         return NextResponse.json([{points:u1.points,auth:true},null])
 
     } catch (error:any) {
+        console.log(error.message)
         return NextResponse.json([null,error.message])
         
     }
