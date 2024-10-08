@@ -29,7 +29,7 @@ const DePointsClient = () => {
       setPoints(d.points)
     };
     run()
-  },[]);
+  });
 
   return (
     <div
