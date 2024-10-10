@@ -12,9 +12,9 @@ export const verifySOlPaymentAction = async (
   email: string,
   amount: number
 ) => {
-    const SOLANA_NETWORK = "https://api.devnet.solana.com"; // Or Mainnet
+    // const SOLANA_NETWORK = "https://api.devnet.solana.com"; // Or Mainnet
 
-  // const SOLANA_NETWORK = process.env.RPC!; // Or Mainnet
+  const SOLANA_NETWORK = process.env.RPC!; // Or Mainnet
   if (!signature) {
     return [null, "No signature detected"];
   }
