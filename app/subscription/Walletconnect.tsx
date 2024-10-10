@@ -16,10 +16,10 @@ interface WalletContextProps {
 }
 
 const WalletContext: FC<WalletContextProps> = ({ children,RPC }) => {
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Mainnet;
 
   // Replace with your custom RPC endpoint
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const endpoint = useMemo(() => RPC, [network]);
 
   const wallets = useMemo(
     () => [
