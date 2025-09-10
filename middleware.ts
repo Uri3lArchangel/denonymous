@@ -9,9 +9,15 @@ const fetchUserViaJWT=async(cookie:any)=>{
    try{ 
     
     if(!cookie) return null
-    const res = await fetch(process.env.baseURL+"/api/verifyJWT",{method:"POST",body:JSON.stringify({cookie:cookie.value}),mode:"no-cors",next:{revalidate:0}})
+    const res = await fetch(`${process.env.baseURL}/api/verifyJWT`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cookie: cookie.value }),
+        cache: "no-store", // instead of next:{revalidate:0}
+      });
+    return (await res.json()).user as userDataJWTType | null
 
-    return (await res.json()).user as userDataJWTType | null}
+}
     catch(err:any){
         console.log(err.message)
     }
@@ -31,9 +37,10 @@ export async function middleware(request: NextRequest) {
 
     const session =await fetchUserViaJWT(cookieObj)
     
-    if(!session && (!request.nextUrl.pathname.includes("/auth"))){
-        return NextResponse.redirect(new URL("/auth/signin",request.nextUrl))
-    }
+    if (!session && !request.nextUrl.pathname.includes("/auth")) {
+        return NextResponse.redirect(new URL("/auth/signin", request.url));
+      }
+      
   if(request.nextUrl.pathname.includes("/auth/signin") && session){
     if(session.verified){
         return NextResponse.redirect(new URL("/",request.nextUrl))
