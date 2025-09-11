@@ -252,7 +252,7 @@ React.useEffect(()=>{
 
   }                {/* <FileIcon size="30" className="shrink-0" /> */}
                 <div className="text-sm  overflow-hidden " >
-                  <div className="overflow-hidden overflow-ellipsis  whitespace-nowrap ">
+                  <div className="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-[250px] ">
                     {file.name}
                   </div>
                   <div className="text-xs text-gray-400 dark:text-gray-400">
