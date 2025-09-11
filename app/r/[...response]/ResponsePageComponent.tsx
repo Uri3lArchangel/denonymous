@@ -69,7 +69,8 @@ async function ResponsePageComponent({
     u1 = initialU1;
   }
 
-  let isPremium = all.isPremium || (u1 && u1.premiumDenonymousBoxes.includes(key_));
+  // Ensure isPremium is always a boolean
+  let isPremium = Boolean(all.isPremium || (u1 && u1.premiumDenonymousBoxes.includes(key_)));
 
   if (!all) {
     throw new Error("0001");
